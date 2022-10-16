@@ -10,6 +10,18 @@
 /* * ***************************Includes********************************* */
 require 'vendor/autoload.php';
 
+
+class netroException extends Exception
+{
+  public function __construct($netroFunctionResult) {
+    parent::__construct($netroFunctionResult["errors"][0]["message"], $netroFunctionResult["errors"][0]["code"]);
+  }
+
+  public function __toString() {
+    return __CLASS__ . "line " . __LINE__  . " -- error code #{$this->code} -> {$this->message}\n";
+  }
+}
+
 class netroFunction {
 
     const NETRO_BASE_URL = 'https://api.netrohome.com/npa/v1/';
@@ -23,20 +35,21 @@ class netroFunction {
     const NETRO_POST_STOPWATER = 'stop_water.json';
     const NETRO_POST_NOWATER = 'no_water.json';
     const NETRO_POST_STATUS = 'set_status.json';
-	const NETRO_GET_EVENTS = 'events.json';
+    const NETRO_GET_EVENTS = 'events.json';
 
     const NETRO_STATUS_ENABLE = 1;
     const NETRO_STATUS_DISABLE = 0;
     const NETRO_STATUS_STANDBY = "STANDBY";
     const NETRO_STATUS_WATERING = "WATERING";
-	const NETRO_SCHEDULE_EXECUTED = "EXECUTED";
-	const NETRO_SCHEDULE_EXECUTING = "EXECUTING";
-	const NETRO_SCHEDULE_VALID = "VALID";
-	const NETRO_EVENT_DEVICEOFFLINE = 1;
-	const NETRO_EVENT_DEVICEONLINE = 2;
-	const NETRO_EVENT_SCHEDULESTART = 3;
-	const NETRO_EVENT_SCHEDULEEND = 4;
-
+    const NETRO_SCHEDULE_EXECUTED = "EXECUTED";
+    const NETRO_SCHEDULE_EXECUTING = "EXECUTING";
+    const NETRO_SCHEDULE_VALID = "VALID";
+    const NETRO_ERROR = "ERROR";
+    const NETRO_OK = "OK";    
+    const NETRO_EVENT_DEVICEOFFLINE = 1;
+    const NETRO_EVENT_DEVICEONLINE = 2;
+    const NETRO_EVENT_SCHEDULESTART = 3;
+    const NETRO_EVENT_SCHEDULEEND = 4;
 
     const DEBUG_MODE = false;
 
@@ -56,17 +69,33 @@ class netroFunction {
         if (self::DEBUG_MODE) {
             // var_dump($params);
         }
+
         $response = $client->request('GET', self::NETRO_GET_SCHEDULES, [
-            'query' => $params
+            'query' => $params, 'http_errors' => false
         ])->getBody()->getContents();
+
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
+        }
+
         return json_decode($response, true);
     }
     
     public static function getInfo ($key) {
         $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
         $response = $client->request('GET', self::NETRO_GET_INFO, [
-            'query' => ['key' => $key]
+            'query' => ['key' => $key], 'http_errors' => false
         ])->getBody()->getContents();
+
+        if (self::DEBUG_MODE) {
+            // var_dump($response);
+        }
+
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
+        }
 
         return json_decode($response, true);
     }
@@ -88,8 +117,14 @@ class netroFunction {
             // var_dump($params);
         }
         $response = $client->request('GET', self::NETRO_GET_MOISTURES, [
-            'query' => $params
+            'query' => $params, 'http_errors' => false
         ])->getBody()->getContents();
+
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
+        }
+
         return json_decode($response, true);
     }
 
@@ -135,7 +170,15 @@ class netroFunction {
         if ($pressure !== '') {
             $params['pressure'] = $pressure;
         }
-        $client->request('POST', self::NETRO_POST_REPORTWEATHER, ['form_params' => $params]);
+        $response = $client->request('POST', self::NETRO_POST_REPORTWEATHER,
+            ['form_params' => $params, 'http_errors' => false])->getBody()->getContents();
+
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
+        }
+
+        return json_decode($response, true);        
     }
 
     public static function setMoisture($key, $moisture, $zoneIds) {
@@ -145,7 +188,15 @@ class netroFunction {
         if ($zoneIds !== null) {
             $params['zones'] = '[' . implode(",", $zoneIds) . ']';
         }
-        $client->request('POST', self::NETRO_POST_MOISTURE, ['form_params' => $params]);
+        $response = $client->request('POST', self::NETRO_POST_MOISTURE,
+            ['form_params' => $params, 'http_errors' => false])->getBody()->getContents();
+
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
+        }
+
+        return json_decode($response, true);                
     }
 
     public static function water($key, $duration, $zoneIds = null, $delay = 0, $startTime = '') {
@@ -163,24 +214,32 @@ class netroFunction {
             $params['start_time'] = gmdate('Y.m.d H:i', strtotime($startTime));
         }
 
-        if (self::DEBUG_MODE) {
-            // var_dump($params);            
-        }
-
         $response = $client->request('POST', self::NETRO_POST_WATER, [
-        'form_params' => $params,
-        'debug' => false,
-        'http_errors' => true // true : exception en cas d'erreur
-        ]);
+            'form_params' => $params,
+            'debug' => false,
+            'http_errors' => false // true : pas d'exception en cas d'erreur
+        ])->getBody()->getContents();
 
-        if (self::DEBUG_MODE) {
-            // var_dump($response->getBody()->getContents());
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
         }
+
+        return json_decode($response, true);                
     }
 
     public static function stopWater($key) {
         $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
-        $client->request('POST', self::NETRO_POST_STOPWATER, ['form_params' => ['key' => $key]]);
+        $response = $client->request('POST', self::NETRO_POST_STOPWATER,
+            ['form_params' => ['key' => $key], 'http_errors' => false
+        ])->getBody()->getContents();
+
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
+        }
+
+        return json_decode($response, true);                        
     }
 
     public static function noWater($key, $days = null) {
@@ -189,17 +248,34 @@ class netroFunction {
         if (!is_null($days)) {
             $params['days'] = $days;            
         }
-        $client->request('POST', self::NETRO_POST_NOWATER, ['form_params' => $params]);
+        $response = $client->request('POST', self::NETRO_POST_NOWATER,
+            ['form_params' => $params, 'http_errors' => false
+        ])->getBody()->getContents();
+        
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
+        }
+
+        return json_decode($response, true);
     }
 
     public static function setStatus($key, $status) {
         $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
-        $client->request('POST', self::NETRO_POST_STATUS, [
+        $response = $client->request('POST', self::NETRO_POST_STATUS, [
             'form_params' => [
                 'key' => $key,
                 'status' => $status
-            ]
-        ]);
+            ],
+            'http_errors' => false
+        ])->getBody()->getContents();
+
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
+        }
+
+        return json_decode($response, true);        
     }
 
     public static function getSensorData ($key, $startDate ='', $endDate = '') {
@@ -214,8 +290,14 @@ class netroFunction {
 
 
         $response = $client->request('GET', self::NETRO_GET_SENSORDATA, [
-            'query' => $params
+            'query' => $params,
+            'http_errors' => false
         ])->getBody()->getContents();
+
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
+        }
 
         return json_decode($response, true);
     }
@@ -233,12 +315,16 @@ class netroFunction {
             $params['end_date'] = $endDate;
         }
 
-
         $response = $client->request('GET', self::NETRO_GET_EVENTS, [
-            'query' => $params
+            'query' => $params,
+            'http_errors' => false
         ])->getBody()->getContents();
+
+        $result = json_decode($response, true);
+        if ($result["status"] == self::NETRO_ERROR) {
+            throw new netroException($result);
+        }
 
         return json_decode($response, true);    	
     }
-
 }
