@@ -1,0 +1,196 @@
+{
+    "name":"Netro Sensor",
+    "group":"Watering",
+    "configuration":{
+        "delayBeforeRefreshInfo" : 2
+        },
+    "commands":[{
+                "name": "Humidité",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "%",
+                "logicalId": "moisture",
+                "isDashboard": 1,
+                "display": {
+                        "icon":"<i class=\"icon jeedomapp-humidity\"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                },
+                "template": {
+                        "dashboard":"core::badge",
+                        "mobile":"core::badge"
+                },
+                "configuration": {
+                        "minValue":0,
+                        "maxValue":100
+                }                
+        },{
+                "name": "Température",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "°C",
+                "logicalId": "temperature",
+                "isDashboard": 1,
+                "display": {
+                        "icon":"<i class=\"icon jeedomapp-temperature\"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                },
+                "template": {
+                        "dashboard":"core::badge",
+                        "mobile":"core::badge"
+                }
+        },{
+                "name": "Luminosité",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "K Lux",
+                "logicalId": "sunlight",
+                "isDashboard": 1,
+                "display": {
+                        "icon":"<i class=\"icon jeedomapp-sun\"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                },
+                "template": {
+                        "dashboard":"core::badge",
+                        "mobile":"core::badge"
+                }
+
+        },{
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "%",
+                "logicalId": "battery_level",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"<i class=\"icon jeedom-batterie2 \"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                },
+                "template": {
+                        "dashboard":"core::badge",
+                        "mobile":"core::badge"
+                },
+                "configuration": {
+                        "minValue":0,
+                        "maxValue":100
+                }                                
+        },{
+                "name": "Heure UTC",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "time",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }
+        },{
+                "name": "Heure locale",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "local_time",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                
+        },{
+                "name": "Date locale",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "local_date",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }
+
+        }, {
+                "name": "rafraichir",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId": "refresh",
+                "isDashboard": 0
+        }
+    ]
+}

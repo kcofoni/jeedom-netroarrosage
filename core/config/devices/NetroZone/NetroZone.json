@@ -1,0 +1,283 @@
+{
+    "name":"Netro Zone",
+    "group":"Watering",
+    "configuration":{
+        "delayBeforeRefreshInfo" : 6
+        },
+    "commands":[{
+                "name": "Nom",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "name",
+                "isDashboard": 1
+        },{
+                "name": "Arrosage en cours",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "",
+                "logicalId": "is_watering",
+                "isDashboard": 1,
+                "display": {
+                        "icon":"<i class=\"icon jeedomapp-humidity\"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                },
+                "template": {
+                        "dashboard":"netro::arrosoir",
+                        "mobile":"netro::arrosoir"
+                }
+        },{
+                "name": "Statut dernier arrosage",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "last_watering_status",
+                "isDashboard": 1
+        }, {
+                "name": "Date dernier arrosage",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "last_date",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }
+        }, {
+                "name": "Début dernier arrosage",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "last_start_time",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                
+        }, {
+                "name": "Fin dernier arrosage",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "last_end_time",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                
+        }, {
+                "name": "Source dernier arrosage",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "event_source",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                
+        }, {
+                "name": "Statut prochain arrosage",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "next_watering_status",
+                "isDashboard": 1
+        }, {
+                "name": "Date prochain arrosage",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "next_date",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                
+        }, {
+                "name": "Début prochain arrosage",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "next_start_time",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                
+        }, {
+                "name": "Fin prochain arrosage",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "next_end_time",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                
+        }, {
+                "name": "Source prochain arrosage",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "next_event_source",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                
+        }, {
+                "name": "Démarrer arrosage",
+                "type": "action",
+                "subtype": "slider",
+                "isVisible": 1,
+                "logicalId": "start_watering",
+                "isDashboard": 0,
+                "configuration": {"minValue":0, "maxValue":60},
+                "display": {
+                        "icon":"<i class=\"icon jeedomapp-playerplay \"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                },
+                "template": {
+                        "dashboard":"core::value",
+                        "mobile":"core::value"
+                }                
+        }, {
+                "name": "Terminer arrosage",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId": "stop_watering",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"<i class=\"icon jeedomapp-playerstop \"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }
+        }
+    ]
+}

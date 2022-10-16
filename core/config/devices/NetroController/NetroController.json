@@ -1,0 +1,159 @@
+{
+    "name":"Netro Controller",
+    "group":"Watering",
+    "configuration":{
+        "delayBeforeRefreshInfo" : 3
+        },
+    "commands":[{
+                "name": "Nom",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "name",
+                "isDashboard": 1,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                
+        },{
+                "name": "Statut",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "",
+                "logicalId": "status",
+                "isDashboard": 1,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                                
+        },{
+                "name": "Arrosage en cours",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "",
+                "logicalId": "is_watering",
+                "isDashboard": 1,
+                "template": {
+                        "dashboard":"netro::arrosoir",
+                        "mobile":"netro::arrosoir"
+                }                
+        },{
+                "name": "Actif",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "",
+                "logicalId": "is_enabled",
+                "isDashboard": 1
+        },{
+                "name": "Heure dernière activité",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "last_active_time",
+                "isDashboard": 1
+        }, {
+                "name": "Nombre de zones actives",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "active_zone_number",
+                "isDashboard": 0
+        }, {
+                "name": "activer",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId": "enable",
+                "isDashboard": 0
+        }, {
+                "name": "désactiver",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId": "disable",
+                "isDashboard": 0
+        }, {
+                "name": "rafraichir",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId": "refresh",
+                "isDashboard": 0
+        }, {
+                "name": "Démarrer arrosage",
+                "type": "action",
+                "subtype": "slider",
+                "isVisible": 1,
+                "logicalId": "start_watering",
+                "isDashboard": 0,
+                "configuration": {"minValue":0, "maxValue":60},
+                "display": {
+                        "icon":"<i class=\"icon jeedomapp-playerplay \"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                },
+                "template": {
+                        "dashboard":"core::value",
+                        "mobile":"core::value"
+                }                
+        }, {
+                "name": "Terminer arrosage",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId": "stop_watering",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"<i class=\"icon jeedomapp-playerstop \"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }
+        }
+    ]
+}
