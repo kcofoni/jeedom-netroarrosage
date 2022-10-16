@@ -694,6 +694,10 @@ class netroCmd extends cmd {
         case 'stop_watering':
         $nc->stopWatering();
         break;
+        case 'no_water':
+        $numberOfDays = array_key_exists("slider", $_options) ? (is_numeric($_options["slider"]) ? $_options["slider"] : 2) : 2; // 2 jours par défaut
+        $nc->noWater($numberOfDays);
+        break;
       }
     }
 

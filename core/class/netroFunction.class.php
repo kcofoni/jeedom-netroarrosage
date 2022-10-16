@@ -246,7 +246,7 @@ class netroFunction {
         $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
         $params['key'] = $key;
         if (!is_null($days)) {
-            $params['days'] = $days;            
+            $params['days'] = round($days);            
         }
         $response = $client->request('POST', self::NETRO_POST_NOWATER,
             ['form_params' => $params, 'http_errors' => false

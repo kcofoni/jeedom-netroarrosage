@@ -135,6 +135,31 @@
                         "mobile":"core::value"
                 }                
         }, {
+                "name": "Suspendre planification",
+                "type": "action",
+                "subtype": "slider",
+                "isVisible": 1,
+                "logicalId": "no_water",
+                "isDashboard": 0,
+                "configuration": {"minValue":1, "maxValue":100},
+                "display": {
+                        "icon":"<i class=\"fas fa-hourglass-start \"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                },
+                "template": {
+                        "dashboard":"core::value",
+                        "mobile":"core::value"
+                }                
+        }, {
                 "name": "Terminer arrosage",
                 "type": "action",
                 "subtype": "other",
