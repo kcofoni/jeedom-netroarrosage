@@ -24,11 +24,11 @@ $("#table_cmd").sortable({
   forcePlaceholderSize: true
 })
 
-$('#bt_syncnetro').on('click', function () {
+$('#bt_syncnetroarrosage').on('click', function () {
     $('#div_alert').showAlert({message: '{{Synchronisation en cours}}', level: 'warning'});
     $.ajax({
         type: "POST", // méthode de transmission des données au fichier php
-        url: "plugins/netro/core/ajax/netro.ajax.php",
+        url: "plugins/netroarrosage/core/ajax/netroarrosage.ajax.php",
         data: {
             action: "synchronize",
         },
@@ -58,55 +58,55 @@ function printEqLogic(_eqLogic) {
     var type = _eqLogic.configuration.type;
 
     if (type == 'NetroController' ) {
-      $('.netro[data-l1key=configuration][data-l2key=version]').value(_eqLogic.configuration.version);
-      $('.netro[data-l1key=configuration][data-l2key=sw_version]').value(_eqLogic.configuration.sw_version);
-      $('.netro[data-l1key=configuration][data-l2key=nb_zones]').value(_eqLogic.configuration.nb_zones);
-      $('.netro[data-l1key=configuration][data-l2key=name]').value(_eqLogic.configuration.name);
-      $('.netro[data-l1key=configuration][data-l2key=token_limit]').value(_eqLogic.configuration.token_limit);            
-      $('.netro[data-l1key=configuration][data-l2key=token_remaining]').value(_eqLogic.configuration.token_remaining);            
+      $('.netroarrosage[data-l1key=configuration][data-l2key=version]').value(_eqLogic.configuration.version);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=sw_version]').value(_eqLogic.configuration.sw_version);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=nb_zones]').value(_eqLogic.configuration.nb_zones);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=name]').value(_eqLogic.configuration.name);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=token_limit]').value(_eqLogic.configuration.token_limit);            
+      $('.netroarrosage[data-l1key=configuration][data-l2key=token_remaining]').value(_eqLogic.configuration.token_remaining);            
 
 
-      $('.netro[data-l1key=configuration][data-l2key=version]').closest('.form-group').show();
-      $('.netro[data-l1key=configuration][data-l2key=sw_version]').closest('.form-group').show();
-      $('.netro[data-l1key=configuration][data-l2key=nb_zones]').closest('.form-group').show();
-      $('.netro[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=id]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=smart]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=name]').closest('.form-group').show();
-      $('.netro[data-l1key=configuration][data-l2key=token_limit]').closest('.form-group').show();      
-      $('.netro[data-l1key=configuration][data-l2key=token_remaining]').closest('.form-group').show();            
+      $('.netroarrosage[data-l1key=configuration][data-l2key=version]').closest('.form-group').show();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=sw_version]').closest('.form-group').show();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=nb_zones]').closest('.form-group').show();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=id]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=smart]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=name]').closest('.form-group').show();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=token_limit]').closest('.form-group').show();      
+      $('.netroarrosage[data-l1key=configuration][data-l2key=token_remaining]').closest('.form-group').show();            
     }
 
     if (type == 'NetroSensor' ) {
-      $('.netro[data-l1key=configuration][data-l2key=battery_level]').value(_eqLogic.configuration.battery_level + ' %');
+      $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').value(_eqLogic.configuration.battery_level + ' %');
 
-      $('.netro[data-l1key=configuration][data-l2key=version]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=sw_version]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=nb_zones]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=id]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=smart]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').show();
-      $('.netro[data-l1key=configuration][data-l2key=name]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=token_limit]').closest('.form-group').hide();      
-      $('.netro[data-l1key=configuration][data-l2key=token_remaining]').closest('.form-group').hide();                   
+      $('.netroarrosage[data-l1key=configuration][data-l2key=version]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=sw_version]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=nb_zones]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=id]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=smart]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').show();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=name]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=token_limit]').closest('.form-group').hide();      
+      $('.netroarrosage[data-l1key=configuration][data-l2key=token_remaining]').closest('.form-group').hide();                   
     }
 
     if (type == 'NetroZone' ) {
-      $('.netro[data-l1key=configuration][data-l2key=version]').value(_eqLogic.configuration.version);
-      $('.netro[data-l1key=configuration][data-l2key=sw_version]').value(_eqLogic.configuration.sw_version);
-      $('.netro[data-l1key=configuration][data-l2key=id]').value(_eqLogic.configuration.id);
-      $('.netro[data-l1key=configuration][data-l2key=name]').value(_eqLogic.configuration.name);                  
-      $('.netro[data-l1key=configuration][data-l2key=smart]').value(_eqLogic.configuration.smart);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=version]').value(_eqLogic.configuration.version);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=sw_version]').value(_eqLogic.configuration.sw_version);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=id]').value(_eqLogic.configuration.id);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=name]').value(_eqLogic.configuration.name);                  
+      $('.netroarrosage[data-l1key=configuration][data-l2key=smart]').value(_eqLogic.configuration.smart);
 
-      $('.netro[data-l1key=configuration][data-l2key=version]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=sw_version]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=nb_zones]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').hide();
-      $('.netro[data-l1key=configuration][data-l2key=id]').closest('.form-group').show();
-      $('.netro[data-l1key=configuration][data-l2key=smart]').closest('.form-group').show();
-      $('.netro[data-l1key=configuration][data-l2key=name]').closest('.form-group').show();
-      $('.netro[data-l1key=configuration][data-l2key=token_limit]').closest('.form-group').hide();      
-      $('.netro[data-l1key=configuration][data-l2key=token_remaining]').closest('.form-group').hide();                   
+      $('.netroarrosage[data-l1key=configuration][data-l2key=version]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=sw_version]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=nb_zones]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=id]').closest('.form-group').show();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=smart]').closest('.form-group').show();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=name]').closest('.form-group').show();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=token_limit]').closest('.form-group').hide();      
+      $('.netroarrosage[data-l1key=configuration][data-l2key=token_remaining]').closest('.form-group').hide();                   
     }
 }
 

@@ -31,7 +31,7 @@ try {
 
  if (init('action') == 'synchronize') {
         try {
-            netro::synchronize();
+            netroarrosage::synchronize();
             ajax::success();
         } catch (Exception $e) {
             ajax::error(displayExeption($e), $e->getCode());

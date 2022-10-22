@@ -18,15 +18,15 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 // Fonction exécutée automatiquement après l'installation du plugin
-function netro_install() {
-	config::save('controllerTick', 0, 'netro');
-	config::save('sensorTick', 0, 'netro');
+function netroarrosage_install() {
+	config::save('controllerTick', 0, 'netroarrosage');
+	config::save('sensorTick', 0, 'netroarrosage');
 }
 
 // Fonction exécutée automatiquement après la mise à jour du plugin
-function netro_update() {
+function netroarrosage_update() {
 }
 
 // Fonction exécutée automatiquement après la suppression du plugin
-function netro_remove() {
+function netroarrosage_remove() {
 }

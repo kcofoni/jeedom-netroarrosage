@@ -19,9 +19,10 @@
 require_once __DIR__  . '/../../../../core/php/core.inc.php';
 require_once dirname(__FILE__) . '/../../3rdparty/netroControler.class.php';
 
-define('__ROOT_NETRO__', dirname(dirname(dirname(__FILE__))));
+define('__ROOT_NETRO_ARROSAGE__', dirname(dirname(dirname(__FILE__))));
+define('__PLUGIN_NAME_NETRO_ARROSAGE__', 'netroarrosage');
 
-class netro extends eqLogic {
+class netroarrosage extends eqLogic {
   /*     * *************************Attributs****************************** */
 
   /*
@@ -39,24 +40,24 @@ class netro extends eqLogic {
   /*     * ***********************Methode static*************************** */
 
   public static function synchronize() {
-    $config = array("ctrl_serial_n" => config::byKey('ctrl_serial_n', 'netro'),
-                    "sensor_serial_n" => config::byKey('sensor_serial_n', 'netro'),
-                    "default_parent_object" => config::byKey('default_parent_object', 'netro'));
+    $config = array("ctrl_serial_n" => config::byKey('ctrl_serial_n', __PLUGIN_NAME_NETRO_ARROSAGE__),
+                    "sensor_serial_n" => config::byKey('sensor_serial_n', __PLUGIN_NAME_NETRO_ARROSAGE__),
+                    "default_parent_object" => config::byKey('default_parent_object', __PLUGIN_NAME_NETRO_ARROSAGE__));
 
-    log::add('netro', 'debug', 'synchronize:: config : ' . var_export($config, true));
+    log::add(__CLASS__, 'debug', 'synchronize:: config : ' . var_export($config, true));
 
     { // création ou mise à jour des controleurs
 
       // recherche d'un équipement possédant le numéro de série du controleur
-      $eqLogicController = eqLogic::byLogicalId($config["ctrl_serial_n"], 'netro');
+      $eqLogicController = eqLogic::byLogicalId($config["ctrl_serial_n"], __PLUGIN_NAME_NETRO_ARROSAGE__);
 
       // si pas trouvé il faut créer un équipement vide
       if (!is_object($eqLogicController)) {
-        log::add('netro', 'debug', 'synchronize:: nouveau contrôleur');
-        $eqLogicController = new netro();
+        log::add(__CLASS__, 'debug', 'synchronize:: nouveau contrôleur');
+        $eqLogicController = new netroarrosage();
       }
       else{
-        log::add('netro', 'debug', 'synchronize:: contrôleur existant');          
+        log::add(__CLASS__, 'debug', 'synchronize:: contrôleur existant');          
       }
 
       // chargement des données du controlleur depuis Netro
@@ -65,7 +66,7 @@ class netro extends eqLogic {
       $nc->loadMoistures();
       $nc->loadSchedules();
 
-      log::add('netro', 'debug', 'synchronize:: contrôleur netro : ['
+      log::add(__CLASS__, 'debug', 'synchronize:: contrôleur netro : ['
         . $nc->name . ', '
         . $nc->status . ', '
         . $nc->zone_number . ', '
@@ -81,19 +82,19 @@ class netro extends eqLogic {
       { // création ou mise à jour des zones
         foreach ($nc->active_zones as $zoneId => $zone) {
           // recherche d'une zone possédant le numéro "série du controleur_zoneId"
-          $eqLogicZone = eqLogic::byLogicalId($config["ctrl_serial_n"] . '_' . $zoneId, 'netro');
+          $eqLogicZone = eqLogic::byLogicalId($config["ctrl_serial_n"] . '_' . $zoneId, __PLUGIN_NAME_NETRO_ARROSAGE__);
 
           // si pas trouvé il faut créer un équipement de type zone vide
           if (!is_object($eqLogicZone)) {
-            log::add('netro', 'debug', 'synchronize:: nouvelle zone');
-            $eqLogicZone = new netro();
+            log::add(__CLASS__, 'debug', 'synchronize:: nouvelle zone');
+            $eqLogicZone = new netroarrosage();
           }
           else{
-            log::add('netro', 'debug', 'synchronize:: zone existante');          
+            log::add(__CLASS__, 'debug', 'synchronize:: zone existante');          
           }
 
           // chargement des données de la zone depuis Netro
-          log::add('netro', 'debug', 'synchronize:: zone netro : ['
+          log::add(__CLASS__, 'debug', 'synchronize:: zone netro : ['
             . $zone->id . ', '
             . $zone->name . ', '
             . $zone->smart . ', '
@@ -117,21 +118,21 @@ class netro extends eqLogic {
 
       foreach ($sensor_serials as $sensor_serial) {
         // recherche d'un équipement possédant le numéro de série du capteur
-        $eqLogicSensor = eqLogic::byLogicalId($sensor_serial, 'netro');
+        $eqLogicSensor = eqLogic::byLogicalId($sensor_serial, __PLUGIN_NAME_NETRO_ARROSAGE__);
 
         // si pas trouvé il faut créer un équipement vide
         if (!is_object($eqLogicSensor)) {
-          log::add('netro', 'debug', 'synchronize:: nouveau capteur');
-          $eqLogicSensor = new netro();
+          log::add(__CLASS__, 'debug', 'synchronize:: nouveau capteur');
+          $eqLogicSensor = new netroarrosage();
         }
         else {
-          log::add('netro', 'debug', 'synchronize:: capteur existant');          
+          log::add(__CLASS__, 'debug', 'synchronize:: capteur existant');          
         }
 
         // chargement des données du capteur depuis Netro
         $ns = new netroSensor($sensor_serial);
         $ns->loadSensorData();
-        log::add('netro', 'debug', 'synchronize:: capteur netro : ['
+        log::add(__CLASS__, 'debug', 'synchronize:: capteur netro : ['
           . $ns->time . ', '
           . $ns->local_date . ', '
           . $ns->local_time . ', '
@@ -155,14 +156,15 @@ class netro extends eqLogic {
 
   public function getIconFile() {
     $type = $this->getConfiguration('type');
-    $filename = __ROOT_NETRO__.'/core/config/devices/'.$type.'/'.$type.'.png';
+    $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.$type.'.png';
 
-    return (file_exists($filename) === true ? ('plugins/netro/core/config/devices/'.$type.'/'.$type.'.png') : ('plugins/netro/core/config/devices/default.png'));
+    return (file_exists($filename) === true ? (__ROOT_NETRO_ARROSAGE__ . '/core/config/devices/'.$type.'/'.$type.'.png')
+                                            : (__ROOT_NETRO_ARROSAGE__ . '/core/config/devices/default.png'));
   }
 
   private function loadConfigFile() {
     $type = $this->getConfiguration('type');
-    $filename = __ROOT_NETRO__.'/core/config/devices/'.$type.'/'.$type.'.json';
+    $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.$type.'.json';
     if ( file_exists($filename) === false ) {
         throw new Exception('Impossible de trouver le fichier de configuration pour l\'équipement de type ' . $this->getConfiguration('type'));
     }
@@ -182,7 +184,7 @@ class netro extends eqLogic {
   private function updateEqLogicController($netroController, $parentObjectId = '') {
     $this->setLogicalId($netroController->getKey());
     $this->setName($netroController->name);
-    $this->setEqType_name('netro');
+    $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);
 
@@ -204,13 +206,13 @@ class netro extends eqLogic {
 
     $this->save();
 
-    log::add('netro', 'info', 'mise à jour de l\'équipement contrôleur "' . $this->name . '" effectuée');
+    log::add(__CLASS__, 'info', 'mise à jour de l\'équipement contrôleur "' . $this->name . '" effectuée');
   }
 
   private function updateEqLogicZone($netroController, $netroZone, $parentObjectId = '') {
     $this->setLogicalId($netroController->getKey() . '_' . $netroZone->id);
     $this->setName($netroZone->name);
-    $this->setEqType_name('netro');
+    $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);        
 
@@ -230,13 +232,13 @@ class netro extends eqLogic {
 
     $this->save();
 
-    log::add('netro', 'info', 'mise à jour de l\'équipement zone "' . $this->name . '" effectuée');
+    log::add(__CLASS__, 'info', 'mise à jour de l\'équipement zone "' . $this->name . '" effectuée');
   }
 
   private function updateEqLogicSensor($netroSensor, $parentObjectId = '', $suffix = '') {
     $this->setLogicalId($netroSensor->getKey());
     $this->setName('Capteur de sol' . $suffix);
-    $this->setEqType_name('netro');
+    $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);
 
@@ -252,7 +254,7 @@ class netro extends eqLogic {
 
     $this->save();
 
-    log::add('netro', 'info', 'mise à jour de l\'équipement capteur "' . $this->name . '" effectuée');
+    log::add(__CLASS__, 'info', 'mise à jour de l\'équipement capteur "' . $this->name . '" effectuée');
   }
 
   private function createCmd() {
@@ -265,7 +267,7 @@ class netro extends eqLogic {
       // on ne recrée pas la commande si elle existe déjà
       $cmd = $this->getCmd(null, $command['logicalId']);
       if (!is_object($cmd)) {
-        $cmd = new netroCmd();
+        $cmd = new netroarrosageCmd();
       }
       $cmd->setOrder($i++);
       $cmd->setEqLogic_id($this->getId());
@@ -280,7 +282,7 @@ class netro extends eqLogic {
     $this->setConfiguration('dashboard', $dashboard);
     $this->save();
 
-    log::add('netro', 'info', 'création ou mise à jour des commandes de l\'équipement "' . $this->name . '" effectuée');
+    log::add(__CLASS__, 'info', 'création ou mise à jour des commandes de l\'équipement "' . $this->name . '" effectuée');
   }
 
   public static function templateWidget() {
@@ -293,10 +295,10 @@ class netro extends eqLogic {
       ),
       'replace' => array(
         '#_time_widget_#' => '0',
-        '#_img_light_on_#' => '<img src=\'plugins/netro/core/img/arrosage-on-tr.png\'>',
-        '#_img_dark_on_#' => '<img src=\'plugins/netro/core/img/arrosage-on-tr-white.png\'>',
-        '#_img_light_off_#' => '<img src=\'plugins/netro/core/img/arrosage-off-tr.png\'>',
-        '#_img_dark_off_#' => '<img src=\'plugins/netro/core/img/arrosage-off-tr-white.png\'>',
+        '#_img_light_on_#' => '<img src=\'' . __ROOT_NETRO_ARROSAGE__ . '/core/img/arrosage-on-tr.png\'>',
+        '#_img_dark_on_#' => '<img src=\'' . __ROOT_NETRO_ARROSAGE__ . '/core/img/arrosage-on-tr-white.png\'>',
+        '#_img_light_off_#' => '<img src=\'' . __ROOT_NETRO_ARROSAGE__ . '/core/img/arrosage-off-tr.png\'>',
+        '#_img_dark_off_#' => '<img src=\'' . __ROOT_NETRO_ARROSAGE__ . '/core/img/arrosage-off-tr-white.png\'>',
         '#_desktop_width_#' => '',
         '#_mobile_width_#' => ''
       )
@@ -305,7 +307,7 @@ class netro extends eqLogic {
   }
 
   public function refresh($schedulesFlag = true, $moisturesFlag = false) {
-    log::add('netro', 'debug', 'refresh::' . var_export($this, true));
+    log::add(__CLASS__, 'debug', 'refresh::' . var_export($this, true));
 
     if ($this->getConfiguration('type') == 'NetroController') {
       $this->refreshController(null, $schedulesFlag, $moisturesFlag);
@@ -315,7 +317,7 @@ class netro extends eqLogic {
     }
     if ($this->getConfiguration('type') == 'NetroZone') {
       // c'est tout le controleur qu'il faut rafraichir
-      $eqLogicController = eqLogic::byLogicalId(substr($this->getLogicalId(), 0, strpos($this->getLogicalId(), '_')), 'netro');
+      $eqLogicController = eqLogic::byLogicalId(substr($this->getLogicalId(), 0, strpos($this->getLogicalId(), '_')), __PLUGIN_NAME_NETRO_ARROSAGE__);
       $eqLogicController->refreshController();
     }
   }
@@ -323,8 +325,8 @@ class netro extends eqLogic {
   public static function refreshDevices($controllerFlag = true, $schedulesFlag = true, $moisturesFlag = true, $sensorFlag = true) {
     // récupère tous les équipements et demande un refresh sur chacun d'eux, on peut remarquer que les objets zones ne sont
     // pas considérés dans la boucle dans la mesure ou ils sont pris en compte par le refresh sur l'objet "controleur"
-    $netroEqLogics = self::byType('netro');
-    foreach (self::byType('netro') as $netroEqLogic) {
+    $netroEqLogics = self::byType(__PLUGIN_NAME_NETRO_ARROSAGE__);
+    foreach (self::byType(__PLUGIN_NAME_NETRO_ARROSAGE__) as $netroEqLogic) {
       if ($controllerFlag && $netroEqLogic->getConfiguration('type') == 'NetroController') {
         $netroEqLogic->refreshController(null, $schedulesFlag, $moisturesFlag);
       }
@@ -373,7 +375,7 @@ class netro extends eqLogic {
 
     // mise à jour de l'équipement zone associé à chaque zone active du controleur
     foreach ($controller->active_zones as $zoneId => $zone) {
-      $eqLogicZone = self::byLogicalId($controller->getKey() . '_' . $zoneId, 'netro');
+      $eqLogicZone = self::byLogicalId($controller->getKey() . '_' . $zoneId, __PLUGIN_NAME_NETRO_ARROSAGE__);
 
       $eqLogicZone->checkAndUpdateCmd('name', $zone->name);
 
@@ -402,7 +404,7 @@ class netro extends eqLogic {
     $this->setConfiguration('token_time', $controller->token_time);
     $this->save();
 
-    log::add('netro', 'info', 'les informations du contrôleur "' . $this->name . '" ont été mises à jour');
+    log::add(__CLASS__, 'info', 'les informations du contrôleur "' . $this->name . '" ont été mises à jour');
   }
 
   public function refreshSensor($sensor = null) {
@@ -425,7 +427,7 @@ class netro extends eqLogic {
     $this->setConfiguration('battery_level', $sensor->battery_level);
     $this->save();
 
-    log::add('netro', 'info', 'les informations du capteur "' . $this->name . '" ont été mises à jour');
+    log::add(__CLASS__, 'info', 'les informations du capteur "' . $this->name . '" ont été mises à jour');
   }
 
   public static function getFactorsFromString ($factors) {
@@ -442,8 +444,8 @@ class netro extends eqLogic {
 
 
   public static function getSlowdownFactor () {
-    $slots = self::getFactorsFromString(config::byKey('slowdown_factor', 'netro'));
-    log::add('netro', 'debug', 'getSlowdownFactor:: tableau des facteurs de ralentissement : ' . var_export($slots, true));
+    $slots = self::getFactorsFromString(config::byKey('slowdown_factor', __PLUGIN_NAME_NETRO_ARROSAGE__));
+    log::add(__CLASS__, 'debug', 'getSlowdownFactor:: tableau des facteurs de ralentissement : ' . var_export($slots, true));
 
     if (is_array($slots)) {
       // convertir les heures du tableau en décimal
@@ -462,14 +464,14 @@ class netro extends eqLogic {
       foreach ($slots as $slot) {
         if (($heureCouranteDecimalPositive >= $slot['from'] && $heureCouranteDecimalPositive <= $slot['to']) ||
             ($heureCouranteDecimalNegative >= $slot['from'] && $heureCouranteDecimalNegative <= $slot['to'])) {
-          log::add('netro', 'debug', 'getSlowdownFactor:: le facteur de ralentissement ' . $slot['sdf'] . ' va être appliqué');
+          log::add(__CLASS__, 'debug', 'getSlowdownFactor:: le facteur de ralentissement ' . $slot['sdf'] . ' va être appliqué');
           return $slot['sdf'];
         }
       }
     }
     else {
-      if (config::byKey('slowdown_factor', 'netro') != '') {
-        log::add('netro', 'warning', 'getSlowdownFactor:: le tableau des facteurs de ralentissement est incorrect, aucun ralentissement ne sera donc appliqué');
+      if (config::byKey('slowdown_factor', __PLUGIN_NAME_NETRO_ARROSAGE__) != '') {
+        log::add(__CLASS__, 'warning', 'getSlowdownFactor:: le tableau des facteurs de ralentissement est incorrect, aucun ralentissement ne sera donc appliqué');
       }
       return 1; // pas de ralentissement
     }
@@ -478,7 +480,7 @@ class netro extends eqLogic {
   }
 
   public static function controllerSmartRefresh() {
-    $tick  = config::byKey('controllerTick', 'netro');
+    $tick  = config::byKey('controllerTick', __PLUGIN_NAME_NETRO_ARROSAGE__);
     $sdf = self::getSlowdownFactor();
 
     if (($tick % $sdf) == 0) { // c'est le moment de rafraichir
@@ -486,15 +488,15 @@ class netro extends eqLogic {
       $tick = 1;
     }
     else { // faudra attendre une prochaine fois pour rafraichir (facteur de ralentissement actif à l'heure du traitement)
-      log::add('netro', 'debug', 'controllerSmartRefresh:: aucune mise à jour due au facteur de ralentissement [' . $tick . ', ' . $sdf . ']');
+      log::add(__CLASS__, 'debug', 'controllerSmartRefresh:: aucune mise à jour due au facteur de ralentissement [' . $tick . ', ' . $sdf . ']');
       $tick++;
     }
     
-    config::save('controllerTick', $tick, 'netro');
+    config::save('controllerTick', $tick, __PLUGIN_NAME_NETRO_ARROSAGE__);
   }
 
   public static function sensorSmartRefresh() {
-    $tick  = config::byKey('sensorTick', 'netro');
+    $tick  = config::byKey('sensorTick', __PLUGIN_NAME_NETRO_ARROSAGE__);
     $sdf = self::getSlowdownFactor();
 
     if (($tick % $sdf) == 0) { // c'est le moment de rafraichir
@@ -502,11 +504,11 @@ class netro extends eqLogic {
       $tick = 1;
     }
     else { // faudra attendre une prochaine fois pour rafraichir (facteur de ralentissement actif à l'heure du traitement)
-      log::add('netro', 'debug', 'sensorSmartRefresh:: aucune mise à jour due au facteur de ralentissement [' . $tick . ', ' . $sdf . ']');
+      log::add(__CLASS__, 'debug', 'sensorSmartRefresh:: aucune mise à jour due au facteur de ralentissement [' . $tick . ', ' . $sdf . ']');
       $tick++;
     }
     
-    config::save('sensorTick', $tick, 'netro');
+    config::save('sensorTick', $tick, __PLUGIN_NAME_NETRO_ARROSAGE__);
   }
 
 
@@ -646,7 +648,7 @@ class netro extends eqLogic {
 }
 
 
-class netroCmd extends cmd {
+class netroarrosageCmd extends cmd {
   /*     * *************************Attributs****************************** */
 
   /*
@@ -667,9 +669,9 @@ class netroCmd extends cmd {
 
   // Exécution d'une commande
   public function execute($_options = array()) {
-    log::add('netro', 'debug', 'execute:: options:' . var_export($_options, true));
-    log::add('netro', 'debug', 'execute:: this:' . var_export($this, true));
-    log::add('netro', 'info', 'exécution de l\'action (' . $this->getEqLogic()->getName() . '[' . $this->getEqLogic()->getConfiguration('type') . '] /' . $this->getName() . ' #' . $this->getId() . ')');
+    log::add(__CLASS__, 'debug', 'execute:: options:' . var_export($_options, true));
+    log::add(__CLASS__, 'debug', 'execute:: this:' . var_export($this, true));
+    log::add(__CLASS__, 'info', 'exécution de l\'action (' . $this->getEqLogic()->getName() . '[' . $this->getEqLogic()->getConfiguration('type') . '] /' . $this->getName() . ' #' . $this->getId() . ')');
 
     $noNeedToRefresh = false;
 
@@ -731,7 +733,7 @@ class netroCmd extends cmd {
     // refraichissement de l'équipement concerné sauf si ça n'est pas nécessaire (avec un délai avant le refresh si l'équipement le demande
     if (!$noNeedToRefresh) {
       if($this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') != ''){
-        log::add('netro', 'debug', 'execute:: on attend '
+        log::add(__CLASS__, 'debug', 'execute:: on attend '
           . $this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') . ' s avant de mettre à jour l\'équipement...');
         usleep($this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') * 1000000);
       }

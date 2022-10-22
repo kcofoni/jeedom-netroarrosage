@@ -3,7 +3,7 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 // Déclaration des variables obligatoires
-$plugin = plugin::byId('netro');
+$plugin = plugin::byId('netroarrosage');
 sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId());
 ?>
@@ -14,7 +14,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 		<legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
 		<!-- Boutons de gestion du plugin -->
 		<div class="eqLogicThumbnailContainer">
-			<div class="cursor eqLogicAction logoPrimary" id="bt_syncnetro">
+			<div class="cursor eqLogicAction logoPrimary" id="bt_syncnetroarrosage">
 				<i class="fas fa-sync-alt"></i>
 				<br>
 				<span>{{Synchronisation}}</span>
@@ -172,53 +172,53 @@ $eqLogics = eqLogic::byType($plugin->getId());
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Version matérielle}}</label>
 								<div class="col-sm-7">
-									<span class="netro label label-info" data-l1key="configuration" data-l2key="version"></span>
+									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="version"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Version logicielle}}</label>
 								<div class="col-sm-7">
-									<span class="netro label label-info" data-l1key="configuration" data-l2key="sw_version"></span>
+									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="sw_version"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Nombre de jetons max}}</label>
 								<div class="col-sm-2">
-									<span class="netro label label-info" data-l1key="configuration" data-l2key="token_limit"></span>
+									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="token_limit"></span>
 								</div>
 								<label class="col-sm-3 control-label">{{Jetons restants}}</label>
 								<div class="col-sm-2">
-									<span class="netro label label-info" data-l1key="configuration" data-l2key="token_remaining"></span>
+									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="token_remaining"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Id}}</label>
 								<div class="col-sm-7">
-									<span class="netro label label-info" data-l1key="configuration" data-l2key="id"></span>
+									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="id"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Name}}</label>
 								<div class="col-sm-7">
-									<span class="netro label label-info" data-l1key="configuration" data-l2key="name"></span>
+									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="name"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Smart}}</label>
 								<div class="col-sm-7">
-									<span class="netro label label-info" data-l1key="configuration" data-l2key="smart"></span>
+									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="smart"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Nombre de zones}}</label>
 								<div class="col-sm-7">
-									<span class="netro label label-info" data-l1key="configuration" data-l2key="nb_zones"></span>
+									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="nb_zones"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Batterie}}</label>
 								<div class="col-sm-7">
-									<span class="netro label label-info" data-l1key="configuration" data-l2key="battery_level"></span>
+									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="battery_level"></span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -259,6 +259,6 @@ $eqLogics = eqLogic::byType($plugin->getId());
 </div><!-- /.row row-overflow -->
 
 <!-- Inclusion du fichier javascript du plugin (dossier, nom_du_fichier, extension_du_fichier, id_du_plugin) -->
-<?php include_file('desktop', 'netro', 'js', 'netro');?>
+<?php include_file('desktop', 'netroarrosage', 'js', 'netroarrosage');?>
 <!-- Inclusion du fichier javascript du core - NE PAS MODIFIER NI SUPPRIMER -->
 <?php include_file('core', 'plugin.template', 'js');?>
