@@ -17,7 +17,7 @@
 
 /* * ***************************Includes********************************* */
 require_once __DIR__  . '/../../../../core/php/core.inc.php';
-require_once dirname(__FILE__) . '/netroControler.class.php';
+require_once dirname(__FILE__) . '/../../3rdparty/netroControler.class.php';
 
 define('__ROOT_NETRO__', dirname(dirname(dirname(__FILE__))));
 
