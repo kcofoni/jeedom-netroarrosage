@@ -1,5 +1,6 @@
 *.log
 core/class/vendor/*
 .DS_Store
+*sublime*
 
 
