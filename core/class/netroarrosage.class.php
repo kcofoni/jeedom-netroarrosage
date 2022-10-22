@@ -48,6 +48,11 @@ class netroarrosage extends eqLogic {
 
     { // création ou mise à jour des controleurs
 
+      // un numéro de série doit obligatoirement avoir été renseigné pour continuer
+      if (empty($config["ctrl_serial_n"])) {
+          throw new Exception('Synchronisation impossible si aucun numéro de série n\'est fourni pour le contrôleur');
+      }
+
       // recherche d'un équipement possédant le numéro de série du controleur
       $eqLogicController = eqLogic::byLogicalId($config["ctrl_serial_n"], __PLUGIN_NAME_NETRO_ARROSAGE__);
 
