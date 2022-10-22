@@ -1,5 +1,5 @@
 *.log
-core/class/vendor/*
+3rdparty/vendor/*
 .DS_Store
 *sublime*
 
