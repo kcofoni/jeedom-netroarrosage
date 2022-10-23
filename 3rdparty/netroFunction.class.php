@@ -1,6 +1,8 @@
 <?php
+namespace NetroPublicAPI;
+use \GuzzleHttp as GuzzleHttp;
 
-/* This file is the PHP implementation of the Netro Public API
+/* This file is a PHP implementation of the Netro Public API
  *
  * The NPA (Netro Public API) allows to control our Netro devices through a public API, which also provides infinite flexibility in integrating with other services
  *
@@ -11,7 +13,7 @@
 require 'vendor/autoload.php';
 
 
-class netroException extends Exception
+class netroException extends \Exception
 {
   public function __construct($netroFunctionResult) {
     parent::__construct($netroFunctionResult["errors"][0]["message"], $netroFunctionResult["errors"][0]["code"]);

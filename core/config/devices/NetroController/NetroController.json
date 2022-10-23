@@ -58,8 +58,8 @@
                 "logicalId": "is_watering",
                 "isDashboard": 1,
                 "template": {
-                        "dashboard":"netro::arrosoir",
-                        "mobile":"netro::arrosoir"
+                        "dashboard":"netroarrosage::arrosoir",
+                        "mobile":"netroarrosage::arrosoir"
                 }                
         },{
                 "name": "Actif",

@@ -36,8 +36,8 @@
                         "parameters":[]
                 },
                 "template": {
-                        "dashboard":"netro::arrosoir",
-                        "mobile":"netro::arrosoir"
+                        "dashboard":"netroarrosage::arrosoir",
+                        "mobile":"netroarrosage::arrosoir"
                 }
         },{
                 "name": "Statut dernier arrosage",

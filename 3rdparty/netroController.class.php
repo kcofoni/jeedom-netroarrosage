@@ -1,19 +1,10 @@
 <?php
+namespace NetroPublicAPI;
 
-/* This file is part of Jeedom.
- *
- * Jeedom is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Jeedom is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
+/* This file is part of the implementation of the NPA (Netro Public API) PHP wrapper 
+ * 
+ * The NPA (Netro Public API) allows to control our Netro devices through a public API, which also provides infinite flexibility in integrating with other services
+ * 
  */
 
 /* * ***************************Includes********************************* */
@@ -94,8 +85,8 @@ class netroZone {
     public function getMoisture() {
         if (empty($this->moistures) ||
             (!empty($this->moistures) &&
-                ($this->moistures[array_key_first($this->moistures)]["date"] < (new DateTime('-1 day'))->format ('Y-m-d')))) {
-            $moistures = NetroFunction::getMoistures($this->_key, array("$this->id"), (new DateTime('-1 day'))
+                ($this->moistures[array_key_first($this->moistures)]["date"] < (new \DateTime('-1 day'))->format ('Y-m-d')))) {
+            $moistures = NetroFunction::getMoistures($this->_key, array("$this->id"), (new \DateTime('-1 day'))
                 ->format ('Y-m-d'), date('Y-m-d'))["data"]["moistures"];
             if (self::DEBUG_MODE) echo "netroZone::getMoisture -> rechargement requis";
         }

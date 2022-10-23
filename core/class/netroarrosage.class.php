@@ -17,10 +17,15 @@
 
 /* * ***************************Includes********************************* */
 require_once __DIR__  . '/../../../../core/php/core.inc.php';
-require_once dirname(__FILE__) . '/../../3rdparty/netroControler.class.php';
+require_once dirname(__FILE__) . '/../../3rdparty/netroController.class.php';
 
 define('__ROOT_NETRO_ARROSAGE__', dirname(dirname(dirname(__FILE__))));
 define('__PLUGIN_NAME_NETRO_ARROSAGE__', 'netroarrosage');
+
+use NetroPublicAPI\netroController;
+use NetroPublicAPI\netroSensor;
+use NetroPublicAPI\netroZone;
+
 
 class netroarrosage extends eqLogic {
   /*     * *************************Attributs****************************** */
@@ -116,10 +121,10 @@ class netroarrosage extends eqLogic {
       $eqLogicController->refreshController($nc);
     }
     
-    { // création ou mise à jour des capteurs
-
+    if (!empty($config["sensor_serial_n"])) {  // création ou mise à jour des capteurs
       $sensor_serials = explode(" ", $config["sensor_serial_n"]); // les numéros de série sont séparés par des espaces
       $sensor_index = 0;
+      log::add(__CLASS__, 'debug', 'synchronize:: sensor_serials : ' . var_export($sensor_serials, true));
 
       foreach ($sensor_serials as $sensor_serial) {
         // recherche d'un équipement possédant le numéro de série du capteur
@@ -157,14 +162,17 @@ class netroarrosage extends eqLogic {
         $eqLogicSensor->refreshSensor($ns);
       }
     }
+    else {
+      log::add(__CLASS__, 'warning', 'synchronize:: aucun numéro de serie n\'est fourni pour le(s) capteur(s) de sol');
+    }
   }
 
   public function getIconFile() {
     $type = $this->getConfiguration('type');
     $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.$type.'.png';
 
-    return (file_exists($filename) === true ? (__ROOT_NETRO_ARROSAGE__ . '/core/config/devices/'.$type.'/'.$type.'.png')
-                                            : (__ROOT_NETRO_ARROSAGE__ . '/core/config/devices/default.png'));
+    return (file_exists($filename) === true ? ('plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . '/core/config/devices/'.$type.'/'.$type.'.png')
+                                            : ('plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . '/core/config/devices/default.png'));
   }
 
   private function loadConfigFile() {
@@ -300,10 +308,10 @@ class netroarrosage extends eqLogic {
       ),
       'replace' => array(
         '#_time_widget_#' => '0',
-        '#_img_light_on_#' => '<img src=\'' . __ROOT_NETRO_ARROSAGE__ . '/core/img/arrosage-on-tr.png\'>',
-        '#_img_dark_on_#' => '<img src=\'' . __ROOT_NETRO_ARROSAGE__ . '/core/img/arrosage-on-tr-white.png\'>',
-        '#_img_light_off_#' => '<img src=\'' . __ROOT_NETRO_ARROSAGE__ . '/core/img/arrosage-off-tr.png\'>',
-        '#_img_dark_off_#' => '<img src=\'' . __ROOT_NETRO_ARROSAGE__ . '/core/img/arrosage-off-tr-white.png\'>',
+        '#_img_light_on_#' => '<img src=\'plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . '/core/img/arrosage-on-tr.png\'>',
+        '#_img_dark_on_#' => '<img src=\'plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . '/core/img/arrosage-on-tr-white.png\'>',
+        '#_img_light_off_#' => '<img src=\'plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . '/core/img/arrosage-off-tr.png\'>',
+        '#_img_dark_off_#' => '<img src=\'plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . '/core/img/arrosage-off-tr-white.png\'>',
         '#_desktop_width_#' => '',
         '#_mobile_width_#' => ''
       )
