@@ -26,7 +26,6 @@ use NetroPublicAPI\netroController;
 use NetroPublicAPI\netroSensor;
 use NetroPublicAPI\netroZone;
 
-
 class netroarrosage extends eqLogic {
   /*     * *************************Attributs****************************** */
 
@@ -49,7 +48,7 @@ class netroarrosage extends eqLogic {
                     "sensor_serial_n" => config::byKey('sensor_serial_n', __PLUGIN_NAME_NETRO_ARROSAGE__),
                     "default_parent_object" => config::byKey('default_parent_object', __PLUGIN_NAME_NETRO_ARROSAGE__));
 
-    log::add(__CLASS__, 'debug', 'synchronize:: config : ' . var_export($config, true));
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: config : ' . var_export($config, true));
 
     { // création ou mise à jour des controleurs
 
@@ -63,11 +62,11 @@ class netroarrosage extends eqLogic {
 
       // si pas trouvé il faut créer un équipement vide
       if (!is_object($eqLogicController)) {
-        log::add(__CLASS__, 'debug', 'synchronize:: nouveau contrôleur');
+        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: nouveau contrôleur');
         $eqLogicController = new netroarrosage();
       }
       else{
-        log::add(__CLASS__, 'debug', 'synchronize:: contrôleur existant');          
+        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: contrôleur existant');          
       }
 
       // chargement des données du controlleur depuis Netro
@@ -76,7 +75,7 @@ class netroarrosage extends eqLogic {
       $nc->loadMoistures();
       $nc->loadSchedules();
 
-      log::add(__CLASS__, 'debug', 'synchronize:: contrôleur netro : ['
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: contrôleur netro : ['
         . $nc->name . ', '
         . $nc->status . ', '
         . $nc->zone_number . ', '
@@ -96,15 +95,15 @@ class netroarrosage extends eqLogic {
 
           // si pas trouvé il faut créer un équipement de type zone vide
           if (!is_object($eqLogicZone)) {
-            log::add(__CLASS__, 'debug', 'synchronize:: nouvelle zone');
+            log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: nouvelle zone');
             $eqLogicZone = new netroarrosage();
           }
           else{
-            log::add(__CLASS__, 'debug', 'synchronize:: zone existante');          
+            log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: zone existante');          
           }
 
           // chargement des données de la zone depuis Netro
-          log::add(__CLASS__, 'debug', 'synchronize:: zone netro : ['
+          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: zone netro : ['
             . $zone->id . ', '
             . $zone->name . ', '
             . $zone->smart . ', '
@@ -124,7 +123,7 @@ class netroarrosage extends eqLogic {
     if (!empty($config["sensor_serial_n"])) {  // création ou mise à jour des capteurs
       $sensor_serials = explode(" ", $config["sensor_serial_n"]); // les numéros de série sont séparés par des espaces
       $sensor_index = 0;
-      log::add(__CLASS__, 'debug', 'synchronize:: sensor_serials : ' . var_export($sensor_serials, true));
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: sensor_serials : ' . var_export($sensor_serials, true));
 
       foreach ($sensor_serials as $sensor_serial) {
         // recherche d'un équipement possédant le numéro de série du capteur
@@ -132,17 +131,17 @@ class netroarrosage extends eqLogic {
 
         // si pas trouvé il faut créer un équipement vide
         if (!is_object($eqLogicSensor)) {
-          log::add(__CLASS__, 'debug', 'synchronize:: nouveau capteur');
+          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: nouveau capteur');
           $eqLogicSensor = new netroarrosage();
         }
         else {
-          log::add(__CLASS__, 'debug', 'synchronize:: capteur existant');          
+          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: capteur existant');          
         }
 
         // chargement des données du capteur depuis Netro
         $ns = new netroSensor($sensor_serial);
         $ns->loadSensorData();
-        log::add(__CLASS__, 'debug', 'synchronize:: capteur netro : ['
+        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: capteur netro : ['
           . $ns->time . ', '
           . $ns->local_date . ', '
           . $ns->local_time . ', '
@@ -163,7 +162,7 @@ class netroarrosage extends eqLogic {
       }
     }
     else {
-      log::add(__CLASS__, 'warning', 'synchronize:: aucun numéro de serie n\'est fourni pour le(s) capteur(s) de sol');
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'warning', 'synchronize:: aucun numéro de serie n\'est fourni pour le(s) capteur(s) de sol');
     }
   }
 
@@ -219,7 +218,7 @@ class netroarrosage extends eqLogic {
 
     $this->save();
 
-    log::add(__CLASS__, 'info', 'mise à jour de l\'équipement contrôleur "' . $this->name . '" effectuée');
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'info', 'mise à jour de l\'équipement contrôleur "' . $this->name . '" effectuée');
   }
 
   private function updateEqLogicZone($netroController, $netroZone, $parentObjectId = '') {
@@ -245,7 +244,7 @@ class netroarrosage extends eqLogic {
 
     $this->save();
 
-    log::add(__CLASS__, 'info', 'mise à jour de l\'équipement zone "' . $this->name . '" effectuée');
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'info', 'mise à jour de l\'équipement zone "' . $this->name . '" effectuée');
   }
 
   private function updateEqLogicSensor($netroSensor, $parentObjectId = '', $suffix = '') {
@@ -267,7 +266,7 @@ class netroarrosage extends eqLogic {
 
     $this->save();
 
-    log::add(__CLASS__, 'info', 'mise à jour de l\'équipement capteur "' . $this->name . '" effectuée');
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'info', 'mise à jour de l\'équipement capteur "' . $this->name . '" effectuée');
   }
 
   private function createCmd() {
@@ -295,7 +294,7 @@ class netroarrosage extends eqLogic {
     $this->setConfiguration('dashboard', $dashboard);
     $this->save();
 
-    log::add(__CLASS__, 'info', 'création ou mise à jour des commandes de l\'équipement "' . $this->name . '" effectuée');
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'info', 'création ou mise à jour des commandes de l\'équipement "' . $this->name . '" effectuée');
   }
 
   public static function templateWidget() {
@@ -320,7 +319,7 @@ class netroarrosage extends eqLogic {
   }
 
   public function refresh($schedulesFlag = true, $moisturesFlag = false) {
-    log::add(__CLASS__, 'debug', 'refresh::' . var_export($this, true));
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'refresh::' . var_export($this, true));
 
     if ($this->getConfiguration('type') == 'NetroController') {
       $this->refreshController(null, $schedulesFlag, $moisturesFlag);
@@ -417,7 +416,7 @@ class netroarrosage extends eqLogic {
     $this->setConfiguration('token_time', $controller->token_time);
     $this->save();
 
-    log::add(__CLASS__, 'info', 'les informations du contrôleur "' . $this->name . '" ont été mises à jour');
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'info', 'les informations du contrôleur "' . $this->name . '" ont été mises à jour');
   }
 
   public function refreshSensor($sensor = null) {
@@ -440,7 +439,7 @@ class netroarrosage extends eqLogic {
     $this->setConfiguration('battery_level', $sensor->battery_level);
     $this->save();
 
-    log::add(__CLASS__, 'info', 'les informations du capteur "' . $this->name . '" ont été mises à jour');
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'info', 'les informations du capteur "' . $this->name . '" ont été mises à jour');
   }
 
   public static function getFactorsFromString ($factors) {
@@ -458,7 +457,7 @@ class netroarrosage extends eqLogic {
 
   public static function getSlowdownFactor () {
     $slots = self::getFactorsFromString(config::byKey('slowdown_factor', __PLUGIN_NAME_NETRO_ARROSAGE__));
-    log::add(__CLASS__, 'debug', 'getSlowdownFactor:: tableau des facteurs de ralentissement : ' . var_export($slots, true));
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'getSlowdownFactor:: tableau des facteurs de ralentissement : ' . var_export($slots, true));
 
     if (is_array($slots)) {
       // convertir les heures du tableau en décimal
@@ -477,14 +476,14 @@ class netroarrosage extends eqLogic {
       foreach ($slots as $slot) {
         if (($heureCouranteDecimalPositive >= $slot['from'] && $heureCouranteDecimalPositive <= $slot['to']) ||
             ($heureCouranteDecimalNegative >= $slot['from'] && $heureCouranteDecimalNegative <= $slot['to'])) {
-          log::add(__CLASS__, 'debug', 'getSlowdownFactor:: le facteur de ralentissement ' . $slot['sdf'] . ' va être appliqué');
+          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'getSlowdownFactor:: le facteur de ralentissement ' . $slot['sdf'] . ' va être appliqué');
           return $slot['sdf'];
         }
       }
     }
     else {
       if (config::byKey('slowdown_factor', __PLUGIN_NAME_NETRO_ARROSAGE__) != '') {
-        log::add(__CLASS__, 'warning', 'getSlowdownFactor:: le tableau des facteurs de ralentissement est incorrect, aucun ralentissement ne sera donc appliqué');
+        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'warning', 'getSlowdownFactor:: le tableau des facteurs de ralentissement est incorrect, aucun ralentissement ne sera donc appliqué');
       }
       return 1; // pas de ralentissement
     }
@@ -501,7 +500,7 @@ class netroarrosage extends eqLogic {
       $tick = 1;
     }
     else { // faudra attendre une prochaine fois pour rafraichir (facteur de ralentissement actif à l'heure du traitement)
-      log::add(__CLASS__, 'debug', 'controllerSmartRefresh:: aucune mise à jour due au facteur de ralentissement [' . $tick . ', ' . $sdf . ']');
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'controllerSmartRefresh:: aucune mise à jour due au facteur de ralentissement [' . $tick . ', ' . $sdf . ']');
       $tick++;
     }
     
@@ -517,7 +516,7 @@ class netroarrosage extends eqLogic {
       $tick = 1;
     }
     else { // faudra attendre une prochaine fois pour rafraichir (facteur de ralentissement actif à l'heure du traitement)
-      log::add(__CLASS__, 'debug', 'sensorSmartRefresh:: aucune mise à jour due au facteur de ralentissement [' . $tick . ', ' . $sdf . ']');
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'sensorSmartRefresh:: aucune mise à jour due au facteur de ralentissement [' . $tick . ', ' . $sdf . ']');
       $tick++;
     }
     
@@ -653,9 +652,9 @@ class netroarrosage extends eqLogic {
     $cron->save();
     if ($scheduleTime <= strtotime('now')) {
       $cron->run();
-      log::add(__CLASS__, 'debug', "Task '{$_method}' executed now");
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', "Task '{$_method}' executed now");
     } else {
-      log::add(__CLASS__, 'debug', "Task '{$_method}' scheduled at {$_date}");
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', "Task '{$_method}' scheduled at {$_date}");
     }
   }
 }
@@ -682,9 +681,9 @@ class netroarrosageCmd extends cmd {
 
   // Exécution d'une commande
   public function execute($_options = array()) {
-    log::add(__CLASS__, 'debug', 'execute:: options:' . var_export($_options, true));
-    log::add(__CLASS__, 'debug', 'execute:: this:' . var_export($this, true));
-    log::add(__CLASS__, 'info', 'exécution de l\'action (' . $this->getEqLogic()->getName() . '[' . $this->getEqLogic()->getConfiguration('type') . '] /' . $this->getName() . ' #' . $this->getId() . ')');
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'execute:: options:' . var_export($_options, true));
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'execute:: this:' . var_export($this, true));
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'info', 'exécution de l\'action (' . $this->getEqLogic()->getName() . '[' . $this->getEqLogic()->getConfiguration('type') . '] /' . $this->getName() . ' #' . $this->getId() . ')');
 
     $noNeedToRefresh = false;
 
@@ -746,7 +745,7 @@ class netroarrosageCmd extends cmd {
     // refraichissement de l'équipement concerné sauf si ça n'est pas nécessaire (avec un délai avant le refresh si l'équipement le demande
     if (!$noNeedToRefresh) {
       if($this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') != ''){
-        log::add(__CLASS__, 'debug', 'execute:: on attend '
+        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'execute:: on attend '
           . $this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') . ' s avant de mettre à jour l\'équipement...');
         usleep($this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') * 1000000);
       }
