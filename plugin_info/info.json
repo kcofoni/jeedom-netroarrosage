@@ -1,15 +1,6 @@
 {
 	"id" : "netroarrosage",
 	"name" : "Netro arrosage",
-	"specialAttributes" : {
-		"object" : {
-			"toto" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial"},"type" : "input"},
-			"toto2" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial number"},"type" : "number"}
-		},
-		"user" : {
-			"toto" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial"},"type" : "select","values" : [{"value" : "1", "name" : "valeur 1"},{"value" : "plop", "name" : "valeur plop"}]}
-		}
-	},
 	"description" : {
 		"fr_FR": "Plugin basé sur le système d'arrosage automatique Netro Smart Garden"
 	},
@@ -20,10 +11,10 @@
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
 	"maxDependancyInstallTime" : 0,
-	"changelog" : "https://jeedom.github.io/plugin-template/#language#/changelog",
-	"documentation" : "https://jeedom.github.io/plugin-template/#language#/",
-	"changelog_beta" : "https://jeedom.github.io/plugin-template/#language#/beta/changelog",
-	"documentation_beta" : "https://jeedom.github.io/plugin-template/#language#/beta/",
+	"changelog" : "https://kcofoni.github.io/jeedom-docs/plugin-netroarrosage/docs/#language#/changelog",
+	"documentation" : "https://kcofoni.github.io/jeedom-docs/plugin-netroarrosage/docs/#language#/",
+	"changelog_beta" : "https://kcofoni.github.io/jeedom-docs/plugin-netroarrosage/docs/#language#/beta/changelog",
+	"documentation_beta" : "https://kcofoni.github.io/jeedom-docs/plugin-netroarrosage/docs/#language#/beta/",
 	"link" : {
 		"forum":"Lien vers le forum",
 		"video" : "Lien vers une video"
