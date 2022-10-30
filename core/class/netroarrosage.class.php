@@ -354,7 +354,7 @@ class netroarrosage extends eqLogic {
   */
   public static function asynchronousRefresh ($_options) {
     if (isset($_options["type"])) {
-      if ($_options['type'] == 'NetroController') {
+      if ($_options['type'] == 'NetroController' || $_options['type'] == 'NetroZone') {
         self::refreshDevices(true, true, false, false); // rafraîchit le contrôleur et ses zones seulement (les "moistures" et les capteurs sont exclus)
       }
       if ($_options['type'] == 'NetroSensor') {
@@ -362,7 +362,7 @@ class netroarrosage extends eqLogic {
       }
     }
     else { // si le type n'est pas fourni on rafraîchit tout sans réfléchir
-        self::refreshDevices(true, true, false, true); // rafraîchit le contrôleur, ses zones seulement et tous les capteurs (les "moistures" sont exclus)      
+        self::refreshDevices(true, true, false, true); // rafraîchit le contrôleur, ses zones et tous les capteurs (les "moistures" sont exclus)      
     }
   }
 
@@ -679,6 +679,12 @@ class netroarrosageCmd extends cmd {
   }
   */
 
+  /*
+  * Implémenter un refresh asynchrone par cron au lieu d'une attente bloquante pendant l'exécution de la commande
+  * qui nécessite ce refresh après son application
+  */
+  const ASYNCHRONOUS_REFRESH = false;
+
   // Exécution d'une commande
   public function execute($_options = array()) {
     log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'execute:: options:' . var_export($_options, true));
@@ -744,12 +750,26 @@ class netroarrosageCmd extends cmd {
 
     // refraichissement de l'équipement concerné sauf si ça n'est pas nécessaire (avec un délai avant le refresh si l'équipement le demande
     if (!$noNeedToRefresh) {
-      if($this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') != ''){
+      if($this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') != '') {
         log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'execute:: on attend '
           . $this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') . ' s avant de mettre à jour l\'équipement...');
-        usleep($this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') * 1000000);
+        if (self::ASYNCHRONOUS_REFRESH) {
+          netroarrosage::executeAsync('asynchronousRefresh',
+            array('type' => $this->getEqLogic()->getConfiguration('type')),
+            '+ ' . $this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') . ' seconds'
+            );
+          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'execute:: un refresh asynchrone dans ' .
+            '+ ' . $this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') . ' seconds' . ' a été programmé');
+
+        }
+        else {
+          usleep($this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') * 1000000);
+          $this->getEqLogic()->refresh();
+        }
       }
-      $this->getEqLogic()->refresh();
+      else { // simple rafraichissement sans délai si pas nécessaire
+        $this->getEqLogic()->refresh();
+      }
     }
   }
 }
