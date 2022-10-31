@@ -20,9 +20,9 @@ Le plugin permet de gérer un contrôleur et l'ensemble des zones et capteurs qu
 
 Avant de faire quoique ce soit, il faut renseigner le *numéro de série du contrôleur* et ceux *des capteurs* de sol que vous possédez. Vous trouverez ces numéros de série dans l'app *Netro* sur votre smartphone.
 
-Les données du contrôleur sont rafraichies toutes les 5 mn (cron5) et celles des capteurs toutes les 10 mn (cron10). On peut également rafraichir manuellement à partir de l'équipement contrôleur. **Il est important de ne pas abuser de ces "refresh" dans la mesure ou *Netro* limite à 2000 le nombre d'appels par jour à son API**.
+Les données du contrôleur sont rafraîchies toutes les 5 mn (cron5) et celles des capteurs toutes les 10 mn (cron10). On peut également rafraîchir manuellement à partir de l'équipement contrôleur. **Il est important de ne pas abuser de ces "refresh" dans la mesure ou *Netro* limite à 2000 le nombre d'appels par jour à son API**.
 
-Il est probable que vous décidiez de ne pas arroser à certaines heures de la nuit, dans ce cas on pourra ralentir la fréquence de rafraichissement en définissant un *facteur de ralentissement* sur la période concernée. Le formalisme est évoqué un peu plus bas dans la rubrique **fonctions avancées**.
+Il est probable que vous décidiez de ne pas arroser à certaines heures de la nuit, dans ce cas on pourra ralentir la fréquence de rafraîchissement en définissant un *facteur de ralentissement* sur la période concernée. Le formalisme est évoqué un peu plus bas dans la rubrique **paramètres avancés**.
 Ce paramètre est optionnel.
 
 L'*objet parent par défaut* désigne l'objet auquel vous rattacher vos équipements Jeedom *Netro* (ici *Jardin*).
@@ -43,9 +43,9 @@ On retrouve dans le contrôleur les commandes *Action* de *démarrage* et *arrê
 
 Démarrer un arrosage depuis le *contrôleur* a pour effet de lancer l'arrosage de toutes les *zones* actives. Si le système est configuré pour empêcher l'arrosage simultané sur plusieurs zones, l'arrosage démarre sur une première zone et les arrosages sur les autres zones sont planifiées pour se réaliser en séquence, l'une après l'autre. Das ce contexte, *Netro* permet d'indiquer le temps qu'il peut être nécessaire d'attendre entre deux arrosages - à paramétrer dans l'app *Netro* directement -.
 
-L'action *suspendre la planification* permet d'indiquer à Netro que l'on souhaite suspendre toute arrosage planifié dans les jours qui suivent, on indiquera le nombre de jour en paramètre.
+L'action *suspendre la planification* permet d'indiquer à *Netro* que l'on souhaite suspendre toute arrosage planifié dans les jours qui suivent, on indiquera le nombre de jour en paramètre.
 
-Du coté des commandes *Info*, on notera le *statut* du contrôleur au sens de Netro ("ONLINE", "STANDBY", "WATERING", ...), qui découlera notamment des commandes *activation/désactivation* et des commandes de *démarrage* et d'*arrêt* de l'arrosage. Deux binaires sont proposées : *Actif* - pour indiquer que le contrôleur n'est pas en standby - et *Arrosage en cours*.
+Du coté des commandes *Info*, on notera le *statut* du contrôleur au sens de *Netro* ("ONLINE", "STANDBY", "WATERING", ...), qui découlera notamment des commandes *activation/désactivation* et des commandes de *démarrage* et d'*arrêt* de l'arrosage. Deux binaires sont proposées : *Actif* - pour indiquer que le contrôleur n'est pas en standby - et *Arrosage en cours*.
 
 ![Widget du contrôleur](images/widget_controleur.png "Widget du contrôleur *Netro*")
 
@@ -75,7 +75,27 @@ Les équipements représentant les capteurs de sol renferment les information in
 
 ### facteur de ralentissement
 
-### notifications des arrosages
+Comme évoqué plus haut, le nombre d'appels à l'[API Public](http://www.Netrohome.com/en/shop/articles/10) de *Netro* est limité. Aujourd'hui c'est 2000 appels par jour qui peuvent être effectués au maximum et le compteur est remis à 0 tous les jours à minuit. *Netro* ne fournit pas de mécanismes faisant référence à une fonction de rappel (callback), comme c'est le cas pour un certain nombre de systèmes similaires, pour que chaque événement soit notifié au moment où il se produit. Pour cette raison, il est utile d'interroger fréquemment le système pour obtenir un état de la situation le plus fidèle possible à la réalité à l'instant t. 
+
+Le choix qui a été fait pour ce plugin consiste à interroger le contrôleur toutes les 5 mn et les capteurs toutes les 10 mn grâce au type de cron correspondant. Cette fréquence semble satisfaisante dans le cas général, en particulier pendant les périodes où l'activité d'arrosage est fortement probable. En revanche, à certaines périodes de la journée et surtout de la nuit, l'activité est réduite voire même ramenée à 0 à travers les restrictions que nous pouvons imposer dans la configuration *Netro* à travers son application. 
+
+Le paramètre *facteur de ralentissement* va permettre de réduire la fréquence de rafraîchissement à certaines périodes. Sur une seule ligne de configuration on pourra indiquer une suite de triplet (heure de début, heure de fin, coefficient de ralentissement).
+
+Par exemple, indiquer "23:00,05:30,6;11:00,17:50,3" comme facteur de ralentissement signifie que l'on souhaite :
+
+* multiplier par 6 le temps entre deux rafraîchissements entre 23h et 5h30; cela signifie rafraîchir le contrôleur toutes les 5x6 = 30 mn et les capteurs toutes les heures entre 23h et 5h30
+* multiplier par 3 seulement entre 11h et 17h50 c'est à dire une période de raffraichissement de 15 mn pour le contrôleur et 30 mn pour les capteurs.
+
+On peut ainsi, sans dégrader la pertinence des équipements, limiter le nombre d'appels par jour à l'[API Public](http://www.Netrohome.com/en/shop/articles/10) de *Netro* et rester confortablement dans la limite imposée.
 
 ## Exemples d'intégration dans Jeedom Connect
+
+![JC Ecran arrosage](images/jc-netroarrosage.png "Ecran arrosage *Netro*")
+![JC Démarrer arrosage](images/jc-demarrerarrosage.png "Ecran démarrage arrosage *Netro*")
+![JC Arrosage en cours](images/jc-encours.png "Ecran arrosage en cours *Netro*")
+![JC Terminer arrosage](images/jc-terminerarrosage.png "Ecran arrêt arrosage *Netro*")
+![JC Zone détail](images/jc-zonedetail.png "Ecran zone détail arrosage *Netro*")
+![JC Notification arrosage](images/jc-notifications.png "Ecran de notifications JC arrosage *Netro*")
+
+
 
