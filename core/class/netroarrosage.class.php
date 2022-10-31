@@ -353,6 +353,8 @@ class netroarrosage extends eqLogic {
   * Voir plus bas la méthode executeAsync
   */
   public static function asynchronousRefresh ($_options) {
+    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'asynchronousRefresh:: options : ' . var_export($_options, true));
+
     if (isset($_options["type"])) {
       if ($_options['type'] == 'NetroController' || $_options['type'] == 'NetroZone') {
         self::refreshDevices(true, true, false, false); // rafraîchit le contrôleur et ses zones seulement (les "moistures" et les capteurs sont exclus)
@@ -635,7 +637,7 @@ class netroarrosage extends eqLogic {
   /*
   * Permet de déclencher une méthode de manière asynchrone en produisant un cron "one shot"
   */
-  private static function executeAsync(string $_method, $_option = null, $_date = 'now') {
+  public static function executeAsync(string $_method, $_option = null, $_date = 'now') {
     if (!method_exists(__CLASS__, $_method)) {
       throw new InvalidArgumentException("Method provided for executeAsync does not exist: {$_method}");
     }
@@ -652,9 +654,9 @@ class netroarrosage extends eqLogic {
     $cron->save();
     if ($scheduleTime <= strtotime('now')) {
       $cron->run();
-      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', "Task '{$_method}' executed now");
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', "tâche '{$_method}' exécuté maintenant");
     } else {
-      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', "Task '{$_method}' scheduled at {$_date}");
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', "tâche '{$_method}' programmé à {$_date}");
     }
   }
 }
@@ -756,10 +758,10 @@ class netroarrosageCmd extends cmd {
         if (self::ASYNCHRONOUS_REFRESH) {
           netroarrosage::executeAsync('asynchronousRefresh',
             array('type' => $this->getEqLogic()->getConfiguration('type')),
-            '+ ' . $this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') . ' seconds'
+            '+' . $this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') . ' seconds'
             );
           log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'execute:: un refresh asynchrone dans ' .
-            '+ ' . $this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') . ' seconds' . ' a été programmé');
+            '+' . $this->getEqLogic()->getConfiguration('delayBeforeRefreshInfo') . ' seconds' . ' a été programmé');
 
         }
         else {
