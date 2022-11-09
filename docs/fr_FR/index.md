@@ -20,7 +20,7 @@ Le plugin permet de gérer un contrôleur et l'ensemble des zones et capteurs qu
 
 Avant de faire quoique ce soit, il faut renseigner le *numéro de série du contrôleur* et ceux *des capteurs* de sol que vous possédez. Vous trouverez ces numéros de série dans l'app *Netro* sur votre smartphone.
 
-Les données du contrôleur sont rafraîchies toutes les 5 mn (cron5) et celles des capteurs toutes les 10 mn (cron10). On peut également rafraîchir manuellement à partir de l'équipement contrôleur. **Il est important de ne pas abuser de ces "refresh" dans la mesure ou *Netro* limite à 2000 le nombre d'appels par jour à son API**.
+Les données du contrôleur sont rafraîchies toutes les minutes ou toutes les 5 mn (selon que cron ou cron5 est coché) et celles des capteurs toutes les 10 mn (cron10). On peut également rafraîchir manuellement à partir de l'équipement contrôleur. **Il est important de ne pas abuser de ces "refresh" dans la mesure ou *Netro* limite à 2000 le nombre d'appels par jour à son API**.
 
 Il est probable que vous décidiez de ne pas arroser à certaines heures de la nuit, dans ce cas on pourra ralentir la fréquence de rafraîchissement en définissant un *facteur de ralentissement* sur la période concernée. Le formalisme est évoqué un peu plus bas dans la rubrique **paramètres avancés**.
 Ce paramètre est optionnel.

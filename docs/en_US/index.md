@@ -20,7 +20,7 @@ The plugin allows you to manage a controller and all the zones and sensors that 
 
 Before doing anything, you must enter the *serial number of the controller* and those of your *soil sensors*. You can find these serial numbers in the *Netro* app on your smartphone.
 
-Controller data is refreshed every 5 minutes (cron5) and sensor data every 10 minutes (cron10). You can also refresh manually from the controlling equipment. **It is important not to abuse these "refresh" as *Netro* limits the number of calls per day to 2000**.
+Controller data is refreshed every minute or every 5 minutes (depending on whether cron or cron5 is checked) and sensor data every 10 minutes (cron10). You can also refresh manually from the controlling equipment. **It is important not to abuse these "refresh" as *Netro* limits the number of calls per day to 2000**.
 
 It is likely that you decide not to water at certain period of time during the night, in this case we can slow down the refresh rate by defining a *slowdown factor* over the period concerned. The formalism is mentioned a little further down in the **advanced functions** section.
 This parameter is optional.
