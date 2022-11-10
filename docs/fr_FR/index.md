@@ -29,7 +29,9 @@ L'*objet parent par défaut* désigne l'objet auquel vous rattacher vos équipem
 
 ## Création des équipements
 
-A l'issue de la première installation, la page principale du plugin ne présente aucun équipement. Les équipements qui correspondent à votre matériel *Netro* seront générés par le plugin pendant la phase de synchronisation que vous aurez déclenchée grâce au bouton "Synchroniser" en haut à gauche.
+A l'issue de la première installation, la page principale du plugin ne présente aucun équipement. Les équipements qui correspondent à votre matériel *Netro* seront générés par le plugin pendant la phase de synchronisation que vous aurez déclenchée grâce au bouton "Synchroniser" en haut à gauche. Les noms du contrôleur et des zones sont empruntés à *Netro*, aussi faut-il qu’ils soient disponibles pour l’objet de rattachement (il faut que le nom *Pontaillac* dans *Jardin* ne soit pas déjà utilisé au moment de la synchronisation dans l’exemple ci-dessous). Les capteurs sont nommés *capteur de sol* suivi d’un numéro d’ordre quand il y en a plusieurs.
+
+On peut renommer à souhait tous les équipements ainsi générés. On peut également refaire une synchronisation si l’on souhaite refléter des changements opérés avec l’application *Netro* sans prendre le risque de détruire tout ce qui aura pu être configuré suite à la configuration précédente. 
 
 ![Ecran de synchronisation](images/synchronisation.png "Ecran principal de *Netro* Arrosage")
 
