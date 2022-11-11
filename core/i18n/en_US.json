@@ -43,6 +43,46 @@
         "zone existante": "existing zone",
         "zone netro": "netro zone"
     },
+    "plugins\/netroarrosage\/core\/config\/devices\/NetroController\/NetroController.json": {
+        "Nom": "name",
+        "Statut": "status",
+        "Arrosage en cours": "is Watering",
+        "Actif": "is Enabled",
+        "Heure dernière activité": "last active time",
+        "Nombre de zones actives": "active zone number",
+        "activer": "enable",
+        "désactiver": "disable",
+        "rafraichir": "refresh",
+        "Démarrer arrosage": "start watering",
+        "Suspendre planification": "no water",
+        "Terminer arrosage": "stop watering"
+    },
+    "plugins\/netroarrosage\/core\/config\/devices\/NetroSensor\/NetroSensor.json": {
+        "Humidité": "moisture",
+        "Température": "temperature",
+        "Luminosité": "sunlight",
+        "Batterie": "battery",
+        "Heure UTC": "UTC time",
+        "Heure locale": "local time",
+        "Date locale": "local date",
+        "rafraichir": "refresh"
+    },
+    "plugins\/netroarrosage\/core\/config\/devices\/NetroZone\/NetroZone.json": {
+        "Nom": "name",
+        "Arrosage en cours": "is watering",
+        "Statut dernier arrosage": "last watering status",
+        "Date dernier arrosage": "last watering date",        
+        "Début dernier arrosage": "last watering start time",
+        "Fin dernier arrosage": "last watering end time",
+        "Source dernier arrosage": "last watering event source",
+        "Statut prochain arrosage": "next watering status",
+        "Date prochain arrosage": "next watering date",
+        "Début prochain arrosage": "next watering start time",
+        "Fin prochain arrosage": "next watering end time",
+        "Source prochain arrosage": "next watering event source",
+        "Démarrer arrosage": "start watering",
+        "Terminer arrosage": "stop watering"
+    },
     "plugins\/netroarrosage\/desktop\/js\/netroarrosage.js": {
         "Afficher": "Display",
         "Aucune": "None",

@@ -43,6 +43,46 @@
         "zone existante": "zone existante",
         "zone netro": "zone netro"
     },
+    "plugins\/netroarrosage\/core\/config\/devices\/NetroController\/NetroController.json": {
+        "Nom": "nom",
+        "Statut": "statut",
+        "Arrosage en cours": "arrosage en cours",
+        "Actif": "est actif",
+        "Heure dernière activité": "heure dernière activité",
+        "Nombre de zones actives": "nombre de zones actives",
+        "activer": "activer",
+        "désactiver": "désactiver",
+        "rafraichir": "rafraîchir",
+        "Démarrer arrosage": "démarrer arrosage",
+        "Suspendre planification": "suspendre planification",
+        "Terminer arrosage": "terminer arrosage"
+    },
+    "plugins\/netroarrosage\/core\/config\/devices\/NetroSensor\/NetroSensor.json": {
+        "Humidité": "humidité",
+        "Température": "température",
+        "Luminosité": "luminosité",
+        "Batterie": "batterie",
+        "Heure UTC": "heure UTC",
+        "Heure locale": "heure locale",
+        "Date locale": "date locale",
+        "rafraichir": "rafraîchir"
+    },
+    "plugins\/netroarrosage\/core\/config\/devices\/NetroZone\/NetroZone.json": {
+        "Nom": "nom",
+        "Arrosage en cours": "arrosage en cours",
+        "Statut dernier arrosage": "statut dernier arrosage",
+        "Date dernier arrosage": "date dernier arrosage",        
+        "Début dernier arrosage": "début dernier arrosage",
+        "Fin dernier arrosage": "fin dernier arrosage",
+        "Source dernier arrosage": "source dernier arrosage",
+        "Statut prochain arrosage": "statut prochain arrosage",
+        "Date prochain arrosage": "date prochain arrosage",
+        "Début prochain arrosage": "début prochain arrosage",
+        "Fin prochain arrosage": "fin prochain arrosage",
+        "Source prochain arrosage": "source prochain arrosage",
+        "Démarrer arrosage": "démarrer arrosage",
+        "Terminer arrosage": "terminer arrosage"
+    },
     "plugins\/netroarrosage\/desktop\/js\/netroarrosage.js": {
         "Afficher": "Afficher",
         "Aucune": "Aucune",

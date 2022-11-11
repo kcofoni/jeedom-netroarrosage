@@ -284,6 +284,8 @@ class netroarrosage extends eqLogic {
       $cmd->setOrder($i++);
       $cmd->setEqLogic_id($this->getId());
       utils::a2o($cmd, $command);
+      $cmd->setName(__($cmd->getName(), __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'
+        . $this->getConfiguration('type') . '/' . $this->getConfiguration('type') . '.json'));
       $cmd->save();
 
       if ( $command['isDashboard'] == true ) {
