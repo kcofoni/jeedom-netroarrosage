@@ -16,16 +16,16 @@
         "capteur netro": "netro sensor",
         "contrôleur existant": "existing controler",
         "contrôleur netro": "netro controler",
-        "création ou mise à jour des commandes de l'équipement": "creating or updating the equipment commands",
-        "effectuée": "done",
+        "création ou mise à jour des commandes de l'équipement": "creating or updating the equipment commands of",
+        "effectuée": "has been done",
         "est corrompu": "is corrupted",
         "est invalide": "is invalid",
         "exécution de l'action": "currently executing the action",
         "exécuté maintenant": "executed right now",
         "le facteur de ralentissement": "the slowdown factor",
         "le tableau des facteurs de ralentissement est incorrect, aucun ralentissement ne sera donc appliqué": "the slowndown factor table is not correctly formatted, no slowdown could be applied",
-        "les informations du capteur": "the sensor properties",
-        "les informations du contrôleur": "the controler properties",
+        "les informations du capteur": "the sensor properties of",
+        "les informations du contrôleur": "the controler properties of",
         "mise à jour de l'équipement capteur": "updating sensor equipement",
         "mise à jour de l'équipement contrôleur": "updating controler equipment",
         "mise à jour de l'équipement zone": "updating zone equipment",
@@ -109,7 +109,7 @@
         "Numéros de série des capteurs": "Ground sensors serial #",
         "Objet parent par défaut": "Default parent object",
         "Renseignez le numéro de série du contrôleur": "Please provide the controler serial #",
-        "Renseignez les numéros de série des capteurs, séparés par un espace": "Please provide the ground sensors serial numbers separated by a space character",
-        "Sélectionnez l'objet parent auquel sera rattaché chaque équipement à la synchronisation": "Select the parent object the equipements will be attached to, when synchronizing"
+        "Renseignez les numéros de série des capteurs, séparés par un espace": "Please provide the ground sensors serial numbers separated by space",
+        "Sélectionnez l'objet parent auquel sera rattaché chaque équipement à la synchronisation": "Select the parent object the equipements will be attached to when synchronizing"
     }
 }
