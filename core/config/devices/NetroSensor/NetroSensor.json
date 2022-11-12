@@ -5,7 +5,7 @@
         "delayBeforeRefreshInfo" : 2
         },
     "commands":[{
-                "name": "Humidité",
+                "name": "humidité",
                 "type": "info",
                 "subtype": "numeric",
                 "isVisible": 1,
@@ -35,7 +35,7 @@
                         "maxValue":100
                 }                
         },{
-                "name": "Température",
+                "name": "température",
                 "type": "info",
                 "subtype": "numeric",
                 "isVisible": 1,
@@ -61,7 +61,7 @@
                         "mobile":"core::badge"
                 }
         },{
-                "name": "Luminosité",
+                "name": "luminosité",
                 "type": "info",
                 "subtype": "numeric",
                 "isVisible": 1,
@@ -88,7 +88,7 @@
                 }
 
         },{
-                "name": "Batterie",
+                "name": "batterie",
                 "type": "info",
                 "subtype": "numeric",
                 "isVisible": 1,
@@ -118,7 +118,7 @@
                         "maxValue":100
                 }                                
         },{
-                "name": "Heure UTC",
+                "name": "heure UTC",
                 "type": "info",
                 "subtype": "string",
                 "isVisible": 0,
@@ -140,7 +140,7 @@
                         "parameters":[]
                 }
         },{
-                "name": "Heure locale",
+                "name": "heure locale",
                 "type": "info",
                 "subtype": "string",
                 "isVisible": 1,
@@ -162,7 +162,7 @@
                         "parameters":[]
                 }                
         },{
-                "name": "Date locale",
+                "name": "date locale",
                 "type": "info",
                 "subtype": "string",
                 "isVisible": 1,
@@ -185,7 +185,7 @@
                 }
 
         }, {
-                "name": "rafraichir",
+                "name": "rafraîchir",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,

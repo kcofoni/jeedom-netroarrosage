@@ -5,7 +5,7 @@
         "delayBeforeRefreshInfo" : 3
         },
     "commands":[{
-                "name": "Nom",
+                "name": "nom",
                 "type": "info",
                 "subtype": "string",
                 "isVisible": 0,
@@ -27,7 +27,7 @@
                         "parameters":[]
                 }                
         },{
-                "name": "Statut",
+                "name": "statut",
                 "type": "info",
                 "subtype": "string",
                 "isVisible": 1,
@@ -49,7 +49,7 @@
                         "parameters":[]
                 }                                
         },{
-                "name": "Arrosage en cours",
+                "name": "arrosage en cours",
                 "type": "info",
                 "subtype": "binary",
                 "isVisible": 1,
@@ -62,7 +62,7 @@
                         "mobile":"netroarrosage::arrosoir"
                 }                
         },{
-                "name": "Actif",
+                "name": "est actif",
                 "type": "info",
                 "subtype": "binary",
                 "isVisible": 1,
@@ -71,7 +71,7 @@
                 "logicalId": "is_enabled",
                 "isDashboard": 1
         },{
-                "name": "Heure dernière activité",
+                "name": "heure dernière activité",
                 "type": "info",
                 "subtype": "string",
                 "isVisible": 1,
@@ -80,7 +80,7 @@
                 "logicalId": "last_active_time",
                 "isDashboard": 1
         }, {
-                "name": "Nombre de zones actives",
+                "name": "nombre de zones actives",
                 "type": "info",
                 "subtype": "numeric",
                 "isVisible": 0,
@@ -103,14 +103,14 @@
                 "logicalId": "disable",
                 "isDashboard": 0
         }, {
-                "name": "rafraichir",
+                "name": "rafraîchir",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
                 "logicalId": "refresh",
                 "isDashboard": 0
         }, {
-                "name": "Démarrer arrosage",
+                "name": "démarrer arrosage",
                 "type": "action",
                 "subtype": "slider",
                 "isVisible": 1,
@@ -135,7 +135,7 @@
                         "mobile":"core::value"
                 }                
         }, {
-                "name": "Suspendre planification",
+                "name": "suspendre planification",
                 "type": "action",
                 "subtype": "slider",
                 "isVisible": 1,
@@ -160,7 +160,7 @@
                         "mobile":"core::value"
                 }                
         }, {
-                "name": "Terminer arrosage",
+                "name": "terminer arrosage",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
