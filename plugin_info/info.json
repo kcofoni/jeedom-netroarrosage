@@ -7,7 +7,7 @@
 	"licence" : "AGPL",
 	"author" : "kcofoni",
 	"require" : "4.2",
-	"category" : "devicecommunication",
+	"category" : "nature",
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
 	"maxDependancyInstallTime" : 0,
