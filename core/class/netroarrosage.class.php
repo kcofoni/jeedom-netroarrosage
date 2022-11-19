@@ -532,7 +532,14 @@ class netroarrosage extends eqLogic {
   * Fonction exécutée automatiquement toutes les minutes par Jeedom
   */
   public static function cron() {
-    self::controllerSmartRefresh();
+    // si le cron 5 est actif, je désactive ce cron pour éviter deux refresh simultanés
+    if (config::byKey('functionality::cron5::enable', __PLUGIN_NAME_NETRO_ARROSAGE__, 1) == 1)
+    {
+      config.save('functionality::cron::enable', 0, __PLUGIN_NAME_NETRO_ARROSAGE__);
+    }
+    else {
+      self::controllerSmartRefresh();
+    }
   }
 
   /*

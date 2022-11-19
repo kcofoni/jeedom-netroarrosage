@@ -22,6 +22,7 @@ if (!isConnect()) {
   die();
 }
 ?>
+
 <form class="form-horizontal">
   <fieldset>
     <div class="form-group">
@@ -65,3 +66,13 @@ if (!isConnect()) {
     </div>
   </fieldset>
 </form>
+
+<script>
+    $("input[data-l1key='functionality::cron5::enable']").on('change',function(){
+        if ($(this).is(':checked')) $("input[data-l1key='functionality::cron::enable']").prop("checked", false)
+    });
+
+    $("input[data-l1key='functionality::cron::enable']").on('change',function(){
+        if ($(this).is(':checked')) $("input[data-l1key='functionality::cron5::enable']").prop("checked", false)
+    });
+</script>

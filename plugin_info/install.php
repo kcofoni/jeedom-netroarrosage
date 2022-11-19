@@ -21,6 +21,8 @@ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 function netroarrosage_install() {
 	config::save('controllerTick', 0, 'netroarrosage');
 	config::save('sensorTick', 0, 'netroarrosage');
+	config::save('functionality::cron::enable', 0, 'netroarrosage');
+	config::save('functionality::cron5::enable', 1, 'netroarrosage');
 }
 
 // Fonction exécutée automatiquement après la mise à jour du plugin
