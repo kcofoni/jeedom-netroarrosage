@@ -1,5 +1,6 @@
 *.log
-3rdparty/vendor/*
+3rdparty/vendor/**/.gitignore
+3rdparty/vendor/**/.pullapprove.yml
 .DS_Store
 *sublime*
 
