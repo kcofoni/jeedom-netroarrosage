@@ -460,8 +460,14 @@ class netroarrosage extends eqLogic {
 
 
   public static function getSlowdownFactor () {
-    $slots = self::getFactorsFromString(config::byKey('slowdown_factor', __PLUGIN_NAME_NETRO_ARROSAGE__));
-    log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'getSlowdownFactor:: ' . __('tableau des facteurs de ralentissement', __FILE__) . ' : ' . var_export($slots, true));
+    // on ne s'intéresse qu'au cas où l'utilisateur a renseigné le facteur de ralentissement dans la configuration
+    if (config::byKey('slowdown_factor', __PLUGIN_NAME_NETRO_ARROSAGE__) != '') {
+      $slots = self::getFactorsFromString(config::byKey('slowdown_factor', __PLUGIN_NAME_NETRO_ARROSAGE__));
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'getSlowdownFactor:: ' . __('tableau des facteurs de ralentissement', __FILE__) . ' : ' . var_export($slots, true));
+    }
+    else {
+      return 1; // pas de ralentissement
+    }
 
     if (is_array($slots)) {
       // convertir les heures du tableau en décimal
