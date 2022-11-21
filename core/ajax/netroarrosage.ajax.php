@@ -34,7 +34,7 @@ try {
             netroarrosage::synchronize();
             ajax::success();
         } catch (Exception $e) {
-            ajax::error(displayExeption($e), $e->getCode());
+            ajax::error(displayException($e), $e->getCode());
         }
     }
 
