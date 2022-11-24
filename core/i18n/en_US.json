@@ -7,7 +7,7 @@
         "Impossible de trouver le fichier de configuration pour l'équipement de type": "Cannot find the configuration file for the equipement of type",
         "Le fichier de configuration": "The configuration file",
         "Method provided for executeAsync does not exist": "Method provided for executeAsync does not exist",
-        "Synchronisation impossible si aucun numéro de série n'est fourni pour le contrôleur": "Synchronisation impossible si aucun numéro de série n'est fourni pour le contrôleur",
+        "Synchronisation impossible si aucun numéro de série n'est fourni pour le contrôleur": "Unable to sync if no serial number is provided for the controller",
         "a été programmé": "has been planned",
         "aucun numéro de série n'est fourni pour le(s) capteur(s) de sol": "no serial number has been provided for the ground sensors",
         "aucune mise à jour due au facteur de ralentissement": "no update due to slowndown factor",
