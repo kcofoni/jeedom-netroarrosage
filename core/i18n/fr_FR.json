@@ -4,6 +4,7 @@
         "Aucune méthode correspondante à": "Aucune méthode correspondante à"
     },
     "plugins\/netroarrosage\/core\/class\/netroarrosage.class.php": {
+        "Capteur de sol": "Capteur de sol",
         "Impossible de trouver le fichier de configuration pour l'équipement de type": "Impossible de trouver le fichier de configuration pour l'équipement de type",
         "Le fichier de configuration": "Le fichier de configuration",
         "Method provided for executeAsync does not exist": "Method provided for executeAsync does not exist",

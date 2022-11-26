@@ -251,7 +251,7 @@ class netroarrosage extends eqLogic {
 
   private function updateEqLogicSensor($netroSensor, $parentObjectId = '', $suffix = '') {
     $this->setLogicalId($netroSensor->getKey());
-    $this->setName('Capteur de sol' . $suffix);
+    $this->setName(__('Capteur de sol', __FILE__) . $suffix);
     $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);
