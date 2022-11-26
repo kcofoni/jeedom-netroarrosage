@@ -94,21 +94,39 @@
                 "subtype": "other",
                 "isVisible": 1,
                 "logicalId": "enable",
-                "isDashboard": 0
+                "isDashboard": 0,
+                "display": {
+                        "showStatsOnmobile":0,
+                        "showStatsOndashboard":0,
+                        "icon":"<i class=\"fas fa-toggle-on \"><\/i>",
+                        "invertBinary":"0"
+                }
         }, {
                 "name": "désactiver",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
                 "logicalId": "disable",
-                "isDashboard": 0
+                "isDashboard": 0,
+                "display": {
+                        "showStatsOnmobile":0,
+                        "showStatsOndashboard":0,
+                        "icon":"<i class=\"fas fa-toggle-off \"><\/i>",
+                        "invertBinary":"0"
+                }                
         }, {
                 "name": "rafraîchir",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
                 "logicalId": "refresh",
-                "isDashboard": 0
+                "isDashboard": 0,
+                "display": {
+                        "showStatsOnmobile":0,
+                        "showStatsOndashboard":0,
+                        "icon":"<i class=\"fas fa-sync \"><\/i>",
+                        "invertBinary":"0"
+                }                                
         }, {
                 "name": "démarrer arrosage",
                 "type": "action",

@@ -190,7 +190,13 @@
                 "subtype": "other",
                 "isVisible": 1,
                 "logicalId": "refresh",
-                "isDashboard": 0
+                "isDashboard": 0,
+                "display": {
+                        "showStatsOnmobile":0,
+                        "showStatsOndashboard":0,
+                        "icon":"<i class=\"fas fa-sync \"><\/i>",
+                        "invertBinary":"0"
+                }                                                
         }
     ]
 }
