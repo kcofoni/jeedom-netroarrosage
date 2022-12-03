@@ -388,6 +388,7 @@ class netroarrosage extends eqLogic {
     $this->checkAndUpdateCmd('status', $controller->status);
     $this->checkAndUpdateCmd('is_watering', $controller->watering_flag);
     $this->checkAndUpdateCmd('is_enabled', $controller->active_flag);
+    $this->checkAndUpdateCmd('token_remaining', $controller->token_remaining);
     $this->checkAndUpdateCmd('last_active_time', $controller->last_active_time);
     $this->checkAndUpdateCmd('active_zone_number', count($controller->active_zones));
 
