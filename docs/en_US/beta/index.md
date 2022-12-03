@@ -16,7 +16,7 @@ The plugin allows you to manage a controller and all the zones and sensors that 
 
 ## Configuration
 
-![Ecran de configuration](images/configuration.png "Ecran de configuration de *Netro* Arrosage")
+![Configuration screen](images/configuration.png "*Netro* Arrosage configuration screen")
 
 Before doing anything, you must enter the *serial number of the controller* and those of your *soil sensors*. You can find these serial numbers in the *Netro* app on your smartphone.
 
@@ -33,7 +33,7 @@ At the end of the first installation, the main page of the plugin does not prese
 
  You can rename all the equipments generated in this way.  You can also redo a synchronization if you want to reflect changes made with the *Netro* application without taking the risk of destroying everything that may have been configured before.
 
-![Ecran de synchronisation](images/synchronisation.png "Ecran principal de *Netro* Arrosage")
+![Synchronisation screen](images/synchronisation.png "Main screen of *Netro* Arrosage")
 
 The serial numbers provided in the configuration page will be used to discover your *Netro* environment. If you have not provided them beforehand, the synchronization will have no effect.
 
@@ -49,13 +49,13 @@ The *no water* action allows you to indicate to *Netro* that you want to suspend
 
 On the side of the *Info* commands, we will note the *status* of the controller in the sense of *Netro* ("ONLINE", "STANDBY", "WATERING", ...), which will result in particular from the *activation/deactivation* commands and *start* and *stop* watering controls. Two binaries are offered: *Active* - to indicate that the controller is not in standby mode - and *Watering in progress*.
 
-![Widget du contrôleur](images/widget_controleur.png "Widget du contrôleur *Netro*")
+![Widget of the controller](images/widget_controller.png "Widget of the *Netro* controller")
 
 When you want to start irrigation of only one zone, you may apply the *start* irrigation command to the equipment representing the given *zone* (see later in this document in the section "Zones").
 
 Note that the number of calls made since midnight to the [Public API](http://www.*Netro*home.com/en/shop/articles/10) is indicated in the information section of the equipment main page near to the maximum number of authorized calls. These are the *number of tokens remaining* and the maximum *number of tokens* as shown below.
 
-![Ecran du contrôleur](images/jetons.png "Ecran principal du contrôleur *Netro*")
+![Controller screen](images/token.png "Main screen of the *Netro* controller")
 
 ### Zones
 
@@ -63,7 +63,7 @@ In *zone* type equipment, we find the actions of *starting* and *stopping* irrig
 
 In addition, we find all the information relating to the last watering, whether it is finished or not: its *status* (is it finished or still in progress), its *source* (manual or planned start), its *date/time of start* and its *end time*, past or forecast if watering is still in progress.
 
-![Ecran de la zone](images/widget_zone.png "Ecran principal de la zone *Netro*")
+![Zone screen](images/widget_zone.png "Main screen of the *Netro* zone")
 
 In a completely symmetrical way, we find the information relating to the next planned watering, considering that the planning has been carried out.
 
@@ -71,7 +71,7 @@ In a completely symmetrical way, we find the information relating to the next pl
  
 The equipment representing the soil sensors contain the information inherent in the reading carried out by the sensors at regular intervals, namely the temperature, the humidity and the luminosity. The battery level, which must be taken care of since it depends on the brightness, is also displayed.
 
-![Ecran du capteur de sol](images/capteur_de_sol.png "Ecran principal du capteur *Netro*")
+![Ground sensor screen](images/ground_sensor.png "Main screen of the *Netro* ground sensor")
 
 ## Advanced functions
 
@@ -92,12 +92,12 @@ It is thus possible, without degrading the relevance of the equipment, to limit 
 
 ## Examples of integration in Jeedom Connect
 
-![JC Ecran arrosage](images/jc-netroarrosage.png "Ecran arrosage *Netro*")
-![JC Démarrer arrosage](images/jc-demarrerarrosage.png "Ecran démarrage arrosage *Netro*")
-![JC Arrosage en cours](images/jc-encours.png "Ecran arrosage en cours *Netro*")
-![JC Terminer arrosage](images/jc-terminerarrosage.png "Ecran arrêt arrosage *Netro*")
-![JC Zone détail](images/jc-zonedetail.png "Ecran zone détail arrosage *Netro*")
-![JC Notification arrosage](images/jc-notifications.png "Ecran de notifications JC arrosage *Netro*")
+![JC watering screen](images/jc-netro_arrosage.png "*Netro* watering screen")
+![JC start watering](images/jc-start_watering.png "*Netro* starting watering screen")
+![JC running watering](images/jc-running.png "*Netro* running watering screen")
+![JC stop watering](images/jc-stop_watering.png "*Netro* stop watering screen")
+![JC zone detail](images/jc-zone_detail.png "*Netro* watering zone detail")
+![JC watering notification](images/jc-notification.png "*Netro* watering notification")
 
 
 
