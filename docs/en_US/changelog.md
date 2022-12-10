@@ -4,6 +4,9 @@
 >
 >If there is no information for a given update, it means that it concerns only the update of documentation, translation or text.
 
+# 10/12/2022
+Added an Info command (*so what*) giving a complete textual status of the zone.
+
 # 3/12/2022
 Added an Info command giving the number of tokens remaining to be consumed by the end of the day on the Netro API.
 
