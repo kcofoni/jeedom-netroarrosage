@@ -234,6 +234,28 @@
                         "parameters":[]
                 }                
         }, {
+                "name": "et alors",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "so_what",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"0",
+                        "showNameOnmobile":"0",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                }                
+        }, {
                 "name": "démarrer arrosage",
                 "type": "action",
                 "subtype": "slider",

@@ -25,6 +25,7 @@ define('__PLUGIN_NAME_NETRO_ARROSAGE__', 'netroarrosage');
 use NetroPublicAPI\netroController;
 use NetroPublicAPI\netroSensor;
 use NetroPublicAPI\netroZone;
+use NetroPublicAPI\netroFunction;
 
 class netroarrosage extends eqLogic {
   /*     * *************************Attributs****************************** */
@@ -414,6 +415,8 @@ class netroarrosage extends eqLogic {
         $eqLogicZone->checkAndUpdateCmd('next_start_time', is_array($nextRun) ? $nextRun['local_start_time'] : '');
         $eqLogicZone->checkAndUpdateCmd('next_end_time', is_array($nextRun) ? $nextRun['local_end_time'] : '');
         $eqLogicZone->checkAndUpdateCmd('next_event_source', is_array($nextRun) ? $nextRun['source'] : '');
+
+        $eqLogicZone->checkAndUpdateCmd('so_what', self::soWhat($lastRun, $nextRun));
       }
     }
 
@@ -447,6 +450,59 @@ class netroarrosage extends eqLogic {
     $this->save();
 
     log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'info', __('les informations du capteur', __FILE__) . ' "' . $this->name . '" ' . __('ont été mises à jour', __FILE__));
+  }
+
+  public static function soWhat ($lastRun, $nextRun) {
+    $soWhatText = '';
+    $arrosageEnCoursText = __("arrosage en cours depuis %02d:%02d, fin prévu à %02d:%02d pour une durée de %01.0f mn environ", __FILE__);
+    $arrosageTermineText = __("arrosée %8$01.0f mn le %02d/%02d/%02d à %02d:%02d", __FILE__);
+    $arrosageSuivantText = __(", prochain arrosage le %02d/%02d/%02d à %02d:%02d (%8$01.0f mn)", __FILE__); 
+
+    // a t-on des informations sur le dernier arrosage, sinon on ne fait rien
+    if (is_array($lastRun)) {
+      $dtStartLastW = DateTime::createFromFormat(netroFunction::NETRO_DATETIME_FORMAT, $lastRun['local_date'] . ' ' . $lastRun['local_start_time']);
+      $dtEndLastW = DateTime::createFromFormat(netroFunction::NETRO_DATETIME_FORMAT, $lastRun['local_date'] . ' ' . $lastRun['local_end_time']);      
+
+      if ($lastRun['status'] == netroFunction::NETRO_SCHEDULE_EXECUTING) {
+        $soWhatText = sprintf($arrosageEnCoursText,
+                              getDate($dtStartLastW->getTimestamp())['hours'],
+                              getDate($dtStartLastW->getTimestamp())['minutes'],
+                              getDate($dtEndLastW->getTimestamp())['hours'],
+                              getDate($dtEndLastW->getTimestamp())['minutes'],
+                              ($dtEndLastW->getTimestamp() - $dtStartLastW->getTimestamp()) / 60);
+      }
+
+      if ($lastRun['status'] == netroFunction::NETRO_SCHEDULE_EXECUTED) {
+        // le prochain arrosage est-il planifié
+        if (is_array($nextRun)) {
+          $dtStartNextW = DateTime::createFromFormat(netroFunction::NETRO_DATETIME_FORMAT, $nextRun['local_date'] . ' ' . $nextRun['local_start_time']);
+          $dtEndNextW = DateTime::createFromFormat(netroFunction::NETRO_DATETIME_FORMAT, $nextRun['local_date'] . ' ' . $nextRun['local_end_time']);      
+        }
+
+        $soWhatText = sprintf($arrosageTermineText,
+                              getDate($dtStartLastW->getTimestamp())['mday'],
+                              getDate($dtStartLastW->getTimestamp())['mon'],
+                              getDate($dtStartLastW->getTimestamp())['year'],
+                              getDate($dtStartLastW->getTimestamp())['hours'],
+                              getDate($dtStartLastW->getTimestamp())['minutes'],
+                              getDate($dtEndLastW->getTimestamp())['hours'],
+                              getDate($dtEndLastW->getTimestamp())['minutes'],
+                              ($dtEndLastW->getTimestamp() - $dtStartLastW->getTimestamp()) / 60) .
+                    (is_array($nextRun) && $nextRun['status'] != '' ?
+                      sprintf($arrosageSuivantText,
+                              getDate($dtStartNextW->getTimestamp())['mday'],
+                              getDate($dtStartNextW->getTimestamp())['mon'],
+                              getDate($dtStartNextW->getTimestamp())['year'],
+                              getDate($dtStartNextW->getTimestamp())['hours'],
+                              getDate($dtStartNextW->getTimestamp())['minutes'],
+                              getDate($dtEndNextW->getTimestamp())['hours'],
+                              getDate($dtEndNextW->getTimestamp())['minutes'],
+                              ($dtEndNextW->getTimestamp() - $dtStartNextW->getTimestamp()) / 60)
+                      : '');
+      }
+    }
+
+    return $soWhatText;
   }
 
   public static function getFactorsFromString ($factors) {

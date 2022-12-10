@@ -4,12 +4,15 @@
         "Aucune méthode correspondante à": "Aucune méthode correspondante à"
     },
     "plugins\/netroarrosage\/core\/class\/netroarrosage.class.php": {
+        ", prochain arrosage le %02d\/%02d\/%02d à %02d:%02d (%8$01.0f mn)": ", prochain arrosage le %02d\/%02d\/%02d à %02d:%02d (%8$01.0f mn)",
         "Capteur de sol": "Capteur de sol",
         "Impossible de trouver le fichier de configuration pour l'équipement de type": "Impossible de trouver le fichier de configuration pour l'équipement de type",
         "Le fichier de configuration": "Le fichier de configuration",
         "Method provided for executeAsync does not exist": "Method provided for executeAsync does not exist",
         "Synchronisation impossible si aucun numéro de série n'est fourni pour le contrôleur": "Synchronisation impossible si aucun numéro de série n'est fourni pour le contrôleur",
         "a été programmé": "a été programmé",
+        "arrosage en cours depuis %02d:%02d, fin prévu à %02d:%02d pour une durée de %01.0f mn environ": "arrosage en cours depuis %02d:%02d, fin prévu à %02d:%02d pour une durée de %01.0f mn environ",
+        "arrosée %8$01.0f mn le %02d\/%02d\/%02d à %02d:%02d": "arrosée %8$01.0f mn le %02d\/%02d\/%02d à %02d:%02d",
         "aucun numéro de série n'est fourni pour le(s) capteur(s) de sol": "aucun numéro de série n'est fourni pour le(s) capteur(s) de sol",
         "aucune mise à jour due au facteur de ralentissement": "aucune mise à jour due au facteur de ralentissement",
         "avant de mettre à jour l'équipement...": "avant de mettre à jour l'équipement...",
@@ -76,6 +79,7 @@
         "début dernier arrosage": "début dernier arrosage",
         "début prochain arrosage": "début prochain arrosage",
         "démarrer arrosage": "démarrer arrosage",
+        "et alors": "et alors",
         "fin dernier arrosage": "fin dernier arrosage",
         "fin prochain arrosage": "fin prochain arrosage",
         "nom": "nom",

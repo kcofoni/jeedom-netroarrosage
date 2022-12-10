@@ -46,6 +46,7 @@ class netroFunction {
     const NETRO_SCHEDULE_EXECUTED = "EXECUTED";
     const NETRO_SCHEDULE_EXECUTING = "EXECUTING";
     const NETRO_SCHEDULE_VALID = "VALID";
+    const NETRO_DATETIME_FORMAT = "Y-m-d H:i:s";
     const NETRO_ERROR = "ERROR";
     const NETRO_OK = "OK";    
     const NETRO_EVENT_DEVICEOFFLINE = 1;

@@ -4,12 +4,15 @@
         "Aucune méthode correspondante à": "No method corresponding to"
     },
     "plugins\/netroarrosage\/core\/class\/netroarrosage.class.php": {
+        ", prochain arrosage le %02d\/%02d\/%02d à %02d:%02d (%8$01.0f mn)": ", next watering on %02d\/%02d\/%02d at %02d:%02d (%8$01.0f mn)",
         "Capteur de sol": "Ground Sensor",
         "Impossible de trouver le fichier de configuration pour l'équipement de type": "Cannot find the configuration file for the equipement of type",
         "Le fichier de configuration": "The configuration file",
         "Method provided for executeAsync does not exist": "Method provided for executeAsync does not exist",
         "Synchronisation impossible si aucun numéro de série n'est fourni pour le contrôleur": "Unable to sync if no serial number is provided for the controller",
         "a été programmé": "has been planned",
+        "arrosage en cours depuis %02d:%02d, fin prévu à %02d:%02d pour une durée de %01.0f mn environ": "watering in progress since %02d:%02d, scheduled end at %02d:%02d for a duration of %01.0f mn",
+        "arrosée %8$01.0f mn le %02d\/%02d\/%02d à %02d:%02d": "watered %8$01.0f mn on %02d\/%02d\/%02d at %02d:%02d",
         "aucun numéro de série n'est fourni pour le(s) capteur(s) de sol": "no serial number has been provided for the ground sensors",
         "aucune mise à jour due au facteur de ralentissement": "no update due to slowndown factor",
         "avant de mettre à jour l'équipement...": "before updating the equipment...",
@@ -76,6 +79,7 @@
         "début dernier arrosage": "last watering start time",
         "début prochain arrosage": "next watering start time",
         "démarrer arrosage": "start watering",
+        "et alors": "so what",
         "fin dernier arrosage": "last watering end time",
         "fin prochain arrosage": "next watering end time",
         "nom": "name",
