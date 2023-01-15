@@ -25,6 +25,8 @@ Les données du contrôleur sont rafraîchies toutes les minutes ou toutes les 5
 Il est probable que vous décidiez de ne pas arroser à certaines heures de la nuit, dans ce cas on pourra ralentir la fréquence de rafraîchissement en définissant un *facteur de ralentissement* sur la période concernée. Le formalisme est évoqué un peu plus bas dans la rubrique **paramètres avancés**.
 Ce paramètre est optionnel.
 
+Le plugin permet, au travers de ses commandes, de consulter l'historique et les prévisions d'arrosage sur une période de temps qui se définit par *le nombre de mois avant et après* la date courante. Netro propose une fenêtre par  défaut de *un mois avant* et *un mois après*. L'écran de configuration permet d'élargir cette période si besoin. 
+
 L'*objet parent par défaut* désigne l'objet auquel vous souhaitez rattacher vos équipements Jeedom *Netro* (ici *Jardin*).
 
 ## Création des équipements

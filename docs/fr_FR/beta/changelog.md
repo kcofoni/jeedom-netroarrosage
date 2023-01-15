@@ -13,3 +13,6 @@ Ajout d'une commande info donnant le nombre de token restant à consommer d'ici 
 # 11/11/2022
 Finalisation de la traduction en anglais. La traduction du nom des commandes est réalisée au moment de la synchronisation. Il faut donc refaire une synchro après avoir changé de langue si l'on veut les commandes dans la langue cible. L'ensemble des propriétés des commandes existantes est préservé de sorte que le changement de nom n'a aucun impact par ailleurs.
 
+# 15/1/2023
+L'écran de configuration permet désormais d'étendre la période d'obtention de l'historique et des prévisions d'arrosage (voir documentation)
+
