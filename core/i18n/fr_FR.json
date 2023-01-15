@@ -151,11 +151,17 @@
         "Aucune": "Aucune",
         "Facteur de ralentissement": "Facteur de ralentissement",
         "Fournir les tranches horaires et le facteur de ralentissement souhaité sur chacune d'elle": "Fournir les tranches horaires et le facteur de ralentissement souhaité sur chacune d'elle",
+        "Indiquer le nombre de mois après la date courante qui sera considéré en vue de déterminer la date du prochain arrosage": "Indiquer le nombre de mois après la date courante qui sera considéré en vue de déterminer la date du prochain arrosage",
+        "Indiquer le nombre de mois avant la date courante qui sera considéré en vue de déterminer la date du dernier arrosage": "Indiquer le nombre de mois avant la date courante qui sera considéré en vue de déterminer la date du dernier arrosage",
         "Numéro de série du controleur": "Numéro de série du controleur",
         "Numéros de série des capteurs": "Numéros de série des capteurs",
         "Objet parent par défaut": "Objet parent par défaut",
-        "Renseignez le numéro de série du contrôleur": "Renseignez le numéro de série du contrôleur",
-        "Renseignez les numéros de série des capteurs, séparés par un espace": "Renseignez les numéros de série des capteurs, séparés par un espace",
-        "Sélectionnez l'objet parent auquel sera rattaché chaque équipement à la synchronisation": "Sélectionnez l'objet parent auquel sera rattaché chaque équipement à la synchronisation"
+        "Observation de la planification à partir de": "Observation de la planification à partir de",
+        "Renseigner le numéro de série du contrôleur": "Renseigner le numéro de série du contrôleur",
+        "Renseigner les numéros de série des capteurs, séparés par un espace": "Renseigner les numéros de série des capteurs, séparés par un espace",
+        "Sélectionner l'objet parent auquel sera rattaché chaque équipement à la synchronisation": "Sélectionner l'objet parent auquel sera rattaché chaque équipement à la synchronisation",
+        "jusqu'à": "jusqu'à",
+        "mois après": "mois après",
+        "mois avant": "mois avant"
     }
 }

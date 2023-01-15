@@ -27,7 +27,7 @@ if (!isConnect()) {
   <fieldset>
     <div class="form-group">
       <label class="col-md-4 control-label">{{Numéro de série du controleur}}
-        <sup><i class="fas fa-question-circle tooltips" title="{{Renseignez le numéro de série du contrôleur}}"></i></sup>
+        <sup><i class="fas fa-question-circle tooltips" title="{{Renseigner le numéro de série du contrôleur}}"></i></sup>
       </label>
       <div class="col-md-4">
         <input class="configKey form-control" data-l1key="ctrl_serial_n"/>
@@ -35,7 +35,7 @@ if (!isConnect()) {
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label">{{Numéros de série des capteurs}}
-        <sup><i class="fas fa-question-circle tooltips" title="{{Renseignez les numéros de série des capteurs, séparés par un espace}}"></i></sup>
+        <sup><i class="fas fa-question-circle tooltips" title="{{Renseigner les numéros de série des capteurs, séparés par un espace}}"></i></sup>
       </label>
       <div class="col-md-4">
         <input class="configKey form-control" data-l1key="sensor_serial_n"/>
@@ -51,7 +51,7 @@ if (!isConnect()) {
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label">{{Objet parent par défaut}}
-        <sup><i class="fas fa-question-circle tooltips" title="{{Sélectionnez l'objet parent auquel sera rattaché chaque équipement à la synchronisation}}"></i></sup>
+        <sup><i class="fas fa-question-circle tooltips" title="{{Sélectionner l'objet parent auquel sera rattaché chaque équipement à la synchronisation}}"></i></sup>
       </label>
       <div class="col-md-4">
         <select id="sel_object" class="configKey form-control" data-l1key="default_parent_object">
@@ -61,6 +61,34 @@ if (!isConnect()) {
             echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
           }
           ?>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label">{{Observation de la planification à partir de}}
+        <sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le nombre de mois avant la date courante qui sera considéré en vue de déterminer la date du dernier arrosage}}"></i></sup>
+      </label>
+      <div class="col-md-2">
+        <select class="configKey form-control" data-l1key="schedules_month_before">
+          <option value="1" selected>1 {{mois avant}}</option>
+          <option value="2">2 {{mois avant}}</option>
+          <option value="3">3 {{mois avant}}</option>
+          <option value="4">4 {{mois avant}}</option>
+          <option value="5">5 {{mois avant}}</option>
+          <option value="6">6 {{mois avant}}</option>        
+        </select>
+      </div>
+      <label class="col-md-2 control-label">{{jusqu'à}}
+        <sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le nombre de mois après la date courante qui sera considéré en vue de déterminer la date du prochain arrosage}}"></i></sup>
+      </label>
+      <div class="col-md-2">
+        <select class="configKey form-control" data-l1key="schedules_month_after">
+          <option value="1" selected>1 {{mois après}}</option>
+          <option value="2">2 {{mois après}}</option>
+          <option value="3">3 {{mois après}}</option>
+          <option value="4">4 {{mois après}}</option>
+          <option value="5">5 {{mois après}}</option>
+          <option value="6">6 {{mois après}}</option>        
         </select>
       </div>
     </div>

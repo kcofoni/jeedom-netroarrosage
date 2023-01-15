@@ -76,7 +76,7 @@ class netroarrosage extends eqLogic {
       $nc = new netroController($config["ctrl_serial_n"]);
       $nc->loadInfo();
       $nc->loadMoistures();
-      $nc->loadSchedules();
+      $nc->loadSchedules(self::getSchedulesStartDate(), self::getSchedulesEndDate());
 
       log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('contrôleur netro', __FILE__) . ' : ['
         . $nc->name . ', '
@@ -379,7 +379,7 @@ class netroarrosage extends eqLogic {
       $controller = new netroController($this->getLogicalId());
       $controller->loadInfo();
       if ($schedulesFlag)
-        $controller->loadSchedules();
+        $controller->loadSchedules(self::getSchedulesStartDate(), self::getSchedulesEndDate());
       if ($moisturesFlag)
         $controller->loadMoistures();
     }
@@ -503,6 +503,32 @@ class netroarrosage extends eqLogic {
     }
 
     return $soWhatText;
+  }
+
+  private static function getSchedulesStartDate () {
+    $startDate = '';
+
+    $schedules_month_before = config::byKey('schedules_month_before', __PLUGIN_NAME_NETRO_ARROSAGE__);
+    if (!empty($schedules_month_before) && is_numeric($schedules_month_before)) {
+      $todayAndBefore = new DateTime();
+      $todayAndBefore->sub(new DateInterval('P' . $schedules_month_before . 'M'));
+      $startDate = $todayAndBefore->format(netroFunction::NETRO_DATE_FORMAT);
+    }
+
+    return $startDate;
+  }
+  
+  private static function getSchedulesEndDate () {
+    $endDate = '';
+
+    $schedules_month_after = config::byKey('schedules_month_after', __PLUGIN_NAME_NETRO_ARROSAGE__);
+    if (!empty($schedules_month_after) && is_numeric($schedules_month_after)) {
+      $todayAndAfter = new DateTime();
+      $todayAndAfter->add(new DateInterval('P' . $schedules_month_after . 'M'));
+      $endDate = $todayAndAfter->format(netroFunction::NETRO_DATE_FORMAT);
+    }
+
+    return $endDate;
   }
 
   public static function getFactorsFromString ($factors) {

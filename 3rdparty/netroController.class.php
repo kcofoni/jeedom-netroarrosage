@@ -213,8 +213,8 @@ class netroController {
         }
     }
 
-    public function loadSchedules () {
-        $this->_schedules = NetroFunction::getSchedules($this->_key)["data"]["schedules"];
+    public function loadSchedules ($startDate = '', $endDate = '') {
+        $this->_schedules = NetroFunction::getSchedules($this->_key, null, $startDate, $endDate)["data"]["schedules"];
 
         // sans paramètre pur la requete on récupère les schedules sur le dernier mois et sur le prochain mois
         // le but est de retrouver pour chaque active zone le statut EXECUTED/EXECUTING le plus récent (ça vient de se passer) et le statut VALID

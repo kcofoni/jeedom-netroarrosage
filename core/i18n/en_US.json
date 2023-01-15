@@ -151,11 +151,17 @@
         "Aucune": "None",
         "Facteur de ralentissement": "Slowdown factor",
         "Fournir les tranches horaires et le facteur de ralentissement souhaité sur chacune d'elle": "Provide the time slots and their corresponding slowdown factor",
+        "Indiquer le nombre de mois après la date courante qui sera considéré en vue de déterminer la date du prochain arrosage": "Indicate the number of months after the current date to be considered when getting the next watering date",
+        "Indiquer le nombre de mois avant la date courante qui sera considéré en vue de déterminer la date du dernier arrosage": "Indicate the number of months before the current date to be considered when getting the last watering date",
         "Numéro de série du controleur": "Controler serial #",
         "Numéros de série des capteurs": "Ground sensors serial #",
         "Objet parent par défaut": "Default parent object",
-        "Renseignez le numéro de série du contrôleur": "Please provide the controler serial #",
-        "Renseignez les numéros de série des capteurs, séparés par un espace": "Please provide the ground sensors serial numbers separated by space",
-        "Sélectionnez l'objet parent auquel sera rattaché chaque équipement à la synchronisation": "Select the parent object the equipements will be attached to when synchronizing"
+        "Observation de la planification à partir de": "Getting schedules from",
+        "Renseigner le numéro de série du contrôleur": "Please provide the controler serial #",
+        "Renseigner les numéros de série des capteurs, séparés par un espace": "Please provide the ground sensors serial numbers separated by space",
+        "Sélectionner l'objet parent auquel sera rattaché chaque équipement à la synchronisation": "Select the parent object the equipements will be attached to when synchronizing",
+        "jusqu'à": "until",
+        "mois après": "month(s) after",
+        "mois avant": "month(s) before"
     }
 }
