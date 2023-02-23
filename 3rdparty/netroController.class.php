@@ -251,10 +251,10 @@ class netroController {
 
             // initialisation du coming schedule de chacune des zones actives
             {
-                // filtrage du tableau sur le status VALID et la zone
+                // filtrage du tableau sur le status VALID et la zone, en ne conservant que les date/heure à venir (et non celles qui sont déjà passées)
                 $coming_schedules = array_filter($this->_schedules, function($schedItem) {
                     global $zoneIndex;
-                    return $schedItem["status"] == NetroFunction::NETRO_SCHEDULE_VALID && $schedItem["zone"] == $zoneIndex;
+                    return $schedItem["status"] == NetroFunction::NETRO_SCHEDULE_VALID && $schedItem["zone"] == $zoneIndex && $schedItem["start_time"] > gmdate("Y-m-d\\TH:i:s");
                 });
 
                 // tri du tableau obtenu par le filtre par date croissante pour avoir la prochaine date la plus récente en premier
