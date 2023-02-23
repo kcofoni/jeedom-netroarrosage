@@ -4,6 +4,12 @@
 >
 >S'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
 
+# 23/2/2023
+correction d'une anomalie concernant la date de prévision du prochain arrosage
+
+# 15/1/2023
+L’écran de configuration permet désormais d’étendre la période d’obtention de l’historique et des prévisions d’arrosage (voir documentation)
+
 # 10/12/2022
 Ajout d'une commande info (*et alors*) donnant un statut textuel de la zone.
 

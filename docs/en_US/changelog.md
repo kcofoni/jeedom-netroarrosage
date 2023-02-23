@@ -4,6 +4,12 @@
 >
 >If there is no information for a given update, it means that it concerns only the update of documentation, translation or text.
 
+# 23/2/2023
+bug fix related to next watering scheduling date
+
+# 15/1/2023
+The configuration screen now allows to extend the period within which the history and watering forecast is got (please refer to documentation).
+
 # 10/12/2022
 Added an Info command (*so what*) giving a complete textual status of the zone.
 
