@@ -143,15 +143,13 @@ class netroarrosage extends eqLogic {
 
         // chargement des données du capteur depuis Netro
         $ns = new netroSensor($sensor_serial);
+        $ns->loadInfo();
         $ns->loadSensorData();
         log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('capteur netro', __FILE__) . ' : ['
+          . $ns->name . ', '
+          . $ns->status . ', '
+          . $ns->last_active_time . ', '
           . $ns->time . ', '
-          . $ns->local_date . ', '
-          . $ns->local_time . ', '
-          . $ns->moisture . ', '
-          . $ns->sunlight . ', '
-          . $ns->celsius . ', '
-          . $ns->fahrenheit . ', '
           . $ns->battery_level
           . ']');
 
@@ -252,7 +250,7 @@ class netroarrosage extends eqLogic {
 
   private function updateEqLogicSensor($netroSensor, $parentObjectId = '', $suffix = '') {
     $this->setLogicalId($netroSensor->getKey());
-    $this->setName(__('Capteur de sol', __FILE__) . $suffix);
+    $this->setName($netroSensor->name);
     $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);
@@ -260,6 +258,9 @@ class netroarrosage extends eqLogic {
     $this->setConfiguration('type', 'NetroSensor');
 
     $this->setConfiguration('battery_level', $netroSensor->battery_level);
+    $this->setConfiguration('name', $netroSensor->name);
+    $this->setConfiguration('version', $netroSensor->version);
+    $this->setConfiguration('sw_version', $netroSensor->sw_version);
 
     $config = $this->loadConfigFile();
 
@@ -626,7 +627,7 @@ class netroarrosage extends eqLogic {
     // si le cron 5 est actif, je désactive ce cron pour éviter deux refresh simultanés
     if (config::byKey('functionality::cron5::enable', __PLUGIN_NAME_NETRO_ARROSAGE__, 1) == 1)
     {
-      config.save('functionality::cron::enable', 0, __PLUGIN_NAME_NETRO_ARROSAGE__);
+      config::save('functionality::cron::enable', 0, __PLUGIN_NAME_NETRO_ARROSAGE__);
     }
     else {
       self::controllerSmartRefresh();

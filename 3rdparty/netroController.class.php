@@ -28,6 +28,14 @@ class netroSensor {
     public $celsius;
     public $fahrenheit;
     public $battery_level;
+    public $name;
+    public $status;
+    public $version;
+    public $sw_version;
+    public $active_flag;
+    public $last_active_time;
+    private $_meta = [];
+    private $_device = [];
 
     function __construct($key) {
         $this->_key = $key;
@@ -36,6 +44,24 @@ class netroSensor {
     public function getKey() {
         return $this->_key;
     }
+    public function loadInfo() {
+        $info = NetroFunction::getInfo($this->_key);
+        $this->_meta = $info["meta"];
+        $this->_device = $info["data"]["sensor"];
+
+        // mise à jour des propriétés du sensor
+        $this->name = $this->_device["name"];
+        $this->status = $this->_device["status"];
+        $this->version = $this->_device["version"];
+        $this->sw_version = $this->_device["sw_version"];
+
+        $this->last_active_time = $this->_device["last_active"];
+        $this->active_flag = ($this->status == NetroFunction::NETRO_STATUS_ONLINE) ? true : false;
+
+        if (self::DEBUG_MODE) {
+            // var_dump($this);
+        }
+    } 
 
     public function loadSensorData () {
         $this->_sensor_data = netroFunction::getSensorData($this->_key, date('Y-m-d'), date('Y-m-d'))["data"]["sensor_data"];
