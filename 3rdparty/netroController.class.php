@@ -320,7 +320,7 @@ class netroController {
         $this->last_active_time = $this->_device["last_active"];
         $this->zone_number = $this->_device["zone_num"];
         $this->watering_flag = ($this->status == NetroFunction::NETRO_STATUS_WATERING) ? true : false;
-        $this->active_flag = ($this->status == NetroFunction::NETRO_STATUS_STANDBY) ? false : true;
+        $this->active_flag = ($this->status == NetroFunction::NETRO_STATUS_ONLINE) ? true : false;
 
         foreach ($this->_device["zones"] as $clef => $zone) {
             if ($zone["enabled"]) {
