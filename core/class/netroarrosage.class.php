@@ -51,76 +51,75 @@ class netroarrosage extends eqLogic {
 
     log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: config : ' . var_export($config, true));
 
-    // un numéro de série doit obligatoirement avoir été renseigné pour continuer
-    if (empty($config["ctrl_serial_n"])) {
-        $NoSerial4CtrlErrorMessage = __("Synchronisation impossible si aucun numéro de série n'est fourni pour le contrôleur", __FILE__);
-        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'warning', $NoSerial4CtrlErrorMessage);
-        throw new Exception($NoSerial4CtrlErrorMessage);
-    }
+    if (!empty($config["ctrl_serial_n"])) {  // création ou mise à jour des controleurs
+      $controller_serials = explode(" ", $config["ctrl_serial_n"]); // les numéros de série sont séparés par des espaces
+      $sensor_index = 0;
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: controller_serials : ' . var_export($controller_serials, true));
 
-    { // création ou mise à jour des controleurs
+      foreach ($controller_serials as $controller_serial) {
 
-      // recherche d'un équipement possédant le numéro de série du controleur
-      $eqLogicController = eqLogic::byLogicalId($config["ctrl_serial_n"], __PLUGIN_NAME_NETRO_ARROSAGE__);
+        // recherche d'un équipement possédant le numéro de série du controleur
+        $eqLogicController = eqLogic::byLogicalId($controller_serial, __PLUGIN_NAME_NETRO_ARROSAGE__);
 
-      // si pas trouvé il faut créer un équipement vide
-      if (!is_object($eqLogicController)) {
-        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('nouveau contrôleur', __FILE__));
-        $eqLogicController = new netroarrosage();
-      }
-      else{
-        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('contrôleur existant', __FILE__));          
-      }
-
-      // chargement des données du controlleur depuis Netro
-      $nc = new netroController($config["ctrl_serial_n"]);
-      $nc->loadInfo();
-      $nc->loadMoistures();
-      $nc->loadSchedules(self::getSchedulesStartDate(), self::getSchedulesEndDate());
-
-      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('contrôleur netro', __FILE__) . ' : ['
-        . $nc->name . ', '
-        . $nc->status . ', '
-        . $nc->zone_number . ', '
-        . $nc->last_active_time . ', '
-        . count($nc->active_zones)
-        . ']');        
-
-      // mise à jour de l'équipement et de ses commandes avec les données de Netro 
-      $eqLogicController->updateEqLogicController($nc, $config["default_parent_object"]);
-
-      $eqLogicController->createCmd();
-
-      { // création ou mise à jour des zones
-        foreach ($nc->active_zones as $zoneId => $zone) {
-          // recherche d'une zone possédant le numéro "série du controleur_zoneId"
-          $eqLogicZone = eqLogic::byLogicalId($config["ctrl_serial_n"] . '_' . $zoneId, __PLUGIN_NAME_NETRO_ARROSAGE__);
-
-          // si pas trouvé il faut créer un équipement de type zone vide
-          if (!is_object($eqLogicZone)) {
-            log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('nouvelle zone', __FILE__));
-            $eqLogicZone = new netroarrosage();
-          }
-          else{
-            log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('zone existante', __FILE__));          
-          }
-
-          // chargement des données de la zone depuis Netro
-          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('zone netro', __FILE__) . ' : ['
-            . $zone->id . ', '
-            . $zone->name . ', '
-            . $zone->smart . ', '
-            . ']');
-
-          // mise à jour de l'équipement et de ses commandes avec les données de Netro 
-          $eqLogicZone->updateEqLogicZone($nc, $zone, $config["default_parent_object"]);
-
-          $eqLogicZone->createCmd();
+        // si pas trouvé il faut créer un équipement vide
+        if (!is_object($eqLogicController)) {
+          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('nouveau contrôleur', __FILE__));
+          $eqLogicController = new netroarrosage();
         }
-      }
+        else{
+          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('contrôleur existant', __FILE__));          
+        }
 
-      // mise à jour des commandes info
-      $eqLogicController->refreshController($nc);
+        // chargement des données du controlleur depuis Netro
+        $nc = new netroController($controller_serial);
+        $nc->loadInfo();
+        $nc->loadMoistures();
+        $nc->loadSchedules(self::getSchedulesStartDate(), self::getSchedulesEndDate());
+
+        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('contrôleur netro', __FILE__) . ' : ['
+          . $nc->name . ', '
+          . $nc->status . ', '
+          . $nc->zone_number . ', '
+          . $nc->last_active_time . ', '
+          . count($nc->active_zones)
+          . ']');        
+
+        // mise à jour de l'équipement et de ses commandes avec les données de Netro 
+        $eqLogicController->updateEqLogicController($nc, $config["default_parent_object"]);
+
+        $eqLogicController->createCmd();
+
+        { // création ou mise à jour des zones
+          foreach ($nc->active_zones as $zoneId => $zone) {
+            // recherche d'une zone possédant le numéro "série du controleur_zoneId"
+            $eqLogicZone = eqLogic::byLogicalId($controller_serial . '_' . $zoneId, __PLUGIN_NAME_NETRO_ARROSAGE__);
+
+            // si pas trouvé il faut créer un équipement de type zone vide
+            if (!is_object($eqLogicZone)) {
+              log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('nouvelle zone', __FILE__));
+              $eqLogicZone = new netroarrosage();
+            }
+            else{
+              log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('zone existante', __FILE__));          
+            }
+
+            // chargement des données de la zone depuis Netro
+            log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('zone netro', __FILE__) . ' : ['
+              . $zone->id . ', '
+              . $zone->name . ', '
+              . $zone->smart . ', '
+              . ']');
+
+            // mise à jour de l'équipement et de ses commandes avec les données de Netro 
+            $eqLogicZone->updateEqLogicZone($nc, $zone, $config["default_parent_object"]);
+
+            $eqLogicZone->createCmd();
+          }
+        }
+
+        // mise à jour des commandes info
+        $eqLogicController->refreshController($nc);
+      }
     }
     
     if (!empty($config["sensor_serial_n"])) {  // création ou mise à jour des capteurs
