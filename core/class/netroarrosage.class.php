@@ -223,7 +223,7 @@ class netroarrosage extends eqLogic {
 
   private function updateEqLogicZone($netroController, $netroZone, $parentObjectId = '') {
     $this->setLogicalId($netroController->getKey() . '_' . $netroZone->id);
-    $this->setName($netroZone->name);
+    $this->setName(trim($netroZone->name) != '' ? $netroZone->name : $netroController->name . '_' . $netroZone->id);
     $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);        
