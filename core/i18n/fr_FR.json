@@ -8,7 +8,7 @@
         "Capteur de sol": "Capteur de sol",
         "Impossible de trouver le fichier de configuration pour l'équipement de type": "Impossible de trouver le fichier de configuration pour l'équipement de type",
         "Le fichier de configuration": "Le fichier de configuration",
-        "Method provided for executeAsync does not exist": "Method provided for executeAsync does not exist",
+        "Method provided for executeAsync does not exist": "La méthode fournie pour executeAsync n'existe pas",
         "Synchronisation impossible si aucun numéro de série n'est fourni pour le contrôleur": "Synchronisation impossible si aucun numéro de série n'est fourni pour le contrôleur",
         "a été programmé": "a été programmé",
         "arrosage en cours depuis %02d:%02d, fin prévu à %02d:%02d pour une durée de %01.0f mn environ": "arrosage en cours depuis %02d:%02d, fin prévu à %02d:%02d pour une durée de %01.0f mn environ",
@@ -119,6 +119,7 @@
         "Commentaire": "Commentaire",
         "Configuration": "Configuration",
         "Configuration avancée": "Configuration avancée",
+        "Controller": "Contrôleur",
         "Dupliquer": "Dupliquer",
         "Equipement": "Equipement",
         "Etat": "Etat",
@@ -128,7 +129,6 @@
         "Jetons restants": "Jetons restants",
         "Mes capteurs": "Mes capteurs",
         "Mes contrôleurs et zones": "Mes contrôleurs et zones",
-        "Name": "Name",
         "Nom": "Nom",
         "Nom de l'équipement": "Nom de l'équipement",
         "Nombre de jetons max": "Nombre de jetons max",
@@ -163,5 +163,9 @@
         "jusqu'à": "jusqu'à",
         "mois après": "mois après",
         "mois avant": "mois avant"
+    },
+    "traduitjdm": {
+        "timestamp": "2023-04-07 14:08:14",
+        "version": "1.1.0"
     }
 }

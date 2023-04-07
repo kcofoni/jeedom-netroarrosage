@@ -198,7 +198,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">{{Name}}</label>
+								<label class="col-sm-3 control-label">{{Nom}}</label>
 								<div class="col-sm-7">
 									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="name"></span>
 								</div>
@@ -207,6 +207,12 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								<label class="col-sm-3 control-label">{{Smart}}</label>
 								<div class="col-sm-7">
 									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="smart"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Controller}}</label>
+								<div class="col-sm-7">
+									<span class="netroarrosage label label-info" data-l1key="configuration" data-l2key="controller"></span>
 								</div>
 							</div>
 							<div class="form-group">

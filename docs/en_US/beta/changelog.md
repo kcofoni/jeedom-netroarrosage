@@ -4,8 +4,13 @@
 >
 >If there is no information for a given update, it means that it concerns only the update of documentation, translation or text.
 
+# 6/4/2023
+- Pixie model integration
+- Ability to manage several controllers
+- Name and versions of the sensors now displayed in the "Equipment" tab
+
 # 23/2/2023
-bug fix related to next watering scheduling date
+Bug fix related to next watering scheduling date
 
 # 15/1/2023
 The configuration screen now allows to extend the period within which the history and watering forecast is got (please refer to documentation).
