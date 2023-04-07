@@ -119,6 +119,7 @@
         "Commentaire": "Comment",
         "Configuration": "Configuration",
         "Configuration avancée": "Advanced configuration",
+        "Controller": "Controller",
         "Dupliquer": "Duplicate",
         "Equipement": "Equipment",
         "Etat": "State",
@@ -128,7 +129,6 @@
         "Jetons restants": "Token remaining",
         "Mes capteurs": "My sensors",
         "Mes contrôleurs et zones": "My controler and zones",
-        "Name": "Name",
         "Nom": "Name",
         "Nom de l'équipement": "Name of the equipment",
         "Nombre de jetons max": "Token limit",
@@ -163,5 +163,9 @@
         "jusqu'à": "until",
         "mois après": "month(s) after",
         "mois avant": "month(s) before"
+    },
+    "traduitjdm": {
+        "timestamp": "2023-04-07 14:08:14",
+        "version": "1.1.0"
     }
 }

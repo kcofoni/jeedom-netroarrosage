@@ -4,8 +4,13 @@
 >
 >S'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
 
+# 6/4/2023
+- Intégration du modèle Pixie
+- Possibilité de gérer plusieurs contrôleurs
+- Récupération du nom et des informations de version des capteurs, affichés dans l'onglet "Equipement"
+
 # 23/2/2023
-correction d'une anomalie concernant la date de prévision du prochain arrosage
+Correction d'une anomalie concernant la date de prévision du prochain arrosage
 
 # 15/1/2023
 L’écran de configuration permet désormais d’étendre la période d’obtention de l’historique et des prévisions d’arrosage (voir documentation)

@@ -72,6 +72,7 @@ function printEqLogic(_eqLogic) {
       $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=id]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=smart]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=controller]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=name]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=token_limit]').closest('.form-group').show();      
       $('.netroarrosage[data-l1key=configuration][data-l2key=token_remaining]').closest('.form-group').show();            
@@ -86,6 +87,7 @@ function printEqLogic(_eqLogic) {
       $('.netroarrosage[data-l1key=configuration][data-l2key=nb_zones]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=id]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=smart]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=controller]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=token_limit]').closest('.form-group').hide();      
       $('.netroarrosage[data-l1key=configuration][data-l2key=token_remaining]').closest('.form-group').hide();                   
@@ -97,6 +99,7 @@ function printEqLogic(_eqLogic) {
       $('.netroarrosage[data-l1key=configuration][data-l2key=id]').value(_eqLogic.configuration.id);
       $('.netroarrosage[data-l1key=configuration][data-l2key=name]').value(_eqLogic.configuration.name);                  
       $('.netroarrosage[data-l1key=configuration][data-l2key=smart]').value(_eqLogic.configuration.smart);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=controller]').value(_eqLogic.configuration.controller);
 
       $('.netroarrosage[data-l1key=configuration][data-l2key=version]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=sw_version]').closest('.form-group').hide();
@@ -104,6 +107,7 @@ function printEqLogic(_eqLogic) {
       $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=id]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=smart]').closest('.form-group').show();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=controller]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=name]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=token_limit]').closest('.form-group').hide();      
       $('.netroarrosage[data-l1key=configuration][data-l2key=token_remaining]').closest('.form-group').hide();                   

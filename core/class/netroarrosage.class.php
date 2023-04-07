@@ -235,6 +235,7 @@ class netroarrosage extends eqLogic {
     $this->setConfiguration('id', $netroZone->id);
     $this->setConfiguration('name', $netroZone->name);
     $this->setConfiguration('smart', $netroZone->smart);
+    $this->setConfiguration('controller', $netroController->name);
 
     $config = $this->loadConfigFile();
 
