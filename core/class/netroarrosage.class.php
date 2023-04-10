@@ -195,7 +195,8 @@ class netroarrosage extends eqLogic {
 
   private function updateEqLogicController($netroController, $parentObjectId = '') {
     $this->setLogicalId($netroController->getKey());
-    $this->setName($netroController->name);
+    if (empty($this->getName())) // no reason to set name if set already
+      $this->setName(self::getAvailableName($netroController->name, $parentObjectId, 'NC'));
     $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);
@@ -223,7 +224,8 @@ class netroarrosage extends eqLogic {
 
   private function updateEqLogicZone($netroController, $netroZone, $parentObjectId = '') {
     $this->setLogicalId($netroController->getKey() . '_' . $netroZone->id);
-    $this->setName(trim($netroZone->name) != '' ? $netroZone->name : $netroController->name . '_' . $netroZone->id);
+    if (empty($this->getName())) // no reason to set name if set already
+      $this->setName(self::getAvailableName(trim($netroZone->name) != '' ? $netroZone->name : $netroController->name . '_' . $netroZone->id, $parentObjectId, 'NZ'));
     $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);        
@@ -250,7 +252,8 @@ class netroarrosage extends eqLogic {
 
   private function updateEqLogicSensor($netroSensor, $parentObjectId = '', $suffix = '') {
     $this->setLogicalId($netroSensor->getKey());
-    $this->setName($netroSensor->name);
+    if (empty($this->getName())) // no reason to set name if set already
+      $this->setName(self::getAvailableName($netroSensor->name, $parentObjectId, 'NS'));
     $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);
@@ -544,7 +547,35 @@ class netroarrosage extends eqLogic {
     return $slots;
   }
 
-
+  private static function getAvailableName($wishedName, $objectid, $qualifier='Netro') {
+    // looking for all the equipments belonging to the object (including the disabled one)
+    $existing_eqs = eqLogic::byObjectId($objectid, false);
+  
+    // building the list of names related to the object starting with the wished name
+    $existing_names = array();
+    foreach ($existing_eqs as $existing_eq) {
+      $name = $existing_eq->getName();
+      if (startsWith($name, $wishedName))
+          $existing_names[] = $name;
+    }
+    
+    // if the wished name is available, bingo !
+    if (!in_array($wishedName, $existing_names))
+      return $wishedName;
+    // building another name since the wished one is not available
+    for ($i = 0; $i < 250; $i++) {
+      // proposed name is : <wished-name>-<qualifier>[-<incremented-index>]
+      $newName = $wishedName . '-' . $qualifier . ($i==0 ? '' : $i);
+      if (!in_array($newName, $existing_names)) {
+        $warning_string = __("Cannnot create the equipment '%s' since this name is already used, name '%s' is given instead", __FILE__);
+        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'warning', sprintf($warning_string, $wishedName, $newName));
+        return $newName;
+      }
+    }
+    $exception_string = __("Cannot generate a unique name (too many generated names) for replacing '%s' which is already used", __FILE__);
+    throw new Exception(sprintf($exception_string, $wishedName));
+  }
+  
   public static function getSlowdownFactor () {
     // on ne s'intéresse qu'au cas où l'utilisateur a renseigné le facteur de ralentissement dans la configuration
     if (config::byKey('slowdown_factor', __PLUGIN_NAME_NETRO_ARROSAGE__) != '') {
