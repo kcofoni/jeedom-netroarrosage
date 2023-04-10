@@ -5,6 +5,8 @@
     },
     "plugins\/netroarrosage\/core\/class\/netroarrosage.class.php": {
         ", prochain arrosage le %02d\/%02d\/%02d à %02d:%02d (%8$01.0f mn)": ", prochain arrosage le %02d\/%02d\/%02d à %02d:%02d (%8$01.0f mn)",
+        "Cannnot create the equipment '%s' since this name is already used, name '%s' is given instead": "Impossible de créer l'équipement '%s' dont le nom est déjà utilisé, le nom de substitution proposé est '%s'",
+        "Cannot generate a unique name (too many generated names) for replacing '%s' which is already used": "Impossible de générer un nom unique (trop de nomn générés) pour remplacer '%s' qui est déjà utilisé",
         "Capteur de sol": "Capteur de sol",
         "Impossible de trouver le fichier de configuration pour l'équipement de type": "Impossible de trouver le fichier de configuration pour l'équipement de type",
         "Le fichier de configuration": "Le fichier de configuration",
@@ -165,7 +167,7 @@
         "mois avant": "mois avant"
     },
     "traduitjdm": {
-        "timestamp": "2023-04-07 14:08:14",
+        "timestamp": "2023-04-10 17:24:51",
         "version": "1.1.0"
     }
 }
