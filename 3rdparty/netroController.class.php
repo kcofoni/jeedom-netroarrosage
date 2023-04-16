@@ -325,7 +325,7 @@ class netroController {
 
         // mise à jour du niveau de batterie pour les controleurs autonomes (Pixie par exemple)
         if (array_key_exists("battery_level", $this->_device)) {
-            $this->battery_level = $this->_device["battery_level"];
+            $this->battery_level = $this->_device["battery_level"] * 100;
         }
 
         foreach ($this->_device["zones"] as $clef => $zone) {

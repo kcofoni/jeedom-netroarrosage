@@ -70,7 +70,10 @@ function printEqLogic(_eqLogic) {
       $('.netroarrosage[data-l1key=configuration][data-l2key=version]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=sw_version]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=nb_zones]').closest('.form-group').show();
-      $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').show();
+      if (isNaN(_eqLogic.configuration.battery_level))
+        $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').hide();
+      else
+        $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=id]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=smart]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=controller]').closest('.form-group').hide();
