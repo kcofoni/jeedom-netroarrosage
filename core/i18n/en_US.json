@@ -62,7 +62,8 @@
         "rafraîchir": "refresh",
         "statut": "status",
         "suspendre planification": "no water",
-        "terminer arrosage": "stop watering"
+        "terminer arrosage": "stop watering",
+        "batterie": "battery"
     },
     "plugins\/netroarrosage\/core\/config\/devices\/NetroSensor\/NetroSensor.json": {
         "batterie": "battery",

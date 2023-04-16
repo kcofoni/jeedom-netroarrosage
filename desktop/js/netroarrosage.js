@@ -62,14 +62,15 @@ function printEqLogic(_eqLogic) {
       $('.netroarrosage[data-l1key=configuration][data-l2key=sw_version]').value(_eqLogic.configuration.sw_version);
       $('.netroarrosage[data-l1key=configuration][data-l2key=nb_zones]').value(_eqLogic.configuration.nb_zones);
       $('.netroarrosage[data-l1key=configuration][data-l2key=name]').value(_eqLogic.configuration.name);
-      $('.netroarrosage[data-l1key=configuration][data-l2key=token_limit]').value(_eqLogic.configuration.token_limit);            
-      $('.netroarrosage[data-l1key=configuration][data-l2key=token_remaining]').value(_eqLogic.configuration.token_remaining);            
+      $('.netroarrosage[data-l1key=configuration][data-l2key=token_limit]').value(_eqLogic.configuration.token_limit);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=token_remaining]').value(_eqLogic.configuration.token_remaining);
+      $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').value(_eqLogic.configuration.battery_level + ' %');
 
 
       $('.netroarrosage[data-l1key=configuration][data-l2key=version]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=sw_version]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=nb_zones]').closest('.form-group').show();
-      $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').hide();
+      $('.netroarrosage[data-l1key=configuration][data-l2key=battery_level]').closest('.form-group').show();
       $('.netroarrosage[data-l1key=configuration][data-l2key=id]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=smart]').closest('.form-group').hide();
       $('.netroarrosage[data-l1key=configuration][data-l2key=controller]').closest('.form-group').hide();

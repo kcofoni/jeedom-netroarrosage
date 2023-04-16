@@ -99,6 +99,36 @@
                 "isDashboard": 0,
                 "configuration": {"minValue":0, "maxValue":2000}
         }, {
+                "name": "batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "isHistorized": 1,
+                "unite": "%",
+                "logicalId": "battery_level",
+                "isDashboard": 0,
+                "display": {
+                        "icon":"<i class=\"icon jeedom-batterie2 \"><\/i>",
+                        "invertBinary":"0",
+                        "showNameOndashboard":"1",
+                        "showNameOnmobile":"1",
+                        "showIconAndNamedashboard":"0",
+                        "showIconAndNamemobile":"0",
+                        "forceReturnLineBefore":"0",
+                        "forceReturnLineAfter":"0",
+                        "showStatsOndashboard":"1",
+                        "showStatsOnmobile":"1",
+                        "parameters":[]
+                },
+                "template": {
+                        "dashboard":"core::badge",
+                        "mobile":"core::badge"
+                },
+                "configuration": {
+                        "minValue":0,
+                        "maxValue":100
+                }                                
+        }, {
                 "name": "activer",
                 "type": "action",
                 "subtype": "other",

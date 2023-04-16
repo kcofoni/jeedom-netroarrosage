@@ -203,6 +203,7 @@ class netroarrosage extends eqLogic {
 
     $this->setConfiguration('type', 'NetroController');
 
+    $this->setConfiguration('battery_level', $netroController->battery_level);
     $this->setConfiguration('name', $netroController->name);
     $this->setConfiguration('version', $netroController->version);
     $this->setConfiguration('sw_version', $netroController->sw_version);
@@ -396,6 +397,7 @@ class netroarrosage extends eqLogic {
     $this->checkAndUpdateCmd('token_remaining', $controller->token_remaining);
     $this->checkAndUpdateCmd('last_active_time', $controller->last_active_time);
     $this->checkAndUpdateCmd('active_zone_number', count($controller->active_zones));
+    $this->checkAndUpdateCmd('battery_level', $controller->battery_level);
 
     // mise à jour de l'équipement zone associé à chaque zone active du controleur
     foreach ($controller->active_zones as $zoneId => $zone) {
@@ -428,6 +430,7 @@ class netroarrosage extends eqLogic {
     $this->setConfiguration('token_limit', $controller->token_limit);
     $this->setConfiguration('token_remaining', $controller->token_remaining);
     $this->setConfiguration('token_time', $controller->token_time);
+    $this->setConfiguration('battery_level', $controller->battery_level);
     $this->save();
 
     log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'info', __('les informations du contrôleur', __FILE__) . ' "' . $this->name . '" ' . __('ont été mises à jour', __FILE__));
