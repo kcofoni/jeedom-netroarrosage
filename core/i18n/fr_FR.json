@@ -62,7 +62,8 @@
         "rafraîchir": "rafraîchir",
         "statut": "statut",
         "suspendre planification": "suspendre planification",
-        "terminer arrosage": "terminer arrosage"
+        "terminer arrosage": "terminer arrosage",
+        "batterie": "batterie"
     },
     "plugins\/netroarrosage\/core\/config\/devices\/NetroSensor\/NetroSensor.json": {
         "batterie": "batterie",

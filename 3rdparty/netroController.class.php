@@ -165,6 +165,7 @@ class netroController {
     public $last_active_time;
     public $zone_number;
     public $active_zones = []; // tableau d'instances de NetroZone
+    public $battery_level;
 
     function __construct($key) {
         $this->_key = $key;
@@ -321,6 +322,11 @@ class netroController {
         $this->zone_number = $this->_device["zone_num"];
         $this->watering_flag = ($this->status == NetroFunction::NETRO_STATUS_WATERING) ? true : false;
         $this->active_flag = ($this->status == NetroFunction::NETRO_STATUS_ONLINE) ? true : false;
+
+        // mise à jour du niveau de batterie pour les controleurs autonomes (Pixie par exemple)
+        if (array_key_exists("battery_level", $this->_device)) {
+            $this->battery_level = $this->_device["battery_level"];
+        }
 
         foreach ($this->_device["zones"] as $clef => $zone) {
             if ($zone["enabled"]) {
