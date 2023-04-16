@@ -52,6 +52,7 @@
     "plugins\/netroarrosage\/core\/config\/devices\/NetroController\/NetroController.json": {
         "activer": "activer",
         "arrosage en cours": "arrosage en cours",
+        "batterie": "batterie",
         "démarrer arrosage": "démarrer arrosage",
         "désactiver": "désactiver",
         "est actif": "est actif",
@@ -62,8 +63,7 @@
         "rafraîchir": "rafraîchir",
         "statut": "statut",
         "suspendre planification": "suspendre planification",
-        "terminer arrosage": "terminer arrosage",
-        "batterie": "batterie"
+        "terminer arrosage": "terminer arrosage"
     },
     "plugins\/netroarrosage\/core\/config\/devices\/NetroSensor\/NetroSensor.json": {
         "batterie": "batterie",
@@ -168,7 +168,7 @@
         "mois avant": "mois avant"
     },
     "traduitjdm": {
-        "timestamp": "2023-04-10 17:24:51",
+        "timestamp": "2023-04-16 18:52:52",
         "version": "1.1.0"
     }
 }
