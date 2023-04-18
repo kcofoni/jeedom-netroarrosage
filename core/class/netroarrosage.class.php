@@ -168,9 +168,24 @@ class netroarrosage extends eqLogic {
 
   public function getIconFile() {
     $type = $this->getConfiguration('type');
-    $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.$type.'.png';
+    if ($type == 'NetroSensor')
+      $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.'Whisperer.png';
+    elseif ($type == 'NetroController') {
+      // on part du principe que c'est un Pixie si la configuration fournit le niveau de batterie
+      // et dans le cas contraire que c'est un Sprite (pas de distingo à ce stade entre le Spark et le Sprite)
+      if (empty($this->getConfiguration('battery_level')))
+        $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.'Sprite.png';
+      else
+        $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.'Pixie.png';
+    }
+    elseif ($type == 'NetroZone')
+      $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.'SolenoidValve.png';
+    else
+      $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/default.png';
 
-    return (file_exists($filename) === true ? ('plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . '/core/config/devices/'.$type.'/'.$type.'.png')
+    preg_match ("/\/core\/config\/devices\/.*/", $filename, $matches); //extrait le nom du fichier à partir de /core
+
+    return (file_exists($filename) === true ? ('plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . $matches[0])
                                             : ('plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . '/core/config/devices/default.png'));
   }
 
@@ -284,6 +299,13 @@ class netroarrosage extends eqLogic {
     $i = 0;
 
     foreach ($config['commands'] as $command) {
+      // on ne créera pas de commande donnant le niveau de batterie si l'équipement ne possède pas cette information
+      if ($command['logicalId'] == 'battery_level' && empty($this->getConfiguration('battery_level'))) {
+        $cmd = $this->getCmd(null, $command['logicalId']);
+        if (is_object($cmd))
+          $cmd->remove(); // on détruit cette commande si elle existe d'une précédente version
+        continue;
+      }
       // on ne recrée pas la commande si elle existe déjà
       $cmd = $this->getCmd(null, $command['logicalId']);
       if (!is_object($cmd)) {
@@ -397,7 +419,8 @@ class netroarrosage extends eqLogic {
     $this->checkAndUpdateCmd('token_remaining', $controller->token_remaining);
     $this->checkAndUpdateCmd('last_active_time', $controller->last_active_time);
     $this->checkAndUpdateCmd('active_zone_number', count($controller->active_zones));
-    $this->checkAndUpdateCmd('battery_level', $controller->battery_level);
+    if (!empty($this->getConfiguration('battery_level')))
+      $this->checkAndUpdateCmd('battery_level', $controller->battery_level);
 
     // mise à jour de l'équipement zone associé à chaque zone active du controleur
     foreach ($controller->active_zones as $zoneId => $zone) {
@@ -570,12 +593,12 @@ class netroarrosage extends eqLogic {
       // proposed name is : <wished-name>-<qualifier>[-<incremented-index>]
       $newName = $wishedName . '-' . $qualifier . ($i==0 ? '' : $i);
       if (!in_array($newName, $existing_names)) {
-        $warning_string = __("Cannnot create the equipment '%s' since this name is already used, name '%s' is given instead", __FILE__);
+        $warning_string = __("Impossible de créer l'équipement '%s' dont le nom est déjà utilisé, le nom de substitution proposé est '%s'", __FILE__);
         log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'warning', sprintf($warning_string, $wishedName, $newName));
         return $newName;
       }
     }
-    $exception_string = __("Cannot generate a unique name (too many generated names) for replacing '%s' which is already used", __FILE__);
+    $exception_string = __("Impossible de générer un nom unique (trop de nomn générés) pour remplacer '%s' qui est déjà utilisé", __FILE__);
     throw new Exception(sprintf($exception_string, $wishedName));
   }
   

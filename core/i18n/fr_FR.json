@@ -5,9 +5,9 @@
     },
     "plugins\/netroarrosage\/core\/class\/netroarrosage.class.php": {
         ", prochain arrosage le %02d\/%02d\/%02d à %02d:%02d (%8$01.0f mn)": ", prochain arrosage le %02d\/%02d\/%02d à %02d:%02d (%8$01.0f mn)",
-        "Cannnot create the equipment '%s' since this name is already used, name '%s' is given instead": "Impossible de créer l'équipement '%s' dont le nom est déjà utilisé, le nom de substitution proposé est '%s'",
-        "Cannot generate a unique name (too many generated names) for replacing '%s' which is already used": "Impossible de générer un nom unique (trop de nomn générés) pour remplacer '%s' qui est déjà utilisé",
         "Capteur de sol": "Capteur de sol",
+        "Impossible de créer l'équipement '%s' dont le nom est déjà utilisé, le nom de substitution proposé est '%s'": "Impossible de créer l'équipement '%s' dont le nom est déjà utilisé, le nom de substitution proposé est '%s'",
+        "Impossible de générer un nom unique (trop de nomn générés) pour remplacer '%s' qui est déjà utilisé": "Impossible de générer un nom unique (trop de nomn générés) pour remplacer '%s' qui est déjà utilisé",
         "Impossible de trouver le fichier de configuration pour l'équipement de type": "Impossible de trouver le fichier de configuration pour l'équipement de type",
         "Le fichier de configuration": "Le fichier de configuration",
         "Method provided for executeAsync does not exist": "La méthode fournie pour executeAsync n'existe pas",
@@ -52,6 +52,7 @@
     "plugins\/netroarrosage\/core\/config\/devices\/NetroController\/NetroController.json": {
         "activer": "activer",
         "arrosage en cours": "arrosage en cours",
+        "batterie": "batterie",
         "démarrer arrosage": "démarrer arrosage",
         "désactiver": "désactiver",
         "est actif": "est actif",
@@ -62,8 +63,7 @@
         "rafraîchir": "rafraîchir",
         "statut": "statut",
         "suspendre planification": "suspendre planification",
-        "terminer arrosage": "terminer arrosage",
-        "batterie": "batterie"
+        "terminer arrosage": "terminer arrosage"
     },
     "plugins\/netroarrosage\/core\/config\/devices\/NetroSensor\/NetroSensor.json": {
         "batterie": "batterie",
@@ -168,7 +168,7 @@
         "mois avant": "mois avant"
     },
     "traduitjdm": {
-        "timestamp": "2023-04-10 17:24:51",
+        "timestamp": "2023-04-18 14:20:13",
         "version": "1.1.0"
     }
 }
