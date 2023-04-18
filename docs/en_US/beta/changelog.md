@@ -4,6 +4,10 @@
 >
 >If there is no information for a given update, it means that it concerns only the update of documentation, translation or text.
 
+# 18/4/2023
+- The "battery" info command, added to the controller, does not apply to the standalone devices
+- Added a specific icon for the "Pixie" model
+
 # 16/4/2023
 Adding controller battery level, useful for standalone models (e.g. Pixie). To benefit from the corresponding info command, it is necessary to launch a synchronization.
 

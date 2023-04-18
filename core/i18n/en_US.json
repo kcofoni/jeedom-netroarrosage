@@ -5,9 +5,9 @@
     },
     "plugins\/netroarrosage\/core\/class\/netroarrosage.class.php": {
         ", prochain arrosage le %02d\/%02d\/%02d à %02d:%02d (%8$01.0f mn)": ", next watering on %02d\/%02d\/%02d at %02d:%02d (%8$01.0f mn)",
-        "Cannnot create the equipment '%s' since this name is already used, name '%s' is given instead": "Cannnot create the equipment '%s' since this name is already used, name '%s' is given instead",
-        "Cannot generate a unique name (too many generated names) for replacing '%s' which is already used": "Cannot generate a unique name (too many generated names) for replacing '%s' which is already used",
         "Capteur de sol": "Ground Sensor",
+        "Impossible de créer l'équipement '%s' dont le nom est déjà utilisé, le nom de substitution proposé est '%s'": "Cannnot create the equipment '%s' since this name is already used, name '%s' is given instead",
+        "Impossible de générer un nom unique (trop de nomn générés) pour remplacer '%s' qui est déjà utilisé": "Cannot generate a unique name (too many generated names) for replacing '%s' which is already used",
         "Impossible de trouver le fichier de configuration pour l'équipement de type": "Cannot find the configuration file for the equipement of type",
         "Le fichier de configuration": "The configuration file",
         "Method provided for executeAsync does not exist": "Method provided for executeAsync does not exist",
@@ -168,7 +168,7 @@
         "mois avant": "month(s) before"
     },
     "traduitjdm": {
-        "timestamp": "2023-04-16 18:52:52",
+        "timestamp": "2023-04-18 14:20:13",
         "version": "1.1.0"
     }
 }
