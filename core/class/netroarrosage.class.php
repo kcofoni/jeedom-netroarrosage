@@ -47,9 +47,14 @@ class netroarrosage extends eqLogic {
   public static function synchronize() {
     $config = array("ctrl_serial_n" => config::byKey('ctrl_serial_n', __PLUGIN_NAME_NETRO_ARROSAGE__),
                     "sensor_serial_n" => config::byKey('sensor_serial_n', __PLUGIN_NAME_NETRO_ARROSAGE__),
-                    "default_parent_object" => config::byKey('default_parent_object', __PLUGIN_NAME_NETRO_ARROSAGE__));
+                    "default_parent_object" => config::byKey('default_parent_object', __PLUGIN_NAME_NETRO_ARROSAGE__),
+                    "netroBaseURL" => config::byKey('netroBaseURL', __PLUGIN_NAME_NETRO_ARROSAGE__));
 
     log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: config : ' . var_export($config, true));
+
+    // initialisation de l'API Netro avec l'URL en vigueur
+    if (!empty($config["netroBaseURL"]))
+      NetroPublicAPI\init($config["netroBaseURL"]);
 
     if (!empty($config["ctrl_serial_n"])) {  // création ou mise à jour des controleurs
       $controller_serials = explode(" ", $config["ctrl_serial_n"]); // les numéros de série sont séparés par des espaces
@@ -241,7 +246,7 @@ class netroarrosage extends eqLogic {
   private function updateEqLogicZone($netroController, $netroZone, $parentObjectId = '') {
     $this->setLogicalId($netroController->getKey() . '_' . $netroZone->id);
     if (empty($this->getName())) // no reason to set name if set already
-      $this->setName(self::getAvailableName(trim($netroZone->name) != '' ? $netroZone->name : $netroController->name . '_' . $netroZone->id, $parentObjectId, 'NZ'));
+      $this->setName(self::getAvailableName(trim($netroZone->name) != '' ? $netroZone->name : $netroController->name . ' ' . $netroZone->id, $parentObjectId, 'NZ'));
     $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);        
@@ -591,7 +596,7 @@ class netroarrosage extends eqLogic {
     // building another name since the wished one is not available
     for ($i = 0; $i < 250; $i++) {
       // proposed name is : <wished-name>-<qualifier>[-<incremented-index>]
-      $newName = $wishedName . '-' . $qualifier . ($i==0 ? '' : $i);
+      $newName = $wishedName . ' ' . $qualifier . ($i==0 ? '' : $i);
       if (!in_array($newName, $existing_names)) {
         $warning_string = __("Impossible de créer l'équipement '%s' dont le nom est déjà utilisé, le nom de substitution proposé est '%s'", __FILE__);
         log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'warning', sprintf($warning_string, $wishedName, $newName));

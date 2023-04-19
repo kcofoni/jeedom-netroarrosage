@@ -23,10 +23,12 @@ function netroarrosage_install() {
 	config::save('sensorTick', 0, 'netroarrosage');
 	config::save('functionality::cron::enable', 0, 'netroarrosage');
 	config::save('functionality::cron5::enable', 1, 'netroarrosage');
+	config::save('netroBaseURL', 'https://api.netrohome.com/npa/v1/', 'netroarrosage');
 }
 
 // Fonction exécutée automatiquement après la mise à jour du plugin
 function netroarrosage_update() {
+	config::save('netroBaseURL', 'https://api.netrohome.com/npa/v1/', 'netroarrosage');
 }
 
 // Fonction exécutée automatiquement après la suppression du plugin
