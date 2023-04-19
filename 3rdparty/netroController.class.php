@@ -15,6 +15,10 @@ require_once dirname(__FILE__) . '/netroFunction.class.php';
 // de filtre et tri de tableau pour la gestion des schedules
 $zoneIndex;
 
+function init($netroBaseURL) {
+    netroFunction::setNetroBaseURL($netroBaseURL);
+}
+
 class netroSensor {
     const DEBUG_MODE = false;
 
