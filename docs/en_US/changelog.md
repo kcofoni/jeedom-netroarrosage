@@ -4,6 +4,15 @@
 >
 >If there is no information for a given update, it means that it concerns only the update of documentation, translation or text.
 
+# 6/5/2023
+- Adding controller battery level, useful for standalone models (e.g. Pixie)
+- Generate alternate names when creating equipment whose Netro names are already taken in Jeedom
+- Pixie model integration
+- Ability to manage several controllers
+- Name and versions of the sensors now displayed in the "Equipment" tab
+
+>**IMPORTANT**: It is recommended to redo a synchronization after a version upgrade to update the information on the equipment (non-destructive operation therefore without risk)
+
 # 23/2/2023
 bug fix related to next watering scheduling date
 
