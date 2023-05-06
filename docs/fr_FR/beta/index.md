@@ -8,17 +8,18 @@ Le contrôleur *Netro* est relié aux electrovannes qui vont chacune arroser une
 
 Le plugin définit trois types d'équipement :
 
-* le contrôleur
+* les contrôleurs
 * les zônes pilotées par le contrôleur
 * les capteurs de sol qui permettent de mesurer l'humidité et la température du sol ainsi que la quantité de lumière reçue
 
 Le plugin permet de gérer un contrôleur et l'ensemble des zones et capteurs qui font partie de votre système.
+Les produits Netro *Sprite*, *Spark*, *Pixie* et *Whisperer* sont supportés.
 
 ## Configuration
 
 ![Ecran de configuration](images/configuration.png "Ecran de configuration de *Netro* Arrosage")
 
-Avant de faire quoique ce soit, il faut renseigner le *numéro de série du contrôleur* et ceux *des capteurs* de sol que vous possédez. Vous trouverez ces numéros de série dans l'app *Netro* sur votre smartphone.
+Avant de faire quoique ce soit, il faut renseigner les *numéros de série des contrôleur* et ceux *des capteurs* de sol que vous possédez. Vous trouverez ces numéros de série dans l'app *Netro* sur votre smartphone.
 
 Les données du contrôleur sont rafraîchies toutes les minutes ou toutes les 5 mn (selon que cron ou cron5 est coché) et celles des capteurs toutes les 10 mn (cron10). On peut également rafraîchir manuellement à partir de l'équipement contrôleur. **Il est important de ne pas abuser de ces "refresh" dans la mesure ou *Netro* limite à 2000 le nombre d'appels par jour à son API**.
 
@@ -31,7 +32,7 @@ L'*objet parent par défaut* désigne l'objet auquel vous souhaitez rattacher vo
 
 ## Création des équipements
 
-A l'issue de la première installation, la page principale du plugin ne présente aucun équipement. Les équipements qui correspondent à votre matériel *Netro* seront générés par le plugin pendant la phase de synchronisation que vous aurez déclenchée grâce au bouton "Synchroniser" en haut à gauche. Les noms du contrôleur et des zones sont empruntés à *Netro*, aussi faut-il qu’ils soient disponibles pour l’objet de rattachement (il faut que le nom *Pontaillac* dans *Jardin* ne soit pas déjà utilisé au moment de la synchronisation dans l’exemple ci-dessous). Les capteurs sont nommés *capteur de sol* suivi d’un numéro d’ordre quand il y en a plusieurs.
+A l'issue de la première installation, la page principale du plugin ne présente aucun équipement. Les équipements qui correspondent à votre matériel *Netro* seront générés par le plugin pendant la phase de synchronisation que vous aurez déclenchée grâce au bouton "Synchroniser" en haut à gauche. Les noms des contrôleurs, capteurs et zones sont empruntés à *Netro*, aussi faut-il qu’ils soient disponibles pour l’objet de rattachement (il faut que le nom *Pontaillac* dans *Jardin* ne soit pas déjà utilisé au moment de la synchronisation dans l’exemple ci-dessous). 
 
 On peut renommer à souhait tous les équipements ainsi générés. On peut également refaire une synchronisation si l’on souhaite refléter des changements opérés avec l’application *Netro* sans prendre le risque de détruire tout ce qui aura pu être configuré précédemment. 
 

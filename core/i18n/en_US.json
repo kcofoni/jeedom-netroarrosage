@@ -6,6 +6,8 @@
     "plugins\/netroarrosage\/core\/class\/netroarrosage.class.php": {
         ", prochain arrosage le %02d\/%02d\/%02d à %02d:%02d (%8$01.0f mn)": ", next watering on %02d\/%02d\/%02d at %02d:%02d (%8$01.0f mn)",
         "Capteur de sol": "Ground Sensor",
+        "Impossible de créer l'équipement '%s' dont le nom est déjà utilisé, le nom de substitution proposé est '%s'": "Cannnot create the equipment '%s' since this name is already used, name '%s' is given instead",
+        "Impossible de générer un nom unique (trop de nomn générés) pour remplacer '%s' qui est déjà utilisé": "Cannot generate a unique name (too many generated names) for replacing '%s' which is already used",
         "Impossible de trouver le fichier de configuration pour l'équipement de type": "Cannot find the configuration file for the equipement of type",
         "Le fichier de configuration": "The configuration file",
         "Method provided for executeAsync does not exist": "Method provided for executeAsync does not exist",
@@ -50,6 +52,7 @@
     "plugins\/netroarrosage\/core\/config\/devices\/NetroController\/NetroController.json": {
         "activer": "enable",
         "arrosage en cours": "is watering",
+        "batterie": "battery",
         "démarrer arrosage": "start watering",
         "désactiver": "disable",
         "est actif": "is enabled",
@@ -119,6 +122,7 @@
         "Commentaire": "Comment",
         "Configuration": "Configuration",
         "Configuration avancée": "Advanced configuration",
+        "Controller": "Controller",
         "Dupliquer": "Duplicate",
         "Equipement": "Equipment",
         "Etat": "State",
@@ -128,7 +132,6 @@
         "Jetons restants": "Token remaining",
         "Mes capteurs": "My sensors",
         "Mes contrôleurs et zones": "My controler and zones",
-        "Name": "Name",
         "Nom": "Name",
         "Nom de l'équipement": "Name of the equipment",
         "Nombre de jetons max": "Token limit",
@@ -163,5 +166,9 @@
         "jusqu'à": "until",
         "mois après": "month(s) after",
         "mois avant": "month(s) before"
+    },
+    "traduitjdm": {
+        "timestamp": "2023-05-06 15:27:49",
+        "version": "1.1.0"
     }
 }

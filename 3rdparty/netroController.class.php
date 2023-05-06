@@ -15,6 +15,10 @@ require_once dirname(__FILE__) . '/netroFunction.class.php';
 // de filtre et tri de tableau pour la gestion des schedules
 $zoneIndex;
 
+function init($netroBaseURL) {
+    netroFunction::setNetroBaseURL($netroBaseURL);
+}
+
 class netroSensor {
     const DEBUG_MODE = false;
 
@@ -28,6 +32,14 @@ class netroSensor {
     public $celsius;
     public $fahrenheit;
     public $battery_level;
+    public $name;
+    public $status;
+    public $version;
+    public $sw_version;
+    public $active_flag;
+    public $last_active_time;
+    private $_meta = [];
+    private $_device = [];
 
     function __construct($key) {
         $this->_key = $key;
@@ -36,6 +48,24 @@ class netroSensor {
     public function getKey() {
         return $this->_key;
     }
+    public function loadInfo() {
+        $info = NetroFunction::getInfo($this->_key);
+        $this->_meta = $info["meta"];
+        $this->_device = $info["data"]["sensor"];
+
+        // mise à jour des propriétés du sensor
+        $this->name = $this->_device["name"];
+        $this->status = $this->_device["status"];
+        $this->version = $this->_device["version"];
+        $this->sw_version = $this->_device["sw_version"];
+
+        $this->last_active_time = $this->_device["last_active"];
+        $this->active_flag = ($this->status == NetroFunction::NETRO_STATUS_ONLINE) ? true : false;
+
+        if (self::DEBUG_MODE) {
+            // var_dump($this);
+        }
+    } 
 
     public function loadSensorData () {
         $this->_sensor_data = netroFunction::getSensorData($this->_key, date('Y-m-d'), date('Y-m-d'))["data"]["sensor_data"];
@@ -139,6 +169,7 @@ class netroController {
     public $last_active_time;
     public $zone_number;
     public $active_zones = []; // tableau d'instances de NetroZone
+    public $battery_level;
 
     function __construct($key) {
         $this->_key = $key;
@@ -294,7 +325,12 @@ class netroController {
         $this->last_active_time = $this->_device["last_active"];
         $this->zone_number = $this->_device["zone_num"];
         $this->watering_flag = ($this->status == NetroFunction::NETRO_STATUS_WATERING) ? true : false;
-        $this->active_flag = ($this->status == NetroFunction::NETRO_STATUS_STANDBY) ? false : true;
+        $this->active_flag = ($this->status == NetroFunction::NETRO_STATUS_ONLINE) ? true : false;
+
+        // mise à jour du niveau de batterie pour les controleurs autonomes (Pixie par exemple)
+        if (array_key_exists("battery_level", $this->_device)) {
+            $this->battery_level = $this->_device["battery_level"] * 100;
+        }
 
         foreach ($this->_device["zones"] as $clef => $zone) {
             if ($zone["enabled"]) {

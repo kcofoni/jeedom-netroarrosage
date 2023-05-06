@@ -47,80 +47,84 @@ class netroarrosage extends eqLogic {
   public static function synchronize() {
     $config = array("ctrl_serial_n" => config::byKey('ctrl_serial_n', __PLUGIN_NAME_NETRO_ARROSAGE__),
                     "sensor_serial_n" => config::byKey('sensor_serial_n', __PLUGIN_NAME_NETRO_ARROSAGE__),
-                    "default_parent_object" => config::byKey('default_parent_object', __PLUGIN_NAME_NETRO_ARROSAGE__));
+                    "default_parent_object" => config::byKey('default_parent_object', __PLUGIN_NAME_NETRO_ARROSAGE__),
+                    "netroBaseURL" => config::byKey('netroBaseURL', __PLUGIN_NAME_NETRO_ARROSAGE__));
 
     log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: config : ' . var_export($config, true));
 
-    // un numéro de série doit obligatoirement avoir été renseigné pour continuer
-    if (empty($config["ctrl_serial_n"])) {
-        $NoSerial4CtrlErrorMessage = __("Synchronisation impossible si aucun numéro de série n'est fourni pour le contrôleur", __FILE__);
-        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'warning', $NoSerial4CtrlErrorMessage);
-        throw new Exception($NoSerial4CtrlErrorMessage);
-    }
+    // initialisation de l'API Netro avec l'URL en vigueur
+    if (!empty($config["netroBaseURL"]))
+      NetroPublicAPI\init($config["netroBaseURL"]);
 
-    { // création ou mise à jour des controleurs
+    if (!empty($config["ctrl_serial_n"])) {  // création ou mise à jour des controleurs
+      $controller_serials = explode(" ", $config["ctrl_serial_n"]); // les numéros de série sont séparés par des espaces
+      $sensor_index = 0;
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: controller_serials : ' . var_export($controller_serials, true));
 
-      // recherche d'un équipement possédant le numéro de série du controleur
-      $eqLogicController = eqLogic::byLogicalId($config["ctrl_serial_n"], __PLUGIN_NAME_NETRO_ARROSAGE__);
+      foreach ($controller_serials as $controller_serial) {
 
-      // si pas trouvé il faut créer un équipement vide
-      if (!is_object($eqLogicController)) {
-        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('nouveau contrôleur', __FILE__));
-        $eqLogicController = new netroarrosage();
-      }
-      else{
-        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('contrôleur existant', __FILE__));          
-      }
+        // recherche d'un équipement possédant le numéro de série du controleur
+        $eqLogicController = eqLogic::byLogicalId($controller_serial, __PLUGIN_NAME_NETRO_ARROSAGE__);
 
-      // chargement des données du controlleur depuis Netro
-      $nc = new netroController($config["ctrl_serial_n"]);
-      $nc->loadInfo();
-      $nc->loadMoistures();
-      $nc->loadSchedules(self::getSchedulesStartDate(), self::getSchedulesEndDate());
-
-      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('contrôleur netro', __FILE__) . ' : ['
-        . $nc->name . ', '
-        . $nc->status . ', '
-        . $nc->zone_number . ', '
-        . $nc->last_active_time . ', '
-        . count($nc->active_zones)
-        . ']');        
-
-      // mise à jour de l'équipement et de ses commandes avec les données de Netro 
-      $eqLogicController->updateEqLogicController($nc, $config["default_parent_object"]);
-
-      $eqLogicController->createCmd();
-
-      { // création ou mise à jour des zones
-        foreach ($nc->active_zones as $zoneId => $zone) {
-          // recherche d'une zone possédant le numéro "série du controleur_zoneId"
-          $eqLogicZone = eqLogic::byLogicalId($config["ctrl_serial_n"] . '_' . $zoneId, __PLUGIN_NAME_NETRO_ARROSAGE__);
-
-          // si pas trouvé il faut créer un équipement de type zone vide
-          if (!is_object($eqLogicZone)) {
-            log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('nouvelle zone', __FILE__));
-            $eqLogicZone = new netroarrosage();
-          }
-          else{
-            log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('zone existante', __FILE__));          
-          }
-
-          // chargement des données de la zone depuis Netro
-          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('zone netro', __FILE__) . ' : ['
-            . $zone->id . ', '
-            . $zone->name . ', '
-            . $zone->smart . ', '
-            . ']');
-
-          // mise à jour de l'équipement et de ses commandes avec les données de Netro 
-          $eqLogicZone->updateEqLogicZone($nc, $zone, $config["default_parent_object"]);
-
-          $eqLogicZone->createCmd();
+        // si pas trouvé il faut créer un équipement vide
+        if (!is_object($eqLogicController)) {
+          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('nouveau contrôleur', __FILE__));
+          $eqLogicController = new netroarrosage();
         }
-      }
+        else{
+          log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('contrôleur existant', __FILE__));          
+        }
 
-      // mise à jour des commandes info
-      $eqLogicController->refreshController($nc);
+        // chargement des données du controlleur depuis Netro
+        $nc = new netroController($controller_serial);
+        $nc->loadInfo();
+        $nc->loadMoistures();
+        $nc->loadSchedules(self::getSchedulesStartDate(), self::getSchedulesEndDate());
+
+        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('contrôleur netro', __FILE__) . ' : ['
+          . $nc->name . ', '
+          . $nc->status . ', '
+          . $nc->zone_number . ', '
+          . $nc->last_active_time . ', '
+          . count($nc->active_zones)
+          . ']');        
+
+        // mise à jour de l'équipement et de ses commandes avec les données de Netro 
+        $eqLogicController->updateEqLogicController($nc, $config["default_parent_object"]);
+
+        $eqLogicController->createCmd();
+
+        { // création ou mise à jour des zones
+          foreach ($nc->active_zones as $zoneId => $zone) {
+            // recherche d'une zone possédant le numéro "série du controleur_zoneId"
+            $eqLogicZone = eqLogic::byLogicalId($controller_serial . '_' . $zoneId, __PLUGIN_NAME_NETRO_ARROSAGE__);
+
+            // si pas trouvé il faut créer un équipement de type zone vide
+            if (!is_object($eqLogicZone)) {
+              log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('nouvelle zone', __FILE__));
+              $eqLogicZone = new netroarrosage();
+            }
+            else{
+              log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('zone existante', __FILE__));          
+            }
+
+            // chargement des données de la zone depuis Netro
+            log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('zone netro', __FILE__) . ' : ['
+              . $zone->id . ', '
+              . $zone->name . ', '
+              . $zone->smart . ', '
+              . ']');
+
+            // mise à jour de l'équipement et de ses commandes avec les données de Netro 
+            $eqLogicZone->updateEqLogicZone($nc, $zone, $config["default_parent_object"]);
+
+            $eqLogicZone->createCmd();
+          }
+        }
+
+        // mise à jour des commandes info
+        $eqLogicController->refreshController($nc);
+      }
     }
     
     if (!empty($config["sensor_serial_n"])) {  // création ou mise à jour des capteurs
@@ -143,15 +147,13 @@ class netroarrosage extends eqLogic {
 
         // chargement des données du capteur depuis Netro
         $ns = new netroSensor($sensor_serial);
+        $ns->loadInfo();
         $ns->loadSensorData();
         log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'synchronize:: ' . __('capteur netro', __FILE__) . ' : ['
+          . $ns->name . ', '
+          . $ns->status . ', '
+          . $ns->last_active_time . ', '
           . $ns->time . ', '
-          . $ns->local_date . ', '
-          . $ns->local_time . ', '
-          . $ns->moisture . ', '
-          . $ns->sunlight . ', '
-          . $ns->celsius . ', '
-          . $ns->fahrenheit . ', '
           . $ns->battery_level
           . ']');
 
@@ -171,9 +173,24 @@ class netroarrosage extends eqLogic {
 
   public function getIconFile() {
     $type = $this->getConfiguration('type');
-    $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.$type.'.png';
+    if ($type == 'NetroSensor')
+      $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.'Whisperer.png';
+    elseif ($type == 'NetroController') {
+      // on part du principe que c'est un Pixie si la configuration fournit le niveau de batterie
+      // et dans le cas contraire que c'est un Sprite (pas de distingo à ce stade entre le Spark et le Sprite)
+      if (empty($this->getConfiguration('battery_level')))
+        $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.'Sprite.png';
+      else
+        $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.'Pixie.png';
+    }
+    elseif ($type == 'NetroZone')
+      $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'.$type.'/'.'SolenoidValve.png';
+    else
+      $filename = __ROOT_NETRO_ARROSAGE__.'/core/config/devices/default.png';
 
-    return (file_exists($filename) === true ? ('plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . '/core/config/devices/'.$type.'/'.$type.'.png')
+    preg_match ("/\/core\/config\/devices\/.*/", $filename, $matches); //extrait le nom du fichier à partir de /core
+
+    return (file_exists($filename) === true ? ('plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . $matches[0])
                                             : ('plugins/' . __PLUGIN_NAME_NETRO_ARROSAGE__ . '/core/config/devices/default.png'));
   }
 
@@ -198,13 +215,15 @@ class netroarrosage extends eqLogic {
 
   private function updateEqLogicController($netroController, $parentObjectId = '') {
     $this->setLogicalId($netroController->getKey());
-    $this->setName($netroController->name);
+    if (empty($this->getName())) // no reason to set name if set already
+      $this->setName(self::getAvailableName($netroController->name, $parentObjectId, 'NC'));
     $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);
 
     $this->setConfiguration('type', 'NetroController');
 
+    $this->setConfiguration('battery_level', $netroController->battery_level);
     $this->setConfiguration('name', $netroController->name);
     $this->setConfiguration('version', $netroController->version);
     $this->setConfiguration('sw_version', $netroController->sw_version);
@@ -226,7 +245,8 @@ class netroarrosage extends eqLogic {
 
   private function updateEqLogicZone($netroController, $netroZone, $parentObjectId = '') {
     $this->setLogicalId($netroController->getKey() . '_' . $netroZone->id);
-    $this->setName($netroZone->name);
+    if (empty($this->getName())) // no reason to set name if set already
+      $this->setName(self::getAvailableName(trim($netroZone->name) != '' ? $netroZone->name : $netroController->name . ' ' . $netroZone->id, $parentObjectId, 'NZ'));
     $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);        
@@ -238,6 +258,7 @@ class netroarrosage extends eqLogic {
     $this->setConfiguration('id', $netroZone->id);
     $this->setConfiguration('name', $netroZone->name);
     $this->setConfiguration('smart', $netroZone->smart);
+    $this->setConfiguration('controller', $netroController->name);
 
     $config = $this->loadConfigFile();
 
@@ -252,7 +273,8 @@ class netroarrosage extends eqLogic {
 
   private function updateEqLogicSensor($netroSensor, $parentObjectId = '', $suffix = '') {
     $this->setLogicalId($netroSensor->getKey());
-    $this->setName(__('Capteur de sol', __FILE__) . $suffix);
+    if (empty($this->getName())) // no reason to set name if set already
+      $this->setName(self::getAvailableName($netroSensor->name, $parentObjectId, 'NS'));
     $this->setEqType_name(__PLUGIN_NAME_NETRO_ARROSAGE__);
     $this->setIsEnable(1);
     $this->setObject_id($parentObjectId);
@@ -260,6 +282,9 @@ class netroarrosage extends eqLogic {
     $this->setConfiguration('type', 'NetroSensor');
 
     $this->setConfiguration('battery_level', $netroSensor->battery_level);
+    $this->setConfiguration('name', $netroSensor->name);
+    $this->setConfiguration('version', $netroSensor->version);
+    $this->setConfiguration('sw_version', $netroSensor->sw_version);
 
     $config = $this->loadConfigFile();
 
@@ -279,6 +304,13 @@ class netroarrosage extends eqLogic {
     $i = 0;
 
     foreach ($config['commands'] as $command) {
+      // on ne créera pas de commande donnant le niveau de batterie si l'équipement ne possède pas cette information
+      if ($command['logicalId'] == 'battery_level' && empty($this->getConfiguration('battery_level'))) {
+        $cmd = $this->getCmd(null, $command['logicalId']);
+        if (is_object($cmd))
+          $cmd->remove(); // on détruit cette commande si elle existe d'une précédente version
+        continue;
+      }
       // on ne recrée pas la commande si elle existe déjà
       $cmd = $this->getCmd(null, $command['logicalId']);
       if (!is_object($cmd)) {
@@ -392,6 +424,8 @@ class netroarrosage extends eqLogic {
     $this->checkAndUpdateCmd('token_remaining', $controller->token_remaining);
     $this->checkAndUpdateCmd('last_active_time', $controller->last_active_time);
     $this->checkAndUpdateCmd('active_zone_number', count($controller->active_zones));
+    if (!empty($this->getConfiguration('battery_level')))
+      $this->checkAndUpdateCmd('battery_level', $controller->battery_level);
 
     // mise à jour de l'équipement zone associé à chaque zone active du controleur
     foreach ($controller->active_zones as $zoneId => $zone) {
@@ -424,6 +458,7 @@ class netroarrosage extends eqLogic {
     $this->setConfiguration('token_limit', $controller->token_limit);
     $this->setConfiguration('token_remaining', $controller->token_remaining);
     $this->setConfiguration('token_time', $controller->token_time);
+    $this->setConfiguration('battery_level', $controller->battery_level);
     $this->save();
 
     log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'info', __('les informations du contrôleur', __FILE__) . ' "' . $this->name . '" ' . __('ont été mises à jour', __FILE__));
@@ -543,7 +578,35 @@ class netroarrosage extends eqLogic {
     return $slots;
   }
 
-
+  private static function getAvailableName($wishedName, $objectid, $qualifier='Netro') {
+    // looking for all the equipments belonging to the object (including the disabled one)
+    $existing_eqs = eqLogic::byObjectId($objectid, false);
+  
+    // building the list of names related to the object starting with the wished name
+    $existing_names = array();
+    foreach ($existing_eqs as $existing_eq) {
+      $name = $existing_eq->getName();
+      if (startsWith($name, $wishedName))
+          $existing_names[] = $name;
+    }
+    
+    // if the wished name is available, bingo !
+    if (!in_array($wishedName, $existing_names))
+      return $wishedName;
+    // building another name since the wished one is not available
+    for ($i = 0; $i < 250; $i++) {
+      // proposed name is : <wished-name>-<qualifier>[-<incremented-index>]
+      $newName = $wishedName . ' ' . $qualifier . ($i==0 ? '' : $i);
+      if (!in_array($newName, $existing_names)) {
+        $warning_string = __("Impossible de créer l'équipement '%s' dont le nom est déjà utilisé, le nom de substitution proposé est '%s'", __FILE__);
+        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'warning', sprintf($warning_string, $wishedName, $newName));
+        return $newName;
+      }
+    }
+    $exception_string = __("Impossible de générer un nom unique (trop de nomn générés) pour remplacer '%s' qui est déjà utilisé", __FILE__);
+    throw new Exception(sprintf($exception_string, $wishedName));
+  }
+  
   public static function getSlowdownFactor () {
     // on ne s'intéresse qu'au cas où l'utilisateur a renseigné le facteur de ralentissement dans la configuration
     if (config::byKey('slowdown_factor', __PLUGIN_NAME_NETRO_ARROSAGE__) != '') {
@@ -626,7 +689,7 @@ class netroarrosage extends eqLogic {
     // si le cron 5 est actif, je désactive ce cron pour éviter deux refresh simultanés
     if (config::byKey('functionality::cron5::enable', __PLUGIN_NAME_NETRO_ARROSAGE__, 1) == 1)
     {
-      config.save('functionality::cron::enable', 0, __PLUGIN_NAME_NETRO_ARROSAGE__);
+      config::save('functionality::cron::enable', 0, __PLUGIN_NAME_NETRO_ARROSAGE__);
     }
     else {
       self::controllerSmartRefresh();

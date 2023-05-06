@@ -25,8 +25,7 @@ class netroException extends \Exception
 }
 
 class netroFunction {
-
-    const NETRO_BASE_URL = 'https://api.netrohome.com/npa/v1/';
+    private static $_netroBaseURL = 'https://api.netrohome.com/npa/v1/';
     const NETRO_GET_SCHEDULES = 'schedules.json';
     const NETRO_GET_INFO = 'info.json';
     const NETRO_GET_MOISTURES = 'moistures.json';
@@ -42,7 +41,12 @@ class netroFunction {
     const NETRO_STATUS_ENABLE = 1;
     const NETRO_STATUS_DISABLE = 0;
     const NETRO_STATUS_STANDBY = "STANDBY";
+    const NETRO_STATUS_SETUP = "SETUP";
+    const NETRO_STATUS_ONLINE = "ONLINE";
     const NETRO_STATUS_WATERING = "WATERING";
+    const NETRO_STATUS_OFFLINE = "OFFLINE";
+    const NETRO_STATUS_SLEEPING = "SLEEPING";
+    const NETRO_STATUS_POWEROFF = "POWEROFF";
     const NETRO_SCHEDULE_EXECUTED = "EXECUTED";
     const NETRO_SCHEDULE_EXECUTING = "EXECUTING";
     const NETRO_SCHEDULE_VALID = "VALID";
@@ -57,8 +61,11 @@ class netroFunction {
 
     const DEBUG_MODE = false;
 
+    public static function setNetroBaseURL ($netroBaseURL) {
+        self::$_netroBaseURL = $netroBaseURL;
+    }
     public static function getSchedules ($key, $zoneIds = null, $startDate = '', $endDate = '') {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $params['key'] = $key;
         if ($zoneIds !== null) {
             $params['zones'] = '[' . implode(",", $zoneIds) . ']';
@@ -87,7 +94,7 @@ class netroFunction {
     }
     
     public static function getInfo ($key) {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $response = $client->request('GET', self::NETRO_GET_INFO, [
             'query' => ['key' => $key], 'http_errors' => false
         ])->getBody()->getContents();
@@ -105,7 +112,7 @@ class netroFunction {
     }
 
     public static function getMoistures($key, $zoneIds = null, $startDate = '', $endDate = '') {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $params['key'] = $key;
         if ($zoneIds !== null) {
             $params['zones'] = '[' . implode(",", $zoneIds) . ']';
@@ -133,7 +140,7 @@ class netroFunction {
     }
 
     public static function reportWeather($key, $date, $condition, $rain, $rain_prob, $temp, $t_min, $t_max, $t_dew, $wind_speed, $humidity, $pressure) {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $params['key'] = $key;
         $params['date'] = $date;
         if ($condition !== '') {
@@ -186,7 +193,7 @@ class netroFunction {
     }
 
     public static function setMoisture($key, $moisture, $zoneIds) {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $params['key'] = $key;
         $params['moisture'] = $moisture;                
         if ($zoneIds !== null) {
@@ -204,7 +211,7 @@ class netroFunction {
     }
 
     public static function water($key, $duration, $zoneIds = null, $delay = 0, $startTime = '') {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $params['key'] = $key;
         $params['duration'] = round($duration);
         if ($zoneIds !== null) {
@@ -233,7 +240,7 @@ class netroFunction {
     }
 
     public static function stopWater($key) {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $response = $client->request('POST', self::NETRO_POST_STOPWATER,
             ['form_params' => ['key' => $key], 'http_errors' => false
         ])->getBody()->getContents();
@@ -247,7 +254,7 @@ class netroFunction {
     }
 
     public static function noWater($key, $days = null) {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $params['key'] = $key;
         if (!is_null($days)) {
             $params['days'] = round($days);            
@@ -265,7 +272,7 @@ class netroFunction {
     }
 
     public static function setStatus($key, $status) {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $response = $client->request('POST', self::NETRO_POST_STATUS, [
             'form_params' => [
                 'key' => $key,
@@ -283,7 +290,7 @@ class netroFunction {
     }
 
     public static function getSensorData ($key, $startDate ='', $endDate = '') {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $params['key'] = $key;        
         if ($startDate !== '') {
             $params['start_date'] = $startDate;
@@ -307,7 +314,7 @@ class netroFunction {
     }
 
     public static function getEvents ($key, $typeOfEvent = 0, $startDate = '', $endDate = '') {
-        $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
+        $client = new GuzzleHttp\Client(['base_uri' => self::$_netroBaseURL]);
         $params['key'] = $key;
         if ($typeOfEvent > 0) {
             $params['event'] = $typeOfEvent;
