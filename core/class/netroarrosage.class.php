@@ -285,6 +285,9 @@ class netroarrosage extends eqLogic {
     $this->setConfiguration('name', $netroSensor->name);
     $this->setConfiguration('version', $netroSensor->version);
     $this->setConfiguration('sw_version', $netroSensor->sw_version);
+    $this->setConfiguration('token_limit', $netroSensor->token_limit);
+    $this->setConfiguration('token_remaining', $netroSensor->token_remaining);
+    $this->setConfiguration('token_time', $netroSensor->token_time);
 
     $config = $this->loadConfigFile();
 
@@ -304,8 +307,10 @@ class netroarrosage extends eqLogic {
     $i = 0;
 
     foreach ($config['commands'] as $command) {
-      // on ne créera pas de commande donnant le niveau de batterie si l'équipement ne possède pas cette information
-      if ($command['logicalId'] == 'battery_level' && empty($this->getConfiguration('battery_level'))) {
+      // on ne créera pas de commande donnant le niveau de batterie si l'équipement (seulement les contrôleurs) ne possède pas cette information
+      if ($command['logicalId'] == 'battery_level' && empty($this->getConfiguration('battery_level'))
+                                                    && $this->getConfiguration('type') == 'NetroController') {
+        log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'createCmd:: ' . __('commande non pertinente pour ce contrôleur :', __FILE__) . ' ' . $this->getName() . '.' . $command['logicalId']);                                                      
         $cmd = $this->getCmd(null, $command['logicalId']);
         if (is_object($cmd))
           $cmd->remove(); // on détruit cette commande si elle existe d'une précédente version
@@ -322,6 +327,7 @@ class netroarrosage extends eqLogic {
       $cmd->setName(__($cmd->getName(), __ROOT_NETRO_ARROSAGE__.'/core/config/devices/'
         . $this->getConfiguration('type') . '/' . $this->getConfiguration('type') . '.json'));
       $cmd->save();
+      log::add(__PLUGIN_NAME_NETRO_ARROSAGE__, 'debug', 'createCmd:: ' . __('commande créée :', __FILE__) . ' ' . $this->getName() . '.' . $cmd->getName());
 
       if ( $command['isDashboard'] == true ) {
           $dashboard[] = $command['logicalId'];
@@ -479,8 +485,13 @@ class netroarrosage extends eqLogic {
     $this->checkAndUpdateCmd('time', $sensor->time);
     $this->checkAndUpdateCmd('local_time', $sensor->local_time);
     $this->checkAndUpdateCmd('local_date', $sensor->local_date);
+    $this->checkAndUpdateCmd('token_remaining', $sensor->token_remaining);
+    $this->checkAndUpdateCmd('last_active_time', $sensor->last_active_time);
 
     // mise à jour de la configuration
+    $this->setConfiguration('token_limit', $sensor->token_limit);
+    $this->setConfiguration('token_remaining', $sensor->token_remaining);
+    $this->setConfiguration('token_time', $sensor->token_time);
     $this->setConfiguration('battery_level', $sensor->battery_level);
     $this->save();
 

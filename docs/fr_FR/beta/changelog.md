@@ -4,6 +4,10 @@
 >
 >S'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
 
+# 27/5/2023
+- Ajout d'une commande info donnant le nombre de token restant à consommer d'ici la fin de la journée sur l'API de Netro pour les capteurs également (avait été jusqu'ici implémenté pour les contrôleurs uniquement).
+- Bugs mineurs corrigés et log enrichi
+
 # 18/4/2023
 - La commande info "battery", ajoutée au contrôleur, ne sera pas présente sur les contrôleurs autonomes
 - Ajout d'une icône spécifique pour le modèle "Pixie"

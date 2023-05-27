@@ -20,6 +20,8 @@
         "avant de mettre à jour l'équipement...": "avant de mettre à jour l'équipement...",
         "capteur existant": "capteur existant",
         "capteur netro": "capteur netro",
+        "commande créée :": "commande créée :",
+        "commande non pertinente pour ce contrôleur :": "commande non pertinente pour ce contrôleur :",
         "contrôleur existant": "contrôleur existant",
         "contrôleur netro": "contrôleur netro",
         "création ou mise à jour des commandes de l'équipement": "création ou mise à jour des commandes de l'équipement",
@@ -69,9 +71,11 @@
         "batterie": "batterie",
         "date locale": "date locale",
         "heure UTC": "heure UTC",
+        "heure dernière activité": "heure dernière activité",
         "heure locale": "heure locale",
         "humidité": "humidité",
         "luminosité": "luminosité",
+        "nombre de jetons restant": "nombre de jetons restant",
         "rafraîchir": "rafraîchir",
         "température": "température"
     },
@@ -156,19 +160,19 @@
         "Fournir les tranches horaires et le facteur de ralentissement souhaité sur chacune d'elle": "Fournir les tranches horaires et le facteur de ralentissement souhaité sur chacune d'elle",
         "Indiquer le nombre de mois après la date courante qui sera considéré en vue de déterminer la date du prochain arrosage": "Indiquer le nombre de mois après la date courante qui sera considéré en vue de déterminer la date du prochain arrosage",
         "Indiquer le nombre de mois avant la date courante qui sera considéré en vue de déterminer la date du dernier arrosage": "Indiquer le nombre de mois avant la date courante qui sera considéré en vue de déterminer la date du dernier arrosage",
-        "Numéro de série du controleur": "Numéro de série du controleur",
         "Numéros de série des capteurs": "Numéros de série des capteurs",
+        "Numéros de série des contrôleurs": "Numéros de série des contrôleurs",
         "Objet parent par défaut": "Objet parent par défaut",
         "Observation de la planification à partir de": "Observation de la planification à partir de",
-        "Renseigner le numéro de série du contrôleur": "Renseigner le numéro de série du contrôleur",
-        "Renseigner les numéros de série des capteurs, séparés par un espace": "Renseigner les numéros de série des capteurs, séparés par un espace",
+        "Renseigner les numéros de série des capteurs, séparés par des espaces": "Renseigner les numéros de série des capteurs, séparés par des espaces",
+        "Renseigner les numéros de série des contrôleurs, séparés par des espaces": "Renseigner les numéros de série des contrôleurs, séparés par des espaces",
         "Sélectionner l'objet parent auquel sera rattaché chaque équipement à la synchronisation": "Sélectionner l'objet parent auquel sera rattaché chaque équipement à la synchronisation",
         "jusqu'à": "jusqu'à",
         "mois après": "mois après",
         "mois avant": "mois avant"
     },
     "traduitjdm": {
-        "timestamp": "2023-05-06 15:27:49",
+        "timestamp": "2023-05-27 20:18:31",
         "version": "1.1.0"
     }
 }
