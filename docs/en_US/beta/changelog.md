@@ -4,6 +4,10 @@
 >
 >If there is no information for a given update, it means that it concerns only the update of documentation, translation or text.
 
+# 27/5/2023
+- Added an Info command giving the number of tokens remaining to be consumed by the end of the day on the Netro API for the ground sensors (was previsouly implemented for the controllers only).
+- Small bugs fixed and enriched log
+
 # 18/4/2023
 - The "battery" info command, added to the controller, does not apply to the standalone devices
 - Added a specific icon for the "Pixie" model

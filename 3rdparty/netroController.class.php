@@ -23,6 +23,12 @@ class netroSensor {
     const DEBUG_MODE = false;
 
     private $_key;
+
+    // netro meta data
+    public $token_limit;
+    public $token_remaining;
+    public $token_time;
+
     private $_sensor_data;
     public $time;
     public $local_date;
@@ -53,6 +59,11 @@ class netroSensor {
         $this->_meta = $info["meta"];
         $this->_device = $info["data"]["sensor"];
 
+        // mise à jour des métadonnées
+        $this->token_time = $this->_meta["time"];
+        $this->token_limit = $this->_meta["token_limit"];
+        $this->token_remaining = $this->_meta["token_remaining"];
+
         // mise à jour des propriétés du sensor
         $this->name = $this->_device["name"];
         $this->status = $this->_device["status"];
@@ -68,7 +79,12 @@ class netroSensor {
     } 
 
     public function loadSensorData () {
-        $this->_sensor_data = netroFunction::getSensorData($this->_key, date('Y-m-d'), date('Y-m-d'))["data"]["sensor_data"];
+        // get the last sensor data between today and yesterday (take care not to invert the following lines
+        // since "sub" function is affecting $todayAndBefore); P1D = Period of 1 day (yesterday)
+        $todayAndBefore = new \DateTime();
+        $endDate = $todayAndBefore->format(netroFunction::NETRO_DATE_FORMAT);
+        $startDate = $todayAndBefore->sub(new \DateInterval('P1D'))->format(netroFunction::NETRO_DATE_FORMAT);
+        $this->_sensor_data = netroFunction::getSensorData($this->_key, $startDate, $endDate)["data"]["sensor_data"];
 
         // mise à jour des propriétés du controleur
         $this->time = $this->_sensor_data[0]["time"];
@@ -87,7 +103,7 @@ class netroSensor {
 }
 
 class netroZone {
-    const DEBUG_MODE = true;
+    const DEBUG_MODE = false;
 
     private $_key;
     public $id;

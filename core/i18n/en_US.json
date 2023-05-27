@@ -20,6 +20,8 @@
         "avant de mettre à jour l'équipement...": "before updating the equipment...",
         "capteur existant": "existing sensors",
         "capteur netro": "netro sensor",
+        "commande créée :": "command created:",
+        "commande non pertinente pour ce contrôleur :": "irrelevant command for this controller:",
         "contrôleur existant": "existing controler",
         "contrôleur netro": "netro controler",
         "création ou mise à jour des commandes de l'équipement": "creating or updating the equipment commands of",
@@ -69,9 +71,11 @@
         "batterie": "battery",
         "date locale": "local date",
         "heure UTC": "UTC time",
+        "heure dernière activité": "last active time",
         "heure locale": "local time",
         "humidité": "moisture",
         "luminosité": "sunlight",
+        "nombre de jetons restant": "token remaining",
         "rafraîchir": "refresh",
         "température": "temperature"
     },
@@ -156,19 +160,19 @@
         "Fournir les tranches horaires et le facteur de ralentissement souhaité sur chacune d'elle": "Provide the time slots and their corresponding slowdown factor",
         "Indiquer le nombre de mois après la date courante qui sera considéré en vue de déterminer la date du prochain arrosage": "Indicate the number of months after the current date to be considered when getting the next watering date",
         "Indiquer le nombre de mois avant la date courante qui sera considéré en vue de déterminer la date du dernier arrosage": "Indicate the number of months before the current date to be considered when getting the last watering date",
-        "Numéro de série du controleur": "Controler serial #",
         "Numéros de série des capteurs": "Ground sensors serial #",
+        "Numéros de série des contrôleurs": "Controlers serial #",
         "Objet parent par défaut": "Default parent object",
         "Observation de la planification à partir de": "Getting schedules from",
-        "Renseigner le numéro de série du contrôleur": "Please provide the controler serial #",
-        "Renseigner les numéros de série des capteurs, séparés par un espace": "Please provide the ground sensors serial numbers separated by space",
+        "Renseigner les numéros de série des capteurs, séparés par des espaces": "Enter the serial numbers of the sensors, separated by spaces",
+        "Renseigner les numéros de série des contrôleurs, séparés par des espaces": "Fill in the serial numbers of the controllers, separated by spaces",
         "Sélectionner l'objet parent auquel sera rattaché chaque équipement à la synchronisation": "Select the parent object the equipements will be attached to when synchronizing",
         "jusqu'à": "until",
         "mois après": "month(s) after",
         "mois avant": "month(s) before"
     },
     "traduitjdm": {
-        "timestamp": "2023-05-06 15:27:49",
+        "timestamp": "2023-05-27 20:18:31",
         "version": "1.1.0"
     }
 }
