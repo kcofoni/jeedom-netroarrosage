@@ -74,6 +74,8 @@ In a completely symmetrical way, we find the information relating to the next pl
  
 The equipment representing the soil sensors contain the information inherent in the reading carried out by the sensors at regular intervals, namely the temperature, the humidity and the luminosity. The battery level, which must be taken care of since it depends on the brightness, is also displayed.
 
+The *number of tokens remaining* and the maximum *number of tokens* are indicated as for the controller.
+
 ![Ground sensor screen](images/ground_sensor.png "Main screen of the *Netro* ground sensor")
 
 ## Advanced functions

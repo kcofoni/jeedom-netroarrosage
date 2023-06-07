@@ -26,8 +26,8 @@ if (!isConnect()) {
 <form class="form-horizontal">
   <fieldset>
     <div class="form-group">
-      <label class="col-md-4 control-label">{{Numéro de série du controleur}}
-        <sup><i class="fas fa-question-circle tooltips" title="{{Renseigner le numéro de série du contrôleur}}"></i></sup>
+      <label class="col-md-4 control-label">{{Numéros de série des contrôleurs}}
+        <sup><i class="fas fa-question-circle tooltips" title="{{Renseigner les numéros de série des contrôleurs, séparés par des espaces}}"></i></sup>
       </label>
       <div class="col-md-4">
         <input class="configKey form-control" data-l1key="ctrl_serial_n"/>
@@ -35,7 +35,7 @@ if (!isConnect()) {
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label">{{Numéros de série des capteurs}}
-        <sup><i class="fas fa-question-circle tooltips" title="{{Renseigner les numéros de série des capteurs, séparés par un espace}}"></i></sup>
+        <sup><i class="fas fa-question-circle tooltips" title="{{Renseigner les numéros de série des capteurs, séparés par des espaces}}"></i></sup>
       </label>
       <div class="col-md-4">
         <input class="configKey form-control" data-l1key="sensor_serial_n"/>
